@@ -22,7 +22,7 @@ endif
 
 # Darwin (Mac OS X) too
 ifeq ($(UNAME),Darwin)
-CFLAGS += -DASM_LEADING_UNDERSCORES=1 -mdynamic-no-pic
+CFLAGS += -DASM_LEADING_UNDERSCORES=1 -mdynamic-no-pic -I/sw/include -fast
 LDLIBS += -framework Cocoa -L/sw/lib -lSDLmain -lstdc++
 endif
 
@@ -47,7 +47,8 @@ endif
 all:: $(BUILDDIR)/$(TARGET)$(BINEXT) $(BUILDDIR)/$(TARGET).lst
 
 OBJS := \
-	main.o
+	main.o \
+	math/Vector4.o
 
 OBJS := $(addprefix $(BUILDDIR)/,$(OBJS))
 
@@ -55,15 +56,17 @@ DEPS := $(OBJS:.o=.d)
 
 # The main target
 $(BUILDDIR)/$(TARGET)$(BINEXT): $(OBJS)
-	$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
+	@$(MKDIR)
+	@echo linking $<
+	@$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
 
 # A dissassembly of it
 $(BUILDDIR)/$(TARGET).lst: $(BUILDDIR)/$(TARGET)$(BINEXT)
 ifeq ($(UNAME),Darwin)
-	otool -Vt $< > $(BUILDDIR)/$(TARGET).lst
+	otool -Vt $< | c++filt > $(BUILDDIR)/$(TARGET).lst
 else
-	$(OBJDUMP) -d $< > $(BUILDDIR)/$(TARGET).lst
-	$(OBJDUMP) -S $< > $(BUILDDIR)/$(TARGET).g.lst
+	$(OBJDUMP) -d $< | c++filt > $(BUILDDIR)/$(TARGET).lst
+	$(OBJDUMP) -S $< | c++filt > $(BUILDDIR)/$(TARGET).g.lst
 endif
 
 clean:
