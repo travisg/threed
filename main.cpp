@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math/Vector4.h>
+#include <renderer/Renderer.h>
 
 #if 0
 #include <SDL/SDL.h>
@@ -123,40 +124,26 @@ void MathTest()
 extern "C"
 int main(int argc, char **argv)
 {
-#if 0
-	// initialize SDL
-	printf("initializing SDL\n");
-	atexit(SDL_Quit);
-	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
+	// mathtests
+	MathTest();
 
-	// create a window
-	Window win;
-	if (win.CreateWindow(800, 600, 32) < 0) {
-		printf("error creating sdl window\n");
+	// create a screen
+	if (Renderer::CreateRenderer() < 0) {
+		printf("unable to create renderer\n");
 		return 1;
 	}
 
-	// create a display thread
-	SDL_CreateThread((int (*)(void *))&display_thread_entry, &win);
-#endif
-	// mathtests
-	MathTest();
-#if 0
-	// enter the message loop
-	bool quit = false;
-	while (!quit) {
-		SDL_Event event;
-		SDL_WaitEvent(&event);
+	// main loop
+	for (;;) {
+		if (theRenderer->StartFrame() < 0)
+			break;
 
-		switch (event.type) {
-			case SDL_QUIT:
-				quit = true;
-				break;
-		}
+		theRenderer->Draw();
+
+		theRenderer->EndFrame();
 	}
 
-	printf("exiting\n");
-#endif
+	// XXX tear everything down
 
 	return 0;
 }
