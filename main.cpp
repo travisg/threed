@@ -1,8 +1,11 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math/Vector4.h>
+
+#if 0
 #include <SDL/SDL.h>
 #include <SDL/SDL_thread.h>
-#include <math/Vector4.h>
 
 SDL_Surface *thescreen;
 
@@ -104,12 +107,13 @@ static int display_thread_entry(Window *win)
 
 	return 0;
 }
+#endif
 
 void MathTest()
 {
-	Math::Vector4f f, f2, f3;
+	Math::Vector4f f(1.0f, 2.0f, 3.0f, 4.0f), f2(2.0f, 3.0f, 4.0f, 5.0f), f3;
 
-	f3 = f - f2;
+	f3 = f + f2;
 	f3 += f2;
 
 	printf("%f\n", f.Length());
@@ -119,7 +123,7 @@ void MathTest()
 extern "C"
 int main(int argc, char **argv)
 {
-
+#if 0
 	// initialize SDL
 	printf("initializing SDL\n");
 	atexit(SDL_Quit);
@@ -134,10 +138,10 @@ int main(int argc, char **argv)
 
 	// create a display thread
 	SDL_CreateThread((int (*)(void *))&display_thread_entry, &win);
-
+#endif
 	// mathtests
 	MathTest();
-
+#if 0
 	// enter the message loop
 	bool quit = false;
 	while (!quit) {
@@ -152,6 +156,7 @@ int main(int argc, char **argv)
 	}
 
 	printf("exiting\n");
+#endif
 
 	return 0;
 }

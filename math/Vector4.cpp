@@ -4,6 +4,7 @@
 namespace Math {
 
 
+
 template <class T>
 Vector4<T> Vector4<T>::operator+(const Vector4<T> &v) const
 {

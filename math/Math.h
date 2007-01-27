@@ -18,13 +18,13 @@ private:
 template <>
 float Math<float>::sqrt(float root)
 {
-	return sqrtf(root);
+	return ::sqrtf(root);
 }
 
 template <>
 double Math<double>::sqrt(double root)
 {
-	return sqrt(root);
+	return ::sqrt(root);
 }
 
 
