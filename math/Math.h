@@ -1,7 +1,9 @@
 #ifndef __MATH_H
 #define __MATH_H
 
-#include <math.h>
+#include <math/Vector4.h>
+#include <math/Vector3.h>
+#include <math/Matrix4x4.h>
 
 namespace Math {
 
@@ -13,20 +15,6 @@ public:
 private:
 	Math<T>() {}
 };
-
-/* some common math routines */
-template <>
-float Math<float>::sqrt(float root)
-{
-	return ::sqrtf(root);
-}
-
-template <>
-double Math<double>::sqrt(double root)
-{
-	return ::sqrt(root);
-}
-
 
 }
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <math/Vector4.h>
+#include <iostream>
+#include <math/Math.h>
 #include <renderer/Renderer.h>
 
 #if 0
@@ -117,8 +117,27 @@ void MathTest()
 	f3 = f + f2;
 	f3 += f2;
 
-	printf("%f\n", f.Length());
-	printf("%f\n", f.Dot(f2));
+	std::cout << f << std::endl;
+	std::cout << f2 << std::endl;
+	std::cout << f3 << std::endl;
+	std::cout << f.Length() << std::endl;
+	std::cout << f.Dot(f2) << std::endl;
+
+	Math::Matrix4x4f m;
+	Math::Matrix4x4f m2;
+
+	m.SetIdentity();
+	m2.SetScaling(4.0f);
+
+	std::cout << "identity matrix: " << std::endl;
+	std::cout << m << std::endl;
+	std::cout << "scaling matrix: " << std::endl;
+	std::cout << m2 << std::endl;
+
+	Math::Matrix4x4f m3 = m * m2;
+
+	std::cout << "multiplied matrix: " << std::endl;
+	std::cout << m3 << std::endl;
 }
 
 extern "C"
@@ -129,7 +148,7 @@ int main(int argc, char **argv)
 
 	// create a screen
 	if (Renderer::CreateRenderer() < 0) {
-		printf("unable to create renderer\n");
+		std::cout << "unable to create renderer\n" << std::endl;
 		return 1;
 	}
 

@@ -43,7 +43,7 @@
 				AdditionalIncludeDirectories=".;C:\programming\SDL-1.2.11\include;$(DXSDK_DIR)include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
-				ExceptionHandling="0"
+				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				EnableEnhancedInstructionSet="2"
@@ -122,7 +122,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories=".;C:\programming\SDL-1.2.11\include;$(DXSDK_DIR)include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
-				ExceptionHandling="0"
+				ExceptionHandling="1"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
 				RuntimeTypeInfo="false"
@@ -142,7 +142,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="d3d9.lib d3dx9.lib C:\programming\SDL-1.2.11\lib\SDL.lib"
+				AdditionalDependencies="&quot;$(DXSDK_DIR)lib/x86/d3d9.lib&quot; &quot;$(DXSDK_DIR)lib/x86/d3dx9.lib&quot; C:\programming\SDL-1.2.11\lib\SDL.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -197,6 +197,22 @@
 				</File>
 				<File
 					RelativePath=".\math\Math.h"
+					>
+				</File>
+				<File
+					RelativePath=".\math\Matrix4x4.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\math\Matrix4x4.h"
+					>
+				</File>
+				<File
+					RelativePath=".\math\Vector3.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\math\Vector3.h"
 					>
 				</File>
 				<File

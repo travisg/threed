@@ -1,9 +1,17 @@
+#include <iostream>
 #include <math/Math.h>
 #include <math/Vector4.h>
 
 namespace Math {
 
-
+#if 0
+template <class T>
+std::ostream &Vector4<T>::operator<<(std::ostream &os) const
+{
+	os << "[ " << x << " " << y << " " << z << " " << w << " ]";
+	return os;
+}
+#endif
 
 template <class T>
 Vector4<T> Vector4<T>::operator+(const Vector4<T> &v) const

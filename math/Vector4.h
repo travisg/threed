@@ -1,6 +1,8 @@
 #ifndef __VECTOR4_H
 #define __VECTOR4_H
 
+#include <ostream>
+
 namespace Math {
 
 template <class T>
@@ -39,6 +41,15 @@ public:
 	};
 };
 
+/* debugging */
+template <class T>
+std::ostream &operator<<(std::ostream &os, Vector4<T> &v)
+{
+	os << "[ " << v.x << " " << v.y << " " << v.z << " " << v.w << " ]";
+	return os;
+}
+
+/* inline constructors */
 template <class T>
 inline Vector4<T>::Vector4(const Vector4<T> &v)
 {
@@ -51,6 +62,9 @@ inline Vector4<T>::Vector4(const Vector4<T> &v)
 template <class T>
 inline Vector4<T> &Vector4<T>::operator=(const Vector4<T> &v)
 {
+	if (this == &v)
+		return *this;
+
 	x = v.x;
 	y = v.y;
 	z = v.z;
