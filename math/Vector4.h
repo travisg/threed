@@ -5,14 +5,13 @@
 
 namespace Math {
 
-template <class T>
 class Vector4
 {
 public:
 	inline Vector4() {}
 	inline ~Vector4() {}
 
-	inline Vector4(T x1, T y1, T z1, T w1) :
+	inline Vector4(float x1, float y1, float z1, float w1) :
 		x(x1), y(y1), z(z1), w(w1) {}
 
 	/* constructors */
@@ -28,30 +27,24 @@ public:
 	Vector4 &operator*=(const Vector4 &v);
 
 	/* common vector stuff */
-	T Length() const;
-	T LengthSquared() const;
-	T Dot(const Vector4 &v) const;
+	float Length() const;
+	float LengthSquared() const;
+	float Dot(const Vector4 &v) const;
 
 	/* data */
 	union {
-		T val[4];
+		float val[4];
 		struct {
-			T x, y, z, w;
+			float x, y, z, w;
 		};
 	};
 };
 
 /* debugging */
-template <class T>
-std::ostream &operator<<(std::ostream &os, Vector4<T> &v)
-{
-	os << "[ " << v.x << " " << v.y << " " << v.z << " " << v.w << " ]";
-	return os;
-}
+std::ostream &operator<<(std::ostream &os, Vector4 &v);
 
 /* inline constructors */
-template <class T>
-inline Vector4<T>::Vector4(const Vector4<T> &v)
+inline Vector4::Vector4(const Vector4 &v)
 {
 	x = v.x;
 	y = v.y;
@@ -59,8 +52,7 @@ inline Vector4<T>::Vector4(const Vector4<T> &v)
 	w = v.w;
 }
 
-template <class T>
-inline Vector4<T> &Vector4<T>::operator=(const Vector4<T> &v)
+inline Vector4 &Vector4::operator=(const Vector4 &v)
 {
 	if (this == &v)
 		return *this;
@@ -71,9 +63,6 @@ inline Vector4<T> &Vector4<T>::operator=(const Vector4<T> &v)
 	w = v.w;
 	return *this;
 }
-
-typedef Vector4<float> Vector4f;
-typedef Vector4<double> Vector4d;
 
 }
 

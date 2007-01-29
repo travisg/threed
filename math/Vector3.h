@@ -3,14 +3,13 @@
 
 namespace Math {
 
-template <class T>
 class Vector3
 {
 public:
 	inline Vector3() {}
 	inline ~Vector3() {}
 
-	inline Vector3(T x1, T y1, T z1) :
+	inline Vector3(float x1, float y1, float z1) :
 		x(x1), y(y1), z(z1) {}
 
 	/* constructors */
@@ -26,37 +25,30 @@ public:
 	Vector3 &operator*=(const Vector3 &v);
 
 	/* common vector stuff */
-	T Length() const;
-	T LengthSquared() const;
-	T Dot(const Vector3 &v) const;
+	float Length() const;
+	float LengthSquared() const;
+	float Dot(const Vector3 &v) const;
 
 	/* data */
 	union {
-		T val[3];
+		float val[3];
 		struct {
-			T x, y, z;
+			float x, y, z;
 		};
 	};
 };
 
 /* debugging */
-template <class T>
-std::ostream &operator<<(std::ostream &os, Vector3<T> &v)
-{
-	os << "[ " << v.x << " " << v.y << " " << v.z << " ]";
-	return os;
-}
+std::ostream &operator<<(std::ostream &os, Vector3 &v);
 
-template <class T>
-inline Vector3<T>::Vector3(const Vector3<T> &v)
+inline Vector3::Vector3(const Vector3 &v)
 {
 	x = v.x;
 	y = v.y;
 	z = v.z;
 }
 
-template <class T>
-inline Vector3<T> &Vector3<T>::operator=(const Vector3<T> &v)
+inline Vector3 &Vector3::operator=(const Vector3 &v)
 {
 	if (this == &v)
 		return *this;
@@ -66,9 +58,6 @@ inline Vector3<T> &Vector3<T>::operator=(const Vector3<T> &v)
 	z = v.z;
 	return *this;
 }
-
-typedef Vector3<float> Vector3f;
-typedef Vector3<double> Vector3d;
 
 }
 

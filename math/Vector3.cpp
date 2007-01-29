@@ -2,16 +2,18 @@
 
 namespace Math {
 
+std::ostream &operator<<(std::ostream &os, Vector3 &v)
+{
+	os << "[ " << v.x << " " << v.y << " " << v.z << " ]";
+	return os;
+}
 
-
-template <class T>
-Vector3<T> Vector3<T>::operator+(const Vector3<T> &v) const
+Vector3 Vector3::operator+(const Vector3 &v) const
 {
 	return Vector3(x + v.x, y + v.y, z + v.z);
 }
 
-template <class T>
-Vector3<T> &Vector3<T>::operator+=(const Vector3<T> &v)
+Vector3 &Vector3::operator+=(const Vector3 &v)
 {
 	x += v.x;
 	y += v.y;
@@ -19,14 +21,12 @@ Vector3<T> &Vector3<T>::operator+=(const Vector3<T> &v)
 	return *this;
 }
 
-template <class T>
-Vector3<T> Vector3<T>::operator-(const Vector3<T> &f) const
+Vector3 Vector3::operator-(const Vector3 &f) const
 {
 	return Vector3(x - f.x, y - f.y, z - f.z);
 }
 
-template <class T>
-Vector3<T> &Vector3<T>::operator-=(const Vector3<T> &f)
+Vector3 &Vector3::operator-=(const Vector3 &f)
 {
 	x -= f.x;
 	y -= f.y;
@@ -34,14 +34,12 @@ Vector3<T> &Vector3<T>::operator-=(const Vector3<T> &f)
 	return *this;
 }
 
-template <class T>
-Vector3<T> Vector3<T>::operator*(const Vector3<T> &f) const
+Vector3 Vector3::operator*(const Vector3 &f) const
 {
 	return Vector3(x * f.x, y * f.y, z * f.z);
 }
 
-template <class T>
-Vector3<T> &Vector3<T>::operator*=(const Vector3<T> &f)
+Vector3 &Vector3::operator*=(const Vector3 &f)
 { 
 	x *= f.x;
 	y *= f.y;
@@ -49,27 +47,20 @@ Vector3<T> &Vector3<T>::operator*=(const Vector3<T> &f)
 	return *this;
 }
 
-template <class T>
-T Vector3<T>::Length() const
+float Vector3::Length() const
 {
-	return Math<T>::sqrt(x*x + y*y + z*z);
+	return Math<float>::sqrt(x*x + y*y + z*z);
 }
 
-template <class T>
-T Vector3<T>::LengthSquared() const
+float Vector3::LengthSquared() const
 {
 	return (x*x + y*y + z*z);
 }
 
-template <class T>
-T Vector3<T>::Dot(const Vector3<T> &v) const
+float Vector3::Dot(const Vector3 &v) const
 {
 	return (x*v.x + y*v.y + z*v.z);
 }
-
-/* instantiation of some common versions */
-template class Vector3<float>;
-template class Vector3<double>;
 
 }
 

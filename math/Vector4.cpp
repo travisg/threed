@@ -4,23 +4,18 @@
 
 namespace Math {
 
-#if 0
-template <class T>
-std::ostream &Vector4<T>::operator<<(std::ostream &os) const
+std::ostream &operator<<(std::ostream &os, Vector4 &v)
 {
-	os << "[ " << x << " " << y << " " << z << " " << w << " ]";
+	os << "[ " << v.x << " " << v.y << " " << v.z << " " << v.w << " ]";
 	return os;
 }
-#endif
 
-template <class T>
-Vector4<T> Vector4<T>::operator+(const Vector4<T> &v) const
+Vector4 Vector4::operator+(const Vector4 &v) const
 {
 	return Vector4(x + v.x, y + v.y, z + v.z, w + v.w);
 }
 
-template <class T>
-Vector4<T> &Vector4<T>::operator+=(const Vector4<T> &v)
+Vector4 &Vector4::operator+=(const Vector4 &v)
 {
 	x += v.x;
 	y += v.y;
@@ -29,15 +24,13 @@ Vector4<T> &Vector4<T>::operator+=(const Vector4<T> &v)
 	return *this;
 }
 
-template <class T>
-Vector4<T> Vector4<T>::operator-(const Vector4<T> &f) const
+Vector4 Vector4::operator-(const Vector4 &f) const
 {
 	return Vector4(x - f.x, y - f.y, z - f.z, w - f.w);
 }
 
 
-template <class T>
-Vector4<T> &Vector4<T>::operator-=(const Vector4<T> &f)
+Vector4 &Vector4::operator-=(const Vector4 &f)
 {
 	x -= f.x;
 	y -= f.y;
@@ -46,14 +39,12 @@ Vector4<T> &Vector4<T>::operator-=(const Vector4<T> &f)
 	return *this;
 }
 
-template <class T>
-Vector4<T> Vector4<T>::operator*(const Vector4<T> &f) const
+Vector4 Vector4::operator*(const Vector4 &f) const
 {
 	return Vector4(x * f.x, y * f.y, z * f.z, w * f.w);
 }
 
-template <class T>
-Vector4<T> &Vector4<T>::operator*=(const Vector4<T> &f)
+Vector4 &Vector4::operator*=(const Vector4 &f)
 { 
 	x *= f.x;
 	y *= f.y;
@@ -62,27 +53,20 @@ Vector4<T> &Vector4<T>::operator*=(const Vector4<T> &f)
 	return *this;
 }
 
-template <class T>
-T Vector4<T>::Length() const
+float Vector4::Length() const
 {
-	return Math<T>::sqrt(x*x + y*y + z*z + w*w);
+	return Math<float>::sqrt(x*x + y*y + z*z + w*w);
 }
 
-template <class T>
-T Vector4<T>::LengthSquared() const
+float Vector4::LengthSquared() const
 {
 	return (x*x + y*y + z*z + w*w);
 }
 
-template <class T>
-T Vector4<T>::Dot(const Vector4<T> &v) const
+float Vector4::Dot(const Vector4 &v) const
 {
 	return (x*v.x + y*v.y + z*v.z + w*v.w);	
 }
-
-/* instantiation of some common versions */
-template class Vector4<float>;
-template class Vector4<double>;
 
 }
 

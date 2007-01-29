@@ -5,48 +5,6 @@
 #include <renderer/Renderer.h>
 
 #if 0
-#include <SDL/SDL.h>
-#include <SDL/SDL_thread.h>
-
-SDL_Surface *thescreen;
-
-class Surface {
-public:
-	Surface() {}
-	virtual ~Surface() {}
-
-	// accessors
-	size_t GetSize() { return mSize; }
-	unsigned int GetWidth() { return mWidth; }
-	unsigned int GetHeight() { return mHeight; }
-	unsigned int GetDepth() { return mDepth; }
-
-	virtual void *Pixels() = 0;
-	virtual void Lock() {}
-	virtual void UnLock() {}
-
-	// operations
-	void Fill(unsigned int color);
-
-protected:
-	unsigned int mWidth;
-	unsigned int mHeight;
-	unsigned int mDepth;
-	size_t mSize;
-};
-
-void Surface::Fill(unsigned int color)
-{
-	Lock();
-
-	unsigned int *ptr = (unsigned int *)Pixels();
-	for (unsigned int i = 0; i < mSize / 4; i++) {
-		ptr[i] = color;
-	}
-
-	UnLock();
-}
-
 class Window : public Surface {
 public:
 	Window() {}
@@ -112,7 +70,7 @@ static int display_thread_entry(Window *win)
 
 void MathTest()
 {
-	Math::Vector4f f(1.0f, 2.0f, 3.0f, 4.0f), f2(2.0f, 3.0f, 4.0f, 5.0f), f3;
+	Math::Vector4 f(1.0f, 2.0f, 3.0f, 4.0f), f2(2.0f, 3.0f, 4.0f, 5.0f), f3;
 
 	f3 = f + f2;
 	f3 += f2;
@@ -123,8 +81,8 @@ void MathTest()
 	std::cout << f.Length() << std::endl;
 	std::cout << f.Dot(f2) << std::endl;
 
-	Math::Matrix4x4f m;
-	Math::Matrix4x4f m2;
+	Math::Matrix4x4 m;
+	Math::Matrix4x4 m2;
 
 	m.SetIdentity();
 	m2.SetScaling(4.0f);
@@ -134,7 +92,7 @@ void MathTest()
 	std::cout << "scaling matrix: " << std::endl;
 	std::cout << m2 << std::endl;
 
-	Math::Matrix4x4f m3 = m * m2;
+	Math::Matrix4x4 m3 = m * m2;
 
 	std::cout << "multiplied matrix: " << std::endl;
 	std::cout << m3 << std::endl;

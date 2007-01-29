@@ -3,15 +3,22 @@
 
 namespace Math {
 
-template <class T>
-Matrix4x4<T>::Matrix4x4(const Matrix4x4<T> &m)
+std::ostream &operator<<(std::ostream &os, Matrix4x4 &v)
+{
+	os << "[ " << v.val[0] << " " << v.val[1] << " " << v.val[2] << " " << v.val[3] << " ]" << std::endl;
+	os << "[ " << v.val[4] << " " << v.val[5] << " " << v.val[6] << " " << v.val[7] << " ]" << std::endl;
+	os << "[ " << v.val[8] << " " << v.val[9] << " " << v.val[10] << " " << v.val[11] << " ]" << std::endl;
+	os << "[ " << v.val[12] << " " << v.val[13] << " " << v.val[14] << " " << v.val[15] << " ]";
+	return os;
+}
+
+Matrix4x4::Matrix4x4(const Matrix4x4 &m)
 {
 	for (int i = 0; i < 16; i++)
 		val[i] = m.val[i];
 }
 
-template <class T>
-Matrix4x4<T> &Matrix4x4<T>::operator=(const Matrix4x4<T> &m)
+Matrix4x4 &Matrix4x4::operator=(const Matrix4x4 &m)
 {
 	if (this == &m)
 		return *this;
@@ -22,8 +29,7 @@ Matrix4x4<T> &Matrix4x4<T>::operator=(const Matrix4x4<T> &m)
 	return *this;
 }
 
-template <class T>
-Matrix4x4<T> &Matrix4x4<T>::SetIdentity()
+Matrix4x4 &Matrix4x4::SetIdentity()
 {
 	val[0] = 1;
 	val[1] = 0;
@@ -44,8 +50,7 @@ Matrix4x4<T> &Matrix4x4<T>::SetIdentity()
 	return *this;
 }
 
-template <class T>
-Matrix4x4<T> &Matrix4x4<T>::SetScaling(T scale)
+Matrix4x4 &Matrix4x4::SetScaling(float scale)
 {
 	val[0] = scale;
 	val[1] = 0;
@@ -67,8 +72,7 @@ Matrix4x4<T> &Matrix4x4<T>::SetScaling(T scale)
 }
 
 
-template <class T>
-Matrix4x4<T> Matrix4x4<T>::operator+(const Matrix4x4<T> &m) const
+Matrix4x4 Matrix4x4::operator+(const Matrix4x4 &m) const
 {
 	Matrix4x4 result;
 
@@ -78,8 +82,7 @@ Matrix4x4<T> Matrix4x4<T>::operator+(const Matrix4x4<T> &m) const
 	return result;
 }
 
-template <class T>
-Matrix4x4<T> &Matrix4x4<T>::operator+=(const Matrix4x4<T> &m)
+Matrix4x4 &Matrix4x4::operator+=(const Matrix4x4 &m)
 {
 	for (int i = 0; i < 16; i++)
 		val[i] += m.val[i];
@@ -87,8 +90,7 @@ Matrix4x4<T> &Matrix4x4<T>::operator+=(const Matrix4x4<T> &m)
 	return *this;
 }
 
-template <class T>
-Matrix4x4<T> Matrix4x4<T>::operator-(const Matrix4x4<T> &m) const
+Matrix4x4 Matrix4x4::operator-(const Matrix4x4 &m) const
 {
 	Matrix4x4 result;
 
@@ -98,8 +100,7 @@ Matrix4x4<T> Matrix4x4<T>::operator-(const Matrix4x4<T> &m) const
 	return result;
 }
 
-template <class T>
-Matrix4x4<T> &Matrix4x4<T>::operator-=(const Matrix4x4<T> &m)
+Matrix4x4 &Matrix4x4::operator-=(const Matrix4x4 &m)
 {
 	for (int i = 0; i < 16; i++)
 		val[i] -= m.val[i];
@@ -107,8 +108,7 @@ Matrix4x4<T> &Matrix4x4<T>::operator-=(const Matrix4x4<T> &m)
 	return *this;
 }
 
-template <class T>
-Matrix4x4<T> Matrix4x4<T>::operator*(const Matrix4x4<T> &m) const
+Matrix4x4 Matrix4x4::operator*(const Matrix4x4 &m) const
 {
 	Matrix4x4 result;
 
@@ -183,8 +183,7 @@ Matrix4x4<T> Matrix4x4<T>::operator*(const Matrix4x4<T> &m) const
 	return result;
 }
 
-template <class T>
-Matrix4x4<T> &Matrix4x4<T>::operator*=(const Matrix4x4<T> &m)
+Matrix4x4 &Matrix4x4::operator*=(const Matrix4x4 &m)
 {
 	Matrix4x4 result;
 
@@ -261,10 +260,6 @@ Matrix4x4<T> &Matrix4x4<T>::operator*=(const Matrix4x4<T> &m)
 
 	return *this;
 }
-
-/* instantiation of some common versions */
-template class Matrix4x4<float>;
-template class Matrix4x4<double>;
 
 }
 
