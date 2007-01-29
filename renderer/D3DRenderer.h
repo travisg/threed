@@ -3,8 +3,6 @@
 
 #include <renderer/Renderer.h>
 
-struct SDL_Surface;
-
 class D3DRenderer : public Renderer 
 {
 public:
@@ -19,7 +17,7 @@ protected:
 	virtual int Initialize();
 
 private:
-	SDL_Surface *mSurface;
+	struct SDL_Surface *mSurface;
 	unsigned int mWidth;
 	unsigned int mHeight;
 	unsigned int mDepth;

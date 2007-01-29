@@ -126,8 +126,10 @@ int main(int argc, char **argv)
 	}
 
 	// create a game engine
-	Engine *e = new Engine();
+	Engine::Engine *e = new Engine::Engine();
 	e->SetRenderer(r);
+
+	e->SetupDefaultScene();
 
 	// main loop
 	for (;;) {

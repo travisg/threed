@@ -255,6 +255,30 @@
 					RelativePath=".\engine\Engine.h"
 					>
 				</File>
+				<File
+					RelativePath=".\engine\Geometry.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\engine\Geometry.h"
+					>
+				</File>
+				<File
+					RelativePath=".\engine\SceneNode.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\engine\SceneNode.h"
+					>
+				</File>
+				<File
+					RelativePath=".\engine\Spatial.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\engine\Spatial.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>
