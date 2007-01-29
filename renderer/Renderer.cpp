@@ -7,9 +7,6 @@
 #include <renderer/D3DRenderer.h>
 #endif
 
-/* global renderer */
-Renderer *theRenderer;
-
 Renderer::Renderer()
 {
 }
@@ -18,7 +15,7 @@ Renderer::~Renderer()
 {
 }
 
-int Renderer::CreateRenderer()
+Renderer *Renderer::CreateRenderer()
 {
 	Renderer *r;
 #if USE_D3D
@@ -26,12 +23,10 @@ int Renderer::CreateRenderer()
 	r = new D3DRenderer();
 	if (r->Initialize() < 0) {
 		delete r;
-		return -1;
+		return NULL;
 	}
 
 #endif
 
-	theRenderer = r;
-
-	return 0;
+	return r;
 }

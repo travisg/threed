@@ -11,6 +11,9 @@ template<class T>
 class Math {
 public:
 	static T sqrt(T root);
+	static T sin(T val);
+	static T cos(T val);
+	static T tan(T val);
 
 private:
 	Math<T>() {}

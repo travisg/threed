@@ -26,10 +26,18 @@ public:
 	Vector4 operator*(const Vector4 &v) const;
 	Vector4 &operator*=(const Vector4 &v);
 
+	/* scalar ops */
+	Vector4 operator*(float scalar) const;
+	friend Vector4 operator*(float scalar, const Vector4 &v);
+	Vector4 &operator*=(float scalar);
+	Vector4 operator/(float scalar) const;
+	Vector4 &operator/=(float scalar);
+
 	/* common vector stuff */
 	float Length() const;
 	float LengthSquared() const;
 	float Dot(const Vector4 &v) const;
+	friend float Dot(const Vector4 &v1, const Vector4 &v2);
 
 	/* data */
 	union {

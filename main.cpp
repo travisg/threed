@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <math/Math.h>
+#include <engine/Engine.h>
 #include <renderer/Renderer.h>
 
 #if 0
@@ -70,32 +71,45 @@ static int display_thread_entry(Window *win)
 
 void MathTest()
 {
-	Math::Vector4 f(1.0f, 2.0f, 3.0f, 4.0f), f2(2.0f, 3.0f, 4.0f, 5.0f), f3;
+	Math::Vector3 point(0, 1.0, -2.0);
 
-	f3 = f + f2;
-	f3 += f2;
+	Math::Matrix4x4 mS;
+	Math::Matrix4x4 mX;
+	Math::Matrix4x4 mY;
+	Math::Matrix4x4 mZ;
+	Math::Matrix4x4 mT;
 
-	std::cout << f << std::endl;
-	std::cout << f2 << std::endl;
-	std::cout << f3 << std::endl;
-	std::cout << f.Length() << std::endl;
-	std::cout << f.Dot(f2) << std::endl;
+	mS.SetScaling(Math::Vector3(1.0, 1.0, 1.0));
+	mX.SetRotationX(1.0f);
+	mY.SetRotationY(0);
+	mZ.SetRotationZ(0);
+	mT.SetTranslation(Math::Vector3(0, 0, 0));
 
-	Math::Matrix4x4 m;
-	Math::Matrix4x4 m2;
+	std::cout << "scaling matrix: \n";
+	std::cout << mS << std::endl;
 
-	m.SetIdentity();
-	m2.SetScaling(4.0f);
+	std::cout << "translation matrix: \n";
+	std::cout << mT << std::endl;
 
-	std::cout << "identity matrix: " << std::endl;
-	std::cout << m << std::endl;
-	std::cout << "scaling matrix: " << std::endl;
-	std::cout << m2 << std::endl;
+	std::cout << "x rotation matrix: \n";
+	std::cout << mX << std::endl;
+	std::cout << "y rotation matrix: \n";
+	std::cout << mY << std::endl;
+	std::cout << "z rotation matrix: \n";
+	std::cout << mZ << std::endl;
 
-	Math::Matrix4x4 m3 = m * m2;
+	Math::Matrix4x4 mTransform = mT * mZ * mY * mX * mS;
+	std::cout << "transformation matrix: \n";
+	std::cout << mTransform << std::endl;
 
-	std::cout << "multiplied matrix: " << std::endl;
-	std::cout << m3 << std::endl;
+	std::cout << "point: \n";
+	std::cout << point << std::endl;
+
+	Math::Vector3 translatedPoint;
+	translatedPoint = mTransform.Transform(point);
+
+	std::cout << "translated point: \n";
+	std::cout << translatedPoint << std::endl;
 }
 
 extern "C"
@@ -105,22 +119,25 @@ int main(int argc, char **argv)
 	MathTest();
 
 	// create a screen
-	if (Renderer::CreateRenderer() < 0) {
+	Renderer *r = Renderer::CreateRenderer();
+	if (!r) {
 		std::cout << "unable to create renderer\n" << std::endl;
 		return 1;
 	}
 
+	// create a game engine
+	Engine *e = new Engine();
+	e->SetRenderer(r);
+
 	// main loop
 	for (;;) {
-		if (theRenderer->StartFrame() < 0)
+		if (e->InnerLoop() < 0)
 			break;
-
-		theRenderer->Draw();
-
-		theRenderer->EndFrame();
 	}
 
 	// XXX tear everything down
+	delete e;
+	delete r;
 
 	return 0;
 }

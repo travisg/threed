@@ -3,6 +3,9 @@
 
 namespace Math {
 
+static const float identityfloats[16] = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
+const Matrix4x4 Matrix4x4::Identity(identityfloats);
+
 std::ostream &operator<<(std::ostream &os, Matrix4x4 &v)
 {
 	os << "[ " << v.val[0] << " " << v.val[1] << " " << v.val[2] << " " << v.val[3] << " ]" << std::endl;
@@ -11,6 +14,13 @@ std::ostream &operator<<(std::ostream &os, Matrix4x4 &v)
 	os << "[ " << v.val[12] << " " << v.val[13] << " " << v.val[14] << " " << v.val[15] << " ]";
 	return os;
 }
+
+Matrix4x4::Matrix4x4(const float in[16])
+{
+	for (int i = 0; i < 16; i++)
+		val[i] = in[i];
+}
+
 
 Matrix4x4::Matrix4x4(const Matrix4x4 &m)
 {
@@ -50,19 +60,19 @@ Matrix4x4 &Matrix4x4::SetIdentity()
 	return *this;
 }
 
-Matrix4x4 &Matrix4x4::SetScaling(float scale)
+Matrix4x4 &Matrix4x4::SetScaling(const Vector3 &scale)
 {
-	val[0] = scale;
+	val[0] = scale.x;
 	val[1] = 0;
 	val[2] = 0;
 	val[3] = 0;
 	val[4] = 0;
-	val[5] = scale;
+	val[5] = scale.y;
 	val[6] = 0;
 	val[7] = 0;
 	val[8] = 0;
 	val[9] = 0;
-	val[10] = scale;
+	val[10] = scale.z;
 	val[11] = 0;
 	val[12] = 0;
 	val[13] = 0;
@@ -71,6 +81,101 @@ Matrix4x4 &Matrix4x4::SetScaling(float scale)
 	return *this;
 }
 
+Matrix4x4 &Matrix4x4::SetTranslation(const Vector3 &xlate)
+{
+	val[0] = 1;
+	val[1] = 0;
+	val[2] = 0;
+	val[3] = 0;
+	val[4] = 0;
+	val[5] = 1;
+	val[6] = 0;
+	val[7] = 0;
+	val[8] = 0;
+	val[9] = 0;
+	val[10] = 1;
+	val[11] = 0;
+	val[12] = xlate.x;
+	val[13] = xlate.y;
+	val[14] = xlate.z;
+	val[15] = 1;
+	return *this;
+}
+
+Matrix4x4 &Matrix4x4::SetRotationX(float angle)
+{
+	float sinangle = Math<float>::sin(angle);
+	float cosangle = Math<float>::cos(angle);
+
+	val[0] = 1;
+	val[1] = 0;
+	val[2] = 0;
+	val[3] = 0;
+	val[4] = 0;
+	val[5] = cosangle;
+	val[6] = sinangle;
+	val[7] = 0;
+	val[8] = 0;
+	val[9] = -sinangle;
+	val[10] = cosangle;
+	val[11] = 0;
+	val[12] = 0;
+	val[13] = 0;
+	val[14] = 0;
+	val[15] = 1;
+
+	return *this;
+}
+
+Matrix4x4 &Matrix4x4::SetRotationY(float angle)
+{
+	float sinangle = Math<float>::sin(angle);
+	float cosangle = Math<float>::cos(angle);
+
+	val[0] = cosangle;
+	val[1] = 0;
+	val[2] = -sinangle;
+	val[3] = 0;
+	val[4] = 0;
+	val[5] = 1;
+	val[6] = 0;
+	val[7] = 0;
+	val[8] = sinangle;
+	val[9] = 0;
+	val[10] = cosangle;
+	val[11] = 0;
+	val[12] = 0;
+	val[13] = 0;
+	val[14] = 0;
+	val[15] = 1;
+
+	return *this;
+}
+
+Matrix4x4 &Matrix4x4::SetRotationZ(float angle)
+{
+	float sinangle = Math<float>::sin(angle);
+	float cosangle = Math<float>::cos(angle);
+
+	val[0] = cosangle;
+	val[1] = sinangle;
+	val[2] = 0;
+	val[3] = 0;
+	val[4] = -sinangle;
+	val[5] = cosangle;
+	val[6] = 0;
+	val[7] = 0;
+	val[8] = 0;
+	val[9] = 0;
+	val[10] = 1;
+	val[11] = 0;
+	val[12] = 0;
+	val[13] = 0;
+	val[14] = 0;
+	val[15] = 1;
+
+	return *this;
+}
 
 Matrix4x4 Matrix4x4::operator+(const Matrix4x4 &m) const
 {
@@ -259,6 +364,29 @@ Matrix4x4 &Matrix4x4::operator*=(const Matrix4x4 &m)
 		val[i] = result.val[i];
 
 	return *this;
+}
+
+Vector4 Matrix4x4::operator*(const Vector4 &m) const
+{
+	Vector4 result;
+
+	result.x = val[0] * m.x + val[1] * m.y + val[2] * m.z + val[3] * m.w;
+	result.y = val[4] * m.x + val[5] * m.y + val[6] * m.z + val[7] * m.w;
+	result.z = val[8] * m.x + val[9] * m.y + val[10] * m.z + val[11] * m.w;
+	result.w = val[12] * m.x + val[13] * m.y + val[14] * m.z + val[15] * m.w;
+
+	return result;
+}
+
+Vector3 Matrix4x4::Transform(const Vector3 &point) const
+{
+	Vector3 result;
+
+	result.x = val[0] * point.x + val[4] * point.y + val[8] * point.z + val[12];
+	result.y = val[1] * point.x + val[5] * point.y + val[9] * point.z + val[13];
+	result.z = val[2] * point.x + val[6] * point.y + val[10] * point.z + val[14];
+
+	return result;
 }
 
 }

@@ -244,6 +244,18 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="engine"
+				>
+				<File
+					RelativePath=".\engine\Engine.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\engine\Engine.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

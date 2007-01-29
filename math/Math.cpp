@@ -11,9 +11,21 @@ float Math<float>::sqrt(float root)
 }
 
 template <>
-double Math<double>::sqrt(double root)
+float Math<float>::sin(float root)
 {
-	return ::sqrt(root);
+	return ::sinf(root);
+}
+
+template <>
+float Math<float>::cos(float root)
+{
+	return ::cosf(root);
+}
+
+template <>
+float Math<float>::tan(float root)
+{
+	return ::tanf(root);
 }
 
 }
