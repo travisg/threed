@@ -8,6 +8,32 @@
 #include <d3dx9.h>
 #include <d3dtypes.h>
 
+static D3DRenderer *sRenderer;
+
+Renderer *Renderer::CreateRenderer()
+{
+	Renderer *r;
+
+	r = new D3DRenderer();
+	if (r->Initialize() < 0) {
+		delete r;
+		return NULL;
+	}
+
+	sRenderer = (D3DRenderer *)r;
+
+	return r;
+}
+
+Renderer *Renderer::GetRenderer()
+{
+	return sRenderer;
+}
+
+D3DRenderer *D3DRenderer::GetD3DRenderer()
+{
+	return sRenderer;
+}
 
 D3DRenderer::D3DRenderer()
 :	mSurface(NULL)
@@ -104,7 +130,13 @@ int D3DRenderer::EndFrame()
 	return 0;
 }
 
-void D3DRenderer::Draw()
+void D3DRenderer::SetWorldMatrix(const Math::Matrix4x4 &mat)
+{
+	mD3DDevice->SetTransform(D3DTS_WORLD, (D3DMATRIX *)&mat);
+}
+
+#if 0
+void D3DRenderer::Draw(Engine::Geometry *geo)
 {
    struct IDirect3DVertexBuffer9 *tri_buffer = NULL;  //data buffer which the Direct3D_device can draw from
    VOID* pData;                                //pointer to beginning of vertex buffer
@@ -134,3 +166,4 @@ void D3DRenderer::Draw()
 	mD3DDevice->SetStreamSource(0,tri_buffer,0,sizeof(D3DVERTEX));
 	mD3DDevice->DrawPrimitive(D3DPT_TRIANGLEFAN,0,3);
 }
+#endif

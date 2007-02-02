@@ -1,6 +1,8 @@
 #ifndef __MATRIX4X4_H
 #define __MATRIX4X4_H
 
+#include <iostream>
+
 class Vector3;
 class Vector4;
 
@@ -28,6 +30,7 @@ public:
 	Matrix4x4 &SetRotationZ(float angle);
 
 	/* operators */
+	float *operator*();
 	Matrix4x4 operator+(const Matrix4x4 &v) const;
 	Matrix4x4 &operator+=(const Matrix4x4 &v);
 	Matrix4x4 operator-(const Matrix4x4 &v) const;

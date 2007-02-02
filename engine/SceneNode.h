@@ -13,7 +13,7 @@ public:
 	virtual void Render(Renderer *r);
 
 	Spatial *GetChild(unsigned int child) const { return mChildren[child]; }
-	void SetChild(unsigned int child, Spatial *node) { mChildren[child] = node; }
+	void SetChild(unsigned int child, Spatial *node);
 
 protected:
 	Spatial **mChildren;

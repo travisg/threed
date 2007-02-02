@@ -19,6 +19,7 @@ public:
 	inline Vector3 &operator=(const Vector3 &v);
 
 	/* operators */
+	float* operator*() const;
 	Vector3 operator+(const Vector3 &v) const;
 	Vector3 &operator+=(const Vector3 &v);
 	Vector3 operator-(const Vector3 &v) const;

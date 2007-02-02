@@ -220,19 +220,19 @@ Matrix4x4 Matrix4x4::operator*(const Matrix4x4 &m) const
 	result.val[0] = val[0] *  m.val[0] +
 					val[4] *  m.val[1] +
 					val[8] *  m.val[2] +
-					val[12] * m.val[4];
+					val[12] * m.val[3];
 	result.val[1] = val[1] *  m.val[0] +
 					val[5] *  m.val[1] +
 					val[9] *  m.val[2] +
-					val[13] * m.val[4];
+					val[13] * m.val[3];
 	result.val[2] = val[2] *  m.val[0] +
 					val[6] *  m.val[1] +
 					val[10] * m.val[2] +
-					val[14] * m.val[4];
+					val[14] * m.val[3];
 	result.val[3] = val[3] *  m.val[0] +
 					val[7] *  m.val[1] +
 					val[11] * m.val[2] +
-					val[15] * m.val[4];
+					val[15] * m.val[3];
 
 	result.val[4] = val[0] *  m.val[4] +
 					val[4] *  m.val[5] +
@@ -295,19 +295,19 @@ Matrix4x4 &Matrix4x4::operator*=(const Matrix4x4 &m)
 	result.val[0] = val[0] *  m.val[0] +
 					val[4] *  m.val[1] +
 					val[8] *  m.val[2] +
-					val[12] * m.val[4];
+					val[12] * m.val[3];
 	result.val[1] = val[1] *  m.val[0] +
 					val[5] *  m.val[1] +
 					val[9] *  m.val[2] +
-					val[13] * m.val[4];
+					val[13] * m.val[3];
 	result.val[2] = val[2] *  m.val[0] +
 					val[6] *  m.val[1] +
 					val[10] * m.val[2] +
-					val[14] * m.val[4];
+					val[14] * m.val[3];
 	result.val[3] = val[3] *  m.val[0] +
 					val[7] *  m.val[1] +
 					val[11] * m.val[2] +
-					val[15] * m.val[4];
+					val[15] * m.val[3];
 
 	result.val[4] = val[0] *  m.val[4] +
 					val[4] *  m.val[5] +

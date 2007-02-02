@@ -6,12 +6,20 @@
 class D3DRenderer : public Renderer 
 {
 public:
-	virtual int StartFrame();
-	virtual int EndFrame();
-	virtual void Draw();
-
+	/* Renderer class stuff */
 	D3DRenderer();
 	virtual ~D3DRenderer();
+
+	virtual int StartFrame();
+	virtual int EndFrame();
+
+	virtual void SetWorldMatrix(const Math::Matrix4x4 &mat);
+
+	/* our stuff */
+	static D3DRenderer *GetD3DRenderer();
+
+	struct IDirect3DDevice9 *GetD3DDevice() { return mD3DDevice; }
+
 
 protected:
 	virtual int Initialize();

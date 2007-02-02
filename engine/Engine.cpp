@@ -25,8 +25,12 @@ int Engine::InnerLoop()
 	if (mRenderer->StartFrame() < 0)
 		return -1;
 
-	if (mNodeTree)
+	if (mNodeTree) {
+//		mNodeTree->Move(Math::Vector3(0.1f, 0, 0));
+		mNodeTree->Rotate(Math::Vector3(0, 0.01f, 0));
+
 		mNodeTree->Render(mRenderer);
+	}
 
 	mRenderer->EndFrame();
 
@@ -38,11 +42,10 @@ void Engine::SetupDefaultScene()
 	mNodeTree = new SceneNode(1);
 
 	Geometry *geom = new Geometry();
-	const float vertices[] = { 0.0f, 1.0f, 2.0f };
-	
-	geom->SetVertices(vertices, 3);
 
 	mNodeTree->SetChild(0, geom);
+
+	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 }
 
 }

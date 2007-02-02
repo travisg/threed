@@ -228,14 +228,6 @@
 				Name="renderer"
 				>
 				<File
-					RelativePath=".\renderer\D3DRenderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\D3DRenderer.h"
-					>
-				</File>
-				<File
 					RelativePath=".\renderer\Renderer.cpp"
 					>
 				</File>
@@ -243,6 +235,34 @@
 					RelativePath=".\renderer\Renderer.h"
 					>
 				</File>
+				<File
+					RelativePath=".\renderer\VertexBuffer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\VertexBuffer.h"
+					>
+				</File>
+				<Filter
+					Name="D3D"
+					>
+					<File
+						RelativePath=".\renderer\D3DRenderer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\renderer\D3DRenderer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\renderer\D3DVertexBuffer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\renderer\D3DVertexBuffer.h"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="engine"
