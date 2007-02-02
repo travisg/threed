@@ -6,7 +6,7 @@
 class Renderer
 {
 public:
-	Renderer() = 0;
+	Renderer() {};
 	virtual ~Renderer() = 0;
 
 	static Renderer *CreateRenderer();

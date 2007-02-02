@@ -4,7 +4,7 @@ BUILDDIR := build
 #PROFILE := -pg
 
 OBJDUMP := objdump
-CFLAGS := -O2 -g -Iinclude -Wall -W -Wno-unused-parameter -Wno-multichar -fno-exceptions -finline $(PROFILE)
+CFLAGS := -O2 -g -I. -Wall -W -Wno-unused-parameter -Wno-multichar -fno-exceptions -finline $(PROFILE)
 LDFLAGS := -g $(PROFILE)
 LDLIBS := -lSDL -lstdc++
 
@@ -48,7 +48,16 @@ all:: $(BUILDDIR)/$(TARGET)$(BINEXT) $(BUILDDIR)/$(TARGET).lst
 
 OBJS := \
 	main.o \
-	math/Vector4.o
+	math/Math.o \
+	math/Matrix4x4.o \
+	math/Vector3.o \
+	math/Vector4.o \
+	engine/Engine.o \
+	engine/Geometry.o \
+	engine/SceneNode.o \
+	engine/Spatial.o \
+	renderer/Renderer.o \
+	renderer/VertexBuffer.o
 
 OBJS := $(addprefix $(BUILDDIR)/,$(OBJS))
 
