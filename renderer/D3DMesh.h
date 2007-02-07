@@ -13,6 +13,9 @@ public:
 
 	virtual void Draw(Renderer *r);
 
+	virtual void SetDefault();
+
+
 protected:
 	unsigned int m_D3DType;
 };

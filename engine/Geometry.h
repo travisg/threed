@@ -16,7 +16,10 @@ public:
 
 	void SetVertices(const float *vertices, unsigned int count);
 
-protected:
+	// temporary hack
+	void SetDefaultGeometry();
+
+//protected:
 	Mesh *m_Mesh;
 };
 

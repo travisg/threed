@@ -1,4 +1,5 @@
 #include <renderer/Mesh.h>
+#include <assert.h>
 
 Mesh::Mesh(MESH_Type type)
 :	m_IB(0),
@@ -11,3 +12,14 @@ Mesh::~Mesh()
 {
 }
 
+void Mesh::SetIndexBuffer(IndexBuffer *ib)
+{
+	assert(!m_IB);
+	m_IB = ib;
+}
+
+void Mesh::SetVertexBuffer(VertexBuffer *vb)
+{
+	assert(!m_VB);
+	m_VB = vb;
+}

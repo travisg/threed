@@ -332,6 +332,30 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="resource"
+				>
+				<Filter
+					Name="loader"
+					>
+					<File
+						RelativePath=".\resource\loader\AC3DLoader.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\resource\loader\AC3DLoader.h"
+						>
+					</File>
+					<File
+						RelativePath=".\resource\loader\Loader.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\resource\loader\Loader.h"
+						>
+					</File>
+				</Filter>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

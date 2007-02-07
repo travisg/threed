@@ -19,17 +19,12 @@ static struct Vertex aTriangle[] = {
                          { 0.0f,-1.0f, 0.0f }, // bottom
 };
 static unsigned int indexes[] = {
-	0, 1, 2, 3
+	0, 1, 2, 3, 
 };
 
-Mesh *Mesh::CreateMesh()
+Mesh *Mesh::CreateMesh(MESH_Type type)
 {
-	Mesh *m = new D3DMesh(MESH_TYPE_TRAINGLE_MESH);
-	m->m_VB = VertexBuffer::CreateVertexBuffer();
-	m->m_IB = IndexBuffer::CreateIndexBuffer();
-
-	m->m_VB->LoadSimpleVertexes((float *)aTriangle, 4);
-	m->m_IB->LoadIndexes(indexes, 4);
+	Mesh *m = new D3DMesh(type);
 
 	return m;
 }
@@ -38,13 +33,13 @@ D3DMesh::D3DMesh(MESH_Type type)
 :	Mesh(type)
 {
 	switch (type) {
-		case MESH_TYPE_TRAINGLES:
+		case MESH_TYPE_TRIANGLES:
 			m_D3DType = D3DPT_TRIANGLELIST;
 			break;
-		case MESH_TYPE_TRAINGLE_MESH:
+		case MESH_TYPE_TRIANGLE_MESH:
 			m_D3DType = D3DPT_TRIANGLESTRIP;
 			break;
-		case MESH_TYPE_TRAINGLE_FAN:
+		case MESH_TYPE_TRIANGLE_FAN:
 			m_D3DType = D3DPT_TRIANGLEFAN;
 			break;
 		default:
@@ -58,6 +53,15 @@ D3DMesh::~D3DMesh()
 	delete m_IB;
 }
 
+void D3DMesh::SetDefault()
+{
+	m_VB = VertexBuffer::CreateVertexBuffer();
+	m_IB = IndexBuffer::CreateIndexBuffer();
+
+	m_VB->LoadSimpleVertexes((float *)aTriangle, 4);
+	m_IB->LoadIndexes(indexes, 6);
+}
+
 void D3DMesh::Draw(Renderer *r)
 {
 	D3DIndexBuffer *ib = (D3DIndexBuffer *)m_IB;
@@ -69,5 +73,5 @@ void D3DMesh::Draw(Renderer *r)
 
 	ib->Bind(r);
 	vb->Bind(r);
-	dr->GetD3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLESTRIP, 0, 0, m_VB->Count(), 0, m_IB->Count() - 2);
+	dr->GetD3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VB->Count(), 0, 3 /*m_IB->Count() / 3*/);
 }

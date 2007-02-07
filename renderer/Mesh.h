@@ -12,23 +12,29 @@ public:
 	enum MESH_Type {
 		MESH_TYPE_NULL,
 		MESH_TYPE_POINTS,
-		MESH_TYPE_TRAINGLES,
-		MESH_TYPE_TRAINGLE_MESH,
-		MESH_TYPE_TRAINGLE_FAN,
+		MESH_TYPE_TRIANGLES,
+		MESH_TYPE_TRIANGLE_MESH,
+		MESH_TYPE_TRIANGLE_FAN,
 		MAX_VB_TYPE
 	};
 
 	Mesh(MESH_Type type);
 	virtual ~Mesh();
 
-	static Mesh *CreateMesh();
+	static Mesh *CreateMesh(MESH_Type type);
+
+	void SetIndexBuffer(IndexBuffer *ib);
+	void SetVertexBuffer(VertexBuffer *vb);
 
 	virtual void Draw(Renderer *r) = 0;
+	virtual void SetDefault() = 0;
 
 protected:
 	IndexBuffer *m_IB;
 	VertexBuffer *m_VB;
 	MESH_Type m_Type;
+
+	friend class Loader;
 };
 
 #endif

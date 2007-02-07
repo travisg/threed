@@ -2,6 +2,8 @@
 #include <engine/SceneNode.h>
 #include <engine/Geometry.h>
 #include <renderer/Renderer.h>
+#include <resource/loader/Loader.h>
+#include <assert.h>
 
 namespace Engine {
 
@@ -41,9 +43,21 @@ void Engine::SetupDefaultScene()
 {
 	mNodeTree = new SceneNode(1);
 
-	Geometry *geom = new Geometry();
+	Geometry *geom;
+#if 0
+	geom = new Geometry();
+	geom->SetDefaultGeometry();
 
 	mNodeTree->SetChild(0, geom);
+#endif
+
+#if 1
+	Loader *loader = Loader::CreateLoader("balls", Loader::RESOURCE_TYPE_MESH);
+	assert(loader);
+	geom = loader->ConstructGeometry();
+	geom->Move(Math::Vector3(.5f, .5f, 1.0f));
+	mNodeTree->SetChild(0, geom);
+#endif
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 }
