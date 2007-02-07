@@ -3,7 +3,7 @@
 
 #include <engine/Spatial.h>
 #include <math/Vector3.h>
-#include <renderer/VertexBuffer.h>
+#include <renderer/Mesh.h>
 
 namespace Engine {
 
@@ -17,7 +17,7 @@ public:
 	void SetVertices(const float *vertices, unsigned int count);
 
 protected:
-	VertexBuffer *m_VB;
+	Mesh *m_Mesh;
 };
 
 }

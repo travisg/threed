@@ -228,6 +228,22 @@
 				Name="renderer"
 				>
 				<File
+					RelativePath=".\renderer\IndexBuffer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\IndexBuffer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\Mesh.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\Mesh.h"
+					>
+				</File>
+				<File
 					RelativePath=".\renderer\Renderer.cpp"
 					>
 				</File>
@@ -246,6 +262,22 @@
 				<Filter
 					Name="D3D"
 					>
+					<File
+						RelativePath=".\renderer\D3DIndexBuffer.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\renderer\D3DIndexBuffer.h"
+						>
+					</File>
+					<File
+						RelativePath=".\renderer\D3DMesh.cpp"
+						>
+					</File>
+					<File
+						RelativePath=".\renderer\D3DMesh.h"
+						>
+					</File>
 					<File
 						RelativePath=".\renderer\D3DRenderer.cpp"
 						>

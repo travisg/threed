@@ -1,7 +1,8 @@
 #include <renderer/VertexBuffer.h>
 
-VertexBuffer::VertexBuffer(VB_Type type)
-:	m_Type(type)
+VertexBuffer::VertexBuffer()
+:	m_bufferSize(0),
+	m_vertexCount(0)
 {
 }
 

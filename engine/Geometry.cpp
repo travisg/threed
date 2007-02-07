@@ -5,9 +5,9 @@
 namespace Engine {
 
 Geometry::Geometry()
-:	m_VB(0)
+:	m_Mesh(0)
 {
-	m_VB = VertexBuffer::CreateVertexBuffer();
+	m_Mesh = Mesh::CreateMesh();
 }
 
 Geometry::~Geometry()
@@ -33,12 +33,12 @@ void Geometry::Render(Renderer *r)
 //	std::cout << "Geometry::Render\n";
 
 	Move(Math::Vector3(0, 0, 0.01f));
-	Rotate(Math::Vector3(0, 0, 0.1f));
+	Rotate(Math::Vector3(0, 0, 0.02f));
 	UpdateWorldMatrix();
 
 	r->SetWorldMatrix(mWorldTransform);
 
-	m_VB->Draw(r);
+	m_Mesh->Draw(r);
 }
 
 }

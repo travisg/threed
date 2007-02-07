@@ -6,24 +6,23 @@ class Renderer;
 class VertexBuffer
 {
 public:
-	enum VB_Type {
-		VB_TYPE_POINTS,
-		VB_TYPE_TRAINGLES,
-		VB_TYPE_TRAINGLE_MESH,
-		VB_TYPE_TRAINGLE_FAN,
-		VB_TYPE_QUADS,
-		MAX_VB_TYPE
-	};
-
-	VertexBuffer(VB_Type type);
+	VertexBuffer();
 	virtual ~VertexBuffer();
 
 	static VertexBuffer *CreateVertexBuffer();
 
-	virtual void Draw(Renderer *r) = 0;
+	virtual void Bind(Renderer *r) = 0;
+
+	// accessors
+	unsigned int Size() { return m_bufferSize; }
+	unsigned int Count() { return m_vertexCount; }
+
+	// load external vertex data
+	virtual int LoadSimpleVertexes(const float *vertexes, unsigned int count) = 0; // xyz
 
 protected:
-	VB_Type m_Type;
+	unsigned int m_bufferSize;
+	unsigned int m_vertexCount;
 };
 
 #endif

@@ -27,7 +27,7 @@ int Engine::InnerLoop()
 
 	if (mNodeTree) {
 //		mNodeTree->Move(Math::Vector3(0.1f, 0, 0));
-		mNodeTree->Rotate(Math::Vector3(0, 0.01f, 0));
+//		mNodeTree->Rotate(Math::Vector3(0, 0.01f, 0));
 
 		mNodeTree->Render(mRenderer);
 	}

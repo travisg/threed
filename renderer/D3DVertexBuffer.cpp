@@ -5,53 +5,60 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <d3dtypes.h>
+#include <assert.h>
+
 
 VertexBuffer *VertexBuffer::CreateVertexBuffer()
 {
-	return new D3DVertexBuffer(VB_TYPE_TRAINGLES);
+	return new D3DVertexBuffer();
 }
 
-D3DVertexBuffer::D3DVertexBuffer(VB_Type type)
-:	VertexBuffer(type),
+D3DVertexBuffer::D3DVertexBuffer()
+:	VertexBuffer(),
 	m_buffer(0)
 {
-	/* XXX move this somewhere else */
-	struct Vertex {
-		FLOAT x, y, z;
-		unsigned int diffuse;
-		unsigned int pad[4];
-   };
-   static struct Vertex aTriangle[] = {
-                             { 0.0f, 1.0f, 0.0f,D3DCOLOR_XRGB(0,0xff,0)}, // top
-                             { 1.0f, 0.0f, 0.0f,D3DCOLOR_XRGB(0,0,0xff)}, // right
-							 {-1.0f, 0.0f, 0.0f,D3DCOLOR_XRGB(0xff,0,0)}, // left
-                             { 0.0f,-1.0f, 0.0f,D3DCOLOR_XRGB(0,0xff,0)}, // bottom
+}
 
-//                             {-0.0f,-2.0f,10.0f,D3DCOLOR_XRGB(0xff,0,0xff)},
-//                             {1.0f,-3.0f,10.0f,D3DCOLOR_XRGB(0xff,0xff,0xff)},
-   };
-	void *pData;
+// simple xyz vertexes
+int D3DVertexBuffer::LoadSimpleVertexes(const float *vertexes, unsigned int count)
+{
+	UINT FVF = (D3DFVF_XYZ|D3DFVF_DIFFUSE);
 
-//	aTriangle[2].y += 0.1f;
+	assert(!m_buffer);
 
-   D3DRenderer::GetD3DRenderer()->GetD3DDevice()->CreateVertexBuffer(sizeof(aTriangle),D3DUSAGE_WRITEONLY,
-										(D3DFVF_XYZ|D3DFVF_DIFFUSE),
+	D3DRenderer::GetD3DRenderer()->GetD3DDevice()->CreateVertexBuffer(count * sizeof(float) * 3,
+										D3DUSAGE_WRITEONLY,
+										FVF,
 										D3DPOOL_MANAGED, &m_buffer, NULL);
 
-	m_buffer->Lock(0,sizeof(pData),(void**)&pData,0);
-	memcpy(pData,aTriangle,sizeof(aTriangle));
+	FLOAT *pData;
+	m_buffer->Lock(0, sizeof(pData), (void**)&pData, 0);
+	for (unsigned i = 0; i < count; i++) {
+		pData[i*4] = vertexes[i*3];
+		pData[i*4+1] = vertexes[i*3+1];
+		pData[i*4+2] = vertexes[i*3+2];
+		*((unsigned int *)&pData[i*4+3]) = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
+	}
 	m_buffer->Unlock();
+	
+	m_vertexStride = 16;
+	m_FVF = FVF;
+	m_vertexCount = count;
+
+	return 0;
 }
 
 D3DVertexBuffer::~D3DVertexBuffer()
 {
 }
 
-void D3DVertexBuffer::Draw(Renderer *r)
+void D3DVertexBuffer::Bind(Renderer *r)
 {
 	D3DRenderer *dr = (D3DRenderer *)r;
 
-	dr->GetD3DDevice()->SetStreamSource(0, m_buffer, 0, sizeof(D3DVERTEX));
-	dr->GetD3DDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+	assert(m_buffer);
+
+	dr->GetD3DDevice()->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
+	dr->GetD3DDevice()->SetStreamSource(0, m_buffer, 0, m_vertexStride);
 }
 

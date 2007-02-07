@@ -6,13 +6,18 @@
 class D3DVertexBuffer : public VertexBuffer
 {
 public:
-	D3DVertexBuffer(VB_Type type);
+	D3DVertexBuffer();
 	virtual ~D3DVertexBuffer();
 
-	virtual void Draw(Renderer *r);
+	virtual void Bind(Renderer *r);
+
+	// load external vertex data
+	virtual int LoadSimpleVertexes(const float *vertexes, unsigned int count); // xyz
 
 protected:
 	struct IDirect3DVertexBuffer9 *m_buffer;
+	unsigned int m_vertexStride;
+	unsigned int m_FVF; // vertex type
 };
 
 #endif
