@@ -3,7 +3,8 @@
 namespace Engine {
 
 Spatial::Spatial()
-:	mParent(0)
+:	mParent(0),
+	mDirty(false)
 {
 	SetPos(Math::Vector3(0, 0, 0));
 	SetRotation(Math::Vector3(0, 0, 0));
@@ -17,6 +18,7 @@ Spatial::~Spatial()
 void Spatial::SetPos(const Math::Vector3 &pos)
 {
 	mLocalTranslate = pos;
+	mDirty = true;
 }
 
 void Spatial::SetRotation(const Math::Vector3 &rot)
@@ -32,26 +34,37 @@ void Spatial::SetRotation(const Math::Vector3 &rot)
 
 	mLocalRotationAngles = rot;
 	mLocalRotation = rotx * roty * rotz;
+	mDirty = true;
 }
 
 void Spatial::SetScale(float scale)
 {
 	mLocalScale = scale;
+	mDirty = true;
 }
 
 void Spatial::Move(const Math::Vector3 &trans)
 {
 	mLocalTranslate += trans;
+	mDirty = true;
 }
 
 void Spatial::Rotate(const Math::Vector3 &rot)
 {
 	SetRotation(mLocalRotationAngles + rot);
+	mDirty = true;
 }
 
 void Spatial::Scale(float scale)
 {
 	mLocalScale *= scale;
+	mDirty = true;
+}
+
+void Spatial::UpdateTransform(bool force)
+{
+	if (mDirty || force)
+		UpdateWorldMatrix();
 }
 
 void Spatial::UpdateWorldMatrix()
@@ -79,6 +92,7 @@ void Spatial::UpdateWorldMatrix()
 		mWorldRotation = mLocalRotation;
 		mWorldTransform = localTransform;
 	}
+	mDirty = false;
 
 //	std::cout << "UpdateWorldMatrix: mWorldTransform \n" << mWorldTransform << "\n";
 }

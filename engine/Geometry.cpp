@@ -31,10 +31,6 @@ void Geometry::Render(Renderer *r)
 {
 //	std::cout << "Geometry::Render\n";
 
-	Move(Math::Vector3(0, 0, 0.001f));
-	Rotate(Math::Vector3(0.01f, 0.01f, 0.02f));
-	UpdateWorldMatrix();
-
 	r->SetWorldMatrix(mWorldTransform);
 
 	m_Mesh->Draw(r);

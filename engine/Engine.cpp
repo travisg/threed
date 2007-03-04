@@ -8,13 +8,14 @@
 namespace Engine {
 
 Engine::Engine()
-:	mRenderer(0),
-	mNodeTree(0)
+:	mRenderer(0)
 {
+	mNodeTree = new SceneNode;
 }
 
 Engine::~Engine()
 {
+	delete mNodeTree;
 }
 
 void Engine::SetRenderer(Renderer *r)
@@ -27,12 +28,11 @@ int Engine::InnerLoop()
 	if (mRenderer->StartFrame() < 0)
 		return -1;
 
-	if (mNodeTree) {
-//		mNodeTree->Move(Math::Vector3(0.1f, 0, 0));
-//		mNodeTree->Rotate(Math::Vector3(0, 0.01f, 0));
+//	mNodeTree->Move(Math::Vector3(0, 0, 0.001f));
+//	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.02f));
 
-		mNodeTree->Render(mRenderer);
-	}
+	mNodeTree->UpdateTransform(false);
+	mNodeTree->Render(mRenderer);
 
 	mRenderer->EndFrame();
 
@@ -41,36 +41,53 @@ int Engine::InnerLoop()
 
 void Engine::SetupDefaultScene()
 {
-	mNodeTree = new SceneNode(3);
-
-	Geometry *geom;
 #if 0
 	geom = new Geometry();
 	geom->SetDefaultGeometry();
 
-	mNodeTree->SetChild(0, geom);
+	mNodeTree->SetChild(geom);
 #endif
 
 	Loader *loader;
-#if 1
-	loader = Loader::CreateLoader("meh", Loader::RESOURCE_TYPE_MESH);
-	assert(loader);
-	geom = loader->ConstructGeometry();
-	geom->Move(Math::Vector3(2.5f, .5f, 5.0f));
-	mNodeTree->SetChild(0, geom);
+	SceneNode *node;
+	Spatial *spatial;
 
+#if 1
+	// the balls get to be a high level construct
 	loader = Loader::CreateLoader("balls", Loader::RESOURCE_TYPE_MESH);
 	assert(loader);
-	geom = loader->ConstructGeometry();
-	geom->Move(Math::Vector3(.5f, .5f, 15.0f));
-	mNodeTree->SetChild(1, geom);
+	spatial = loader->ConstructSpatial();
+	spatial->Move(Math::Vector3(.5f, .5f, 15.0f));
+	mNodeTree->AddChild(spatial);
+	delete loader;
+
+	// create a scene node for the next bits
+	node = new SceneNode();
+	node->Move(Math::Vector3(.5f, .5f, 5.0f));
+	mNodeTree->AddChild(node);
+
+	loader = Loader::CreateLoader("meh", Loader::RESOURCE_TYPE_MESH);
+	assert(loader);
+	spatial = loader->ConstructSpatial();
+	spatial->Move(Math::Vector3(-2.0f, 0, 0));
+	node->AddChild(spatial);
+	delete loader;
 
 	loader = Loader::CreateLoader("dude", Loader::RESOURCE_TYPE_MESH);
 	assert(loader);
-	geom = loader->ConstructGeometry();
-	geom->Move(Math::Vector3(-2.5f, .5f, 5.0f));
-	mNodeTree->SetChild(2, geom);
+	spatial = loader->ConstructSpatial();
+	spatial->Move(Math::Vector3(2.0f, 0, 0));
+	node->AddChild(spatial);
+	delete loader;
 
+	loader = Loader::CreateLoader("plane", Loader::RESOURCE_TYPE_MESH);
+	assert(loader);
+	spatial = loader->ConstructSpatial();
+	spatial->Move(Math::Vector3(-1.0f, -3.0f, 2.0f));
+	spatial->Rotate(Math::Vector3(0.0f, 0.1f, -0.3f));
+	spatial->Scale(0.5f);
+	node->AddChild(spatial);
+	delete loader;
 
 #endif
 

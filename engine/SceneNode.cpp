@@ -3,30 +3,43 @@
 
 namespace Engine {
 
-SceneNode::SceneNode(unsigned int numChildren)
+SceneNode::SceneNode()
 {
-	mChildren = new Spatial*[numChildren];
-	mNumChildren = numChildren;
 }
 
 SceneNode::~SceneNode()
 {
-	delete[] mChildren;
 }
 
-void SceneNode::SetChild(unsigned int child, Spatial *node) 
+void SceneNode::AddChild(Spatial *node) 
 { 
-	mChildren[child] = node; 
 	node->mParent = this; 
+	mChildren.push_back(node);
+}
+
+size_t SceneNode::NumChildren()
+{
+	return mChildren.size();
+}
+
+void SceneNode::UpdateTransform(bool force)
+{
+	if (force || mDirty) {
+		Spatial::UpdateTransform(true);
+		force = true;
+	}
+
+	for (SpatialListIterator i = mChildren.begin(); i != mChildren.end(); i++) {
+		(*i)->UpdateTransform(force);
+	}
 }
 
 void SceneNode::Render(Renderer *r)
 {
 //	std::cout << "SceneNode::Render\n";
 
-	UpdateWorldMatrix();
-	for (unsigned int i = 0; i < mNumChildren; i++) {
-		mChildren[i]->Render(r);
+	for (SpatialListIterator i = mChildren.begin(); i != mChildren.end(); i++) {
+		(*i)->Render(r);
 	}
 }
 
