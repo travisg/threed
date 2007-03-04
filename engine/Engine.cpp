@@ -41,7 +41,7 @@ int Engine::InnerLoop()
 
 void Engine::SetupDefaultScene()
 {
-	mNodeTree = new SceneNode(1);
+	mNodeTree = new SceneNode(3);
 
 	Geometry *geom;
 #if 0
@@ -51,12 +51,27 @@ void Engine::SetupDefaultScene()
 	mNodeTree->SetChild(0, geom);
 #endif
 
+	Loader *loader;
 #if 1
-	Loader *loader = Loader::CreateLoader("balls", Loader::RESOURCE_TYPE_MESH);
+	loader = Loader::CreateLoader("meh", Loader::RESOURCE_TYPE_MESH);
 	assert(loader);
 	geom = loader->ConstructGeometry();
-	geom->Move(Math::Vector3(.5f, .5f, 1.0f));
+	geom->Move(Math::Vector3(2.5f, .5f, 5.0f));
 	mNodeTree->SetChild(0, geom);
+
+	loader = Loader::CreateLoader("balls", Loader::RESOURCE_TYPE_MESH);
+	assert(loader);
+	geom = loader->ConstructGeometry();
+	geom->Move(Math::Vector3(.5f, .5f, 15.0f));
+	mNodeTree->SetChild(1, geom);
+
+	loader = Loader::CreateLoader("dude", Loader::RESOURCE_TYPE_MESH);
+	assert(loader);
+	geom = loader->ConstructGeometry();
+	geom->Move(Math::Vector3(-2.5f, .5f, 5.0f));
+	mNodeTree->SetChild(2, geom);
+
+
 #endif
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));

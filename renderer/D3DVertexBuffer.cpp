@@ -22,29 +22,39 @@ D3DVertexBuffer::D3DVertexBuffer()
 // simple xyz vertexes
 int D3DVertexBuffer::LoadSimpleVertexes(const float *vertexes, unsigned int count)
 {
-	UINT FVF = (D3DFVF_XYZ|D3DFVF_DIFFUSE);
+	struct myvertex {
+		FLOAT x, y, z;
+		D3DCOLOR diffuse;
+		D3DCOLOR specular;
+	};
+
+	UINT FVF = (D3DFVF_XYZ|D3DFVF_DIFFUSE|D3DFVF_SPECULAR);
 
 	assert(!m_buffer);
 
-	D3DRenderer::GetD3DRenderer()->GetD3DDevice()->CreateVertexBuffer(count * sizeof(float) * 3,
-										D3DUSAGE_WRITEONLY,
-										FVF,
-										D3DPOOL_MANAGED, &m_buffer, NULL);
-
-	FLOAT *pData;
-	m_buffer->Lock(0, sizeof(pData), (void**)&pData, 0);
-	for (unsigned i = 0; i < count; i++) {
-		pData[i*4] = vertexes[i*3];
-		pData[i*4+1] = vertexes[i*3+1];
-		pData[i*4+2] = vertexes[i*3+2];
-		*((unsigned int *)&pData[i*4+3]) = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
-	}
-	m_buffer->Unlock();
-	
-	m_vertexStride = 16;
+	m_vertexStride = sizeof(myvertex);
+	m_bufferSize = count * sizeof(float) * m_vertexStride;
 	m_FVF = FVF;
 	m_vertexCount = count;
 
+	D3DRenderer::GetD3DRenderer()->GetD3DDevice()->CreateVertexBuffer(m_bufferSize,
+										D3DUSAGE_WRITEONLY,
+										m_FVF,
+										D3DPOOL_MANAGED, &m_buffer, NULL);
+
+	assert(m_buffer);
+
+	struct myvertex *pData;
+	m_buffer->Lock(0, 0, (void**)&pData, D3DLOCK_DISCARD);
+	for (unsigned i = 0; i < count; i++) {
+		pData[i].x = vertexes[i*3];
+		pData[i].y = vertexes[i*3+1];
+		pData[i].z = vertexes[i*3+2];
+		pData[i].diffuse = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
+		pData[i].specular = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
+	}
+	m_buffer->Unlock();
+	
 	return 0;
 }
 
@@ -58,7 +68,11 @@ void D3DVertexBuffer::Bind(Renderer *r)
 
 	assert(m_buffer);
 
-	dr->GetD3DDevice()->SetFVF(D3DFVF_XYZ|D3DFVF_DIFFUSE);
-	dr->GetD3DDevice()->SetStreamSource(0, m_buffer, 0, m_vertexStride);
+	HRESULT res;
+	res = dr->GetD3DDevice()->SetFVF(m_FVF);
+	assert(res == D3D_OK);
+
+	res = dr->GetD3DDevice()->SetStreamSource(0, m_buffer, 0, m_vertexStride);
+	assert(res == D3D_OK);
 }
 

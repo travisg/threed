@@ -64,14 +64,12 @@ void D3DMesh::SetDefault()
 
 void D3DMesh::Draw(Renderer *r)
 {
-	D3DIndexBuffer *ib = (D3DIndexBuffer *)m_IB;
-	D3DVertexBuffer *vb = (D3DVertexBuffer *)m_VB;
 	D3DRenderer *dr = (D3DRenderer *)r;
 
-	assert(ib);
-	assert(vb);
+	assert(m_IB);
+	assert(m_VB);
 
-	ib->Bind(r);
-	vb->Bind(r);
-	dr->GetD3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VB->Count(), 0, 3 /*m_IB->Count() / 3*/);
+	m_IB->Bind(r);
+	m_VB->Bind(r);
+	dr->GetD3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VB->Count(), 0, m_IB->Count() / 3);
 }

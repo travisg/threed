@@ -32,8 +32,10 @@ int D3DIndexBuffer::LoadIndexes(unsigned int *indexes, unsigned int count)
 										D3DFMT_INDEX32 ,
 										D3DPOOL_MANAGED, &m_buffer, NULL);
 
+	assert(m_buffer);
+
 	void *pData;
-	m_buffer->Lock(0, sizeof(pData), (void**)&pData, 0);
+	m_buffer->Lock(0, 0, (void**)&pData, D3DLOCK_DISCARD);
 	memcpy(pData, indexes, count * 4);
 	m_buffer->Unlock();
 
@@ -49,6 +51,8 @@ void D3DIndexBuffer::Bind(Renderer *r)
 
 	assert(m_buffer);
 
-	dr->GetD3DDevice()->SetIndices(m_buffer);
+	HRESULT res = dr->GetD3DDevice()->SetIndices(m_buffer);
+
+	assert(res == D3D_OK);
 }
 
