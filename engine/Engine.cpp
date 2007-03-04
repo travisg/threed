@@ -3,24 +3,35 @@
 #include <engine/Geometry.h>
 #include <renderer/Renderer.h>
 #include <resource/loader/Loader.h>
+#include <resource/ResourceManager.h>
 #include <assert.h>
 
 namespace Engine {
 
+// the one and only game engine
+Engine *gEngine;
+
 Engine::Engine()
-:	mRenderer(0)
+:	mRenderer(0),
+	mResources(0)
 {
 	mNodeTree = new SceneNode;
+	mResources = new ResourceManager;
+
+	assert(!gEngine);
+	gEngine = this;
 }
 
 Engine::~Engine()
 {
 	delete mNodeTree;
+	gEngine = 0;
 }
 
-void Engine::SetRenderer(Renderer *r)
+void Engine::SetRenderer(Renderer &r)
 {
-	mRenderer = r;
+	assert(!mRenderer);
+	mRenderer = &r;
 }
 
 int Engine::InnerLoop()
@@ -29,7 +40,7 @@ int Engine::InnerLoop()
 		return -1;
 
 //	mNodeTree->Move(Math::Vector3(0, 0, 0.001f));
-//	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.02f));
+	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.02f));
 
 	mNodeTree->UpdateTransform(false);
 	mNodeTree->Render(mRenderer);
@@ -86,6 +97,13 @@ void Engine::SetupDefaultScene()
 	spatial->Move(Math::Vector3(-1.0f, -3.0f, 2.0f));
 	spatial->Rotate(Math::Vector3(0.0f, 0.1f, -0.3f));
 	spatial->Scale(0.5f);
+	node->AddChild(spatial);
+	delete loader;
+
+	loader = Loader::CreateLoader("meh-greeble-tri", Loader::RESOURCE_TYPE_MESH);
+	assert(loader);
+	spatial = loader->ConstructSpatial();
+	spatial->Move(Math::Vector3(0.0f, 1.0f, 0));
 	node->AddChild(spatial);
 	delete loader;
 

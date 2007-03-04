@@ -89,8 +89,7 @@ int D3DRenderer::Initialize()
 
 D3DXMatrixPerspectiveFovLH(&projection_matrix, D3DX_PI / 4.0f,(float) mWidth/mHeight,1, 1000);
 mD3DDevice->SetTransform(D3DTS_PROJECTION,&projection_matrix);
-mD3DDevice->SetRenderState(D3DRS_AMBIENT,RGB(255,255,255));
-
+mD3DDevice->SetRenderState(D3DRS_AMBIENT,RGB(255,0,0));
 mD3DDevice->SetRenderState(D3DRS_LIGHTING,false);
 
 mD3DDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);

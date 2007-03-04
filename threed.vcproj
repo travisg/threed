@@ -335,6 +335,22 @@
 			<Filter
 				Name="resource"
 				>
+				<File
+					RelativePath=".\resource\Resource.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\resource\Resource.h"
+					>
+				</File>
+				<File
+					RelativePath=".\resource\ResourceManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\resource\ResourceManager.h"
+					>
+				</File>
 				<Filter
 					Name="loader"
 					>
@@ -355,6 +371,14 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="utils"
+				>
+				<File
+					RelativePath=".\utils\IRefcounted.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

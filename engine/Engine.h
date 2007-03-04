@@ -2,6 +2,7 @@
 #define __ENGINE_H
 
 class Renderer;
+class ResourceManager;
 
 namespace Engine {
 
@@ -12,15 +13,22 @@ public:
 	Engine();
 	virtual ~Engine();
 
-	void SetRenderer(Renderer *r);
+	void SetRenderer(Renderer &r);
 	void SetupDefaultScene();
+
+	// accessors
+	Renderer &GetRenderer() { return *mRenderer; }
+	ResourceManager &GetResources() { return *mResources; }
 
 	int InnerLoop();
 
 private:
 	Renderer *mRenderer;
+	ResourceManager *mResources;
 	SceneNode *mNodeTree;
 };
+
+extern Engine *gEngine;
 
 }
 

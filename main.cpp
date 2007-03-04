@@ -127,7 +127,7 @@ int main(int argc, char **argv)
 
 	// create a game engine
 	Engine::Engine *e = new Engine::Engine();
-	e->SetRenderer(r);
+	e->SetRenderer(*r);
 
 	e->SetupDefaultScene();
 
