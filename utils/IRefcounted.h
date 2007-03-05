@@ -4,10 +4,12 @@
 class IRefcounted {
 public:
 	IRefcounted() {}
-	virtual ~IRefcounted() {}
 
 	virtual int AddRef() = 0;
 	virtual int RemoveRef() = 0;
+
+protected:
+	virtual ~IRefcounted() {}
 };
 
 #endif

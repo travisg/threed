@@ -336,6 +336,14 @@
 				Name="resource"
 				>
 				<File
+					RelativePath=".\resource\MeshResource.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\resource\MeshResource.h"
+					>
+				</File>
+				<File
 					RelativePath=".\resource\Resource.cpp"
 					>
 				</File>
@@ -375,6 +383,30 @@
 			<Filter
 				Name="utils"
 				>
+				<File
+					RelativePath=".\utils\File.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\utils\File.h"
+					>
+				</File>
+				<File
+					RelativePath=".\utils\FileManager.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\utils\FileManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\utils\HostFile.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\utils\HostFile.h"
+					>
+				</File>
 				<File
 					RelativePath=".\utils\IRefcounted.h"
 					>

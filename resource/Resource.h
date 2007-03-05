@@ -4,18 +4,30 @@
 #include <utils/IRefcounted.h>
 #include <list>
 
+enum ResourceType {
+	RT_MESH,
+	RT_TEXTURE,
+
+	RT_MAX
+};
+
 class Resource : public IRefcounted
 {
 public:
-	Resource();
-	virtual ~Resource();
+	Resource(enum ResourceType type);
+
+	ResourceType GetType() { return m_Type; }
 
 	// from IRefcounted
 	virtual int AddRef();
 	virtual int RemoveRef();
 
 private:
-	int m_refcount;
+	int mRefCount;
+	enum ResourceType m_Type;
+
+protected:
+	virtual ~Resource();
 };
 
 // helpful typedefs

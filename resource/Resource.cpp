@@ -1,8 +1,10 @@
 #include <resource/Resource.h>
 
-Resource::Resource()
-:	m_refcount(0)
+Resource::Resource(ResourceType type)
+:	mRefCount(0),
+	m_Type(type)
 {
+	AddRef();
 }
 
 Resource::~Resource()
@@ -11,14 +13,14 @@ Resource::~Resource()
 
 int Resource::AddRef()
 {
-	return m_refcount++;
+	return mRefCount++;
 }
 
 int Resource::RemoveRef()
 {
-	if (--m_refcount == 0) {
+	if (--mRefCount == 0) {
 		delete this;
 		return 0;
 	}
-	return m_refcount;
+	return mRefCount;
 }
