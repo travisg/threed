@@ -11,12 +11,17 @@ public:
 	inline Vector4() {}
 	inline ~Vector4() {}
 
-	inline Vector4(float x1, float y1, float z1, float w1) :
-		x(x1), y(y1), z(z1), w(w1) {}
+	Vector4(float x1, float y1, float z1, float w1);
 
 	/* constructors */
-	inline Vector4(const Vector4 &v);
-	inline Vector4 &operator=(const Vector4 &v);
+	Vector4(const Vector4 &v);
+	Vector4 &operator=(const Vector4 &v);
+
+	/* accessors */
+	float getx() const;
+	float gety() const;
+	float getz() const;
+	float getw() const;
 
 	/* operators */
 	Vector4 operator+(const Vector4 &v) const;
@@ -39,19 +44,23 @@ public:
 	float Dot(const Vector4 &v) const;
 	friend float Dot(const Vector4 &v1, const Vector4 &v2);
 
+private:
 	/* data */
-	union {
-		float val[4];
-		struct {
-			float x, y, z, w;
-		};
-	};
+	float x, y, z, w;
 };
 
 /* debugging */
-std::ostream &operator<<(std::ostream &os, Vector4 &v);
+std::ostream &operator<<(std::ostream &os, const Vector4 &v);
 
 /* inline constructors */
+inline Vector4::Vector4(float x1, float y1, float z1, float w1)
+{
+	x = x1;
+	y = y1;
+	z = z1;
+	w = w1;
+}
+
 inline Vector4::Vector4(const Vector4 &v)
 {
 	x = v.x;
@@ -71,6 +80,11 @@ inline Vector4 &Vector4::operator=(const Vector4 &v)
 	w = v.w;
 	return *this;
 }
+
+inline float Vector4::getx() const { return x; }
+inline float Vector4::gety() const { return y; }
+inline float Vector4::getz() const { return z; }
+inline float Vector4::getw() const { return w; }
 
 }
 

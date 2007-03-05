@@ -11,12 +11,16 @@ public:
 	inline Vector3() {}
 	inline ~Vector3() {}
 
-	inline Vector3(float x1, float y1, float z1) :
-		x(x1), y(y1), z(z1) {}
+	Vector3(float x1, float y1, float z1);
 
 	/* constructors */
-	inline Vector3(const Vector3 &v);
-	inline Vector3 &operator=(const Vector3 &v);
+	Vector3(const Vector3 &v);
+	Vector3 &operator=(const Vector3 &v);
+
+	/* accessors */
+	float getx() const;
+	float gety() const;
+	float getz() const;
 
 	/* operators */
 	float* operator*() const;
@@ -40,19 +44,22 @@ public:
 	float Dot(const Vector3 &v) const;
 	friend float Dot(const Vector3 &v1, const Vector3 &v2);
 
+private:
 	/* data */
-	union {
-		float val[4];
-		struct {
-			float x, y, z, _w;
-		};
-	};
+	float x, y, z, _w;
 };
 
 /* debugging */
-std::ostream &operator<<(std::ostream &os, Vector3 &v);
+std::ostream &operator<<(std::ostream &os, const Vector3 &v);
 
 /* inline constructors */
+inline Vector3::Vector3(float x1, float y1, float z1)
+{
+	x = x1;
+	y = y1;
+	z = z1;
+}
+
 inline Vector3::Vector3(const Vector3 &v)
 {
 	x = v.x;
@@ -70,6 +77,10 @@ inline Vector3 &Vector3::operator=(const Vector3 &v)
 	z = v.z;
 	return *this;
 }
+
+inline float Vector3::getx() const { return x; }
+inline float Vector3::gety() const { return y; }
+inline float Vector3::getz() const { return z; }
 
 }
 

@@ -28,9 +28,9 @@ void Spatial::SetRotation(const Math::Vector3 &rot)
 	Math::Matrix4x4 roty;
 	Math::Matrix4x4 rotz;
 
-	rotx.SetRotationX(rot.x);
-	roty.SetRotationY(rot.y);
-	rotz.SetRotationZ(rot.z);
+	rotx.SetRotationX(rot.getx());
+	roty.SetRotationY(rot.gety());
+	rotz.SetRotationZ(rot.getz());
 
 	mLocalRotationAngles = rot;
 	mLocalRotation = rotx * roty * rotz;

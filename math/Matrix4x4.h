@@ -21,6 +21,9 @@ public:
 
 	static const Matrix4x4 Identity;
 
+	/* accessors */
+	float operator[](int idx) const;
+
 	/* set the matrix to various ops */
 	Matrix4x4 &SetIdentity();
 	Matrix4x4 &SetScaling(const Vector3 &scale);
@@ -30,26 +33,25 @@ public:
 	Matrix4x4 &SetRotationZ(float angle);
 
 	/* operators */
-	float *operator*();
-	Matrix4x4 operator+(const Matrix4x4 &v) const;
-	Matrix4x4 &operator+=(const Matrix4x4 &v);
-	Matrix4x4 operator-(const Matrix4x4 &v) const;
-	Matrix4x4 &operator-=(const Matrix4x4 &v);
 	Matrix4x4 operator*(const Matrix4x4 &v) const;
 	Matrix4x4 &operator*=(const Matrix4x4 &v);
 	Vector4 operator*(const Vector4 &v) const;
 
 	Vector3 Transform(const Vector3 &point) const;
 
+private:
 	/* data */
-	union {
-		float val[16];
-		float vald[4][4];
-	};
+	float val[16];
 };
 
 /* debugging */
-std::ostream &operator<<(std::ostream &os, Matrix4x4 &v);
+std::ostream &operator<<(std::ostream &os, const Matrix4x4 &v);
+
+/* inline bits */
+inline float Matrix4x4::operator[](int idx) const
+{
+	return val[idx];
+}
 
 }
 

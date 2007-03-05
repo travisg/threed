@@ -6,12 +6,12 @@ namespace Math {
 static const float identityfloats[16] = {1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0};
 const Matrix4x4 Matrix4x4::Identity(identityfloats);
 
-std::ostream &operator<<(std::ostream &os, Matrix4x4 &v)
+std::ostream &operator<<(std::ostream &os, const Matrix4x4 &m)
 {
-	os << "[ " << v.val[0] << " " << v.val[1] << " " << v.val[2] << " " << v.val[3] << " ]" << std::endl;
-	os << "[ " << v.val[4] << " " << v.val[5] << " " << v.val[6] << " " << v.val[7] << " ]" << std::endl;
-	os << "[ " << v.val[8] << " " << v.val[9] << " " << v.val[10] << " " << v.val[11] << " ]" << std::endl;
-	os << "[ " << v.val[12] << " " << v.val[13] << " " << v.val[14] << " " << v.val[15] << " ]";
+	os << "[ " << m[0] << " " << m[1] << " " << m[2] << " " << m[3] << " ]" << std::endl;
+	os << "[ " << m[4] << " " << m[5] << " " << m[6] << " " << m[7] << " ]" << std::endl;
+	os << "[ " << m[8] << " " << m[9] << " " << m[10] << " " << m[11] << " ]" << std::endl;
+	os << "[ " << m[12] << " " << m[13] << " " << m[14] << " " << m[15] << " ]";
 	return os;
 }
 
@@ -62,17 +62,17 @@ Matrix4x4 &Matrix4x4::SetIdentity()
 
 Matrix4x4 &Matrix4x4::SetScaling(const Vector3 &scale)
 {
-	val[0] = scale.x;
+	val[0] = scale.getx();
 	val[1] = 0;
 	val[2] = 0;
 	val[3] = 0;
 	val[4] = 0;
-	val[5] = scale.y;
+	val[5] = scale.gety();
 	val[6] = 0;
 	val[7] = 0;
 	val[8] = 0;
 	val[9] = 0;
-	val[10] = scale.z;
+	val[10] = scale.getz();
 	val[11] = 0;
 	val[12] = 0;
 	val[13] = 0;
@@ -95,9 +95,9 @@ Matrix4x4 &Matrix4x4::SetTranslation(const Vector3 &xlate)
 	val[9] = 0;
 	val[10] = 1;
 	val[11] = 0;
-	val[12] = xlate.x;
-	val[13] = xlate.y;
-	val[14] = xlate.z;
+	val[12] = xlate.getx();
+	val[13] = xlate.gety();
+	val[14] = xlate.getz();
 	val[15] = 1;
 	return *this;
 }
@@ -173,42 +173,6 @@ Matrix4x4 &Matrix4x4::SetRotationZ(float angle)
 	val[13] = 0;
 	val[14] = 0;
 	val[15] = 1;
-
-	return *this;
-}
-
-Matrix4x4 Matrix4x4::operator+(const Matrix4x4 &m) const
-{
-	Matrix4x4 result;
-
-	for (int i = 0; i < 16; i++)
-		result.val[i] = val[i] + m.val[i];
-
-	return result;
-}
-
-Matrix4x4 &Matrix4x4::operator+=(const Matrix4x4 &m)
-{
-	for (int i = 0; i < 16; i++)
-		val[i] += m.val[i];
-
-	return *this;
-}
-
-Matrix4x4 Matrix4x4::operator-(const Matrix4x4 &m) const
-{
-	Matrix4x4 result;
-
-	for (int i = 0; i < 16; i++)
-		result.val[i] = val[i] - m.val[i];
-
-	return result;
-}
-
-Matrix4x4 &Matrix4x4::operator-=(const Matrix4x4 &m)
-{
-	for (int i = 0; i < 16; i++)
-		val[i] -= m.val[i];
 
 	return *this;
 }
@@ -366,27 +330,21 @@ Matrix4x4 &Matrix4x4::operator*=(const Matrix4x4 &m)
 	return *this;
 }
 
-Vector4 Matrix4x4::operator*(const Vector4 &m) const
+Vector4 Matrix4x4::operator*(const Vector4 &v) const
 {
-	Vector4 result;
-
-	result.x = val[0] * m.x + val[1] * m.y + val[2] * m.z + val[3] * m.w;
-	result.y = val[4] * m.x + val[5] * m.y + val[6] * m.z + val[7] * m.w;
-	result.z = val[8] * m.x + val[9] * m.y + val[10] * m.z + val[11] * m.w;
-	result.w = val[12] * m.x + val[13] * m.y + val[14] * m.z + val[15] * m.w;
-
-	return result;
+	return Vector4(
+		val[0] * v.getx() + val[1] * v.gety() + val[2] * v.getz() + val[3] * v.getw(),
+		val[4] * v.getx() + val[5] * v.gety() + val[6] * v.getz() + val[7] * v.getw(),
+		val[8] * v.getx() + val[9] * v.gety() + val[10] * v.getz() + val[11] * v.getw(),
+		val[12] * v.getx() + val[13] * v.gety() + val[14] * v.getz() + val[15] * v.getw());
 }
 
 Vector3 Matrix4x4::Transform(const Vector3 &point) const
 {
-	Vector3 result;
-
-	result.x = val[0] * point.x + val[4] * point.y + val[8] * point.z + val[12];
-	result.y = val[1] * point.x + val[5] * point.y + val[9] * point.z + val[13];
-	result.z = val[2] * point.x + val[6] * point.y + val[10] * point.z + val[14];
-
-	return result;
+	return Vector3(
+		val[0] * point.getx() + val[4] * point.gety() + val[8] * point.getz() + val[12],
+		val[1] * point.getx() + val[5] * point.gety() + val[9] * point.getz() + val[13],
+		val[2] * point.getx() + val[6] * point.gety() + val[10] * point.getz() + val[14]);
 }
 
 }

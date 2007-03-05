@@ -4,9 +4,9 @@
 
 namespace Math {
 
-std::ostream &operator<<(std::ostream &os, Vector4 &v)
+std::ostream &operator<<(std::ostream &os, const Vector4 &v)
 {
-	os << "[ " << v.x << " " << v.y << " " << v.z << " " << v.w << " ]";
+	os << "[ " << v.getx() << " " << v.gety() << " " << v.getz() << " " << v.getw() << " ]";
 	return os;
 }
 
