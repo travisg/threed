@@ -142,7 +142,7 @@ int AC3DLoader::OpenResource(const char *resource)
 	char path[4096];
 	char line[128];
 
-	sprintf(path, "resources/mesh/%s.ac", resource);
+	sprintf(path, "../resources/mesh/%s.ac", resource);
 	
 	m_fp = fopen(path, "r");
 	if (!m_fp)

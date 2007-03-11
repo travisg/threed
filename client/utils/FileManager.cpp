@@ -8,7 +8,7 @@ FileManager::FileManager()
 {
 	// XXX hack for now
 	mLeadingPath = new char[3];
-	strcpy(mLeadingPath, "./");
+	strcpy(mLeadingPath, "../");
 }
 
 FileManager::~FileManager()
