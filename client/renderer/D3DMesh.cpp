@@ -22,18 +22,18 @@ static unsigned int indexes[] = {
 	0, 1, 2, 3, 
 };
 
-Mesh *Mesh::CreateMesh(MESH_Type type)
+Mesh *Mesh::CreateMesh(Mesh_Type type)
 {
 	Mesh *m = new D3DMesh(type);
 
 	return m;
 }
 
-D3DMesh::D3DMesh(MESH_Type type)
+D3DMesh::D3DMesh(Mesh_Type type)
 :	Mesh(type)
 {
 	switch (type) {
-		case MESH_TYPE_TRIANGLES:
+		case MESH_TYPE_TRIANGLE_LIST:
 			m_D3DType = D3DPT_TRIANGLELIST;
 			break;
 		case MESH_TYPE_TRIANGLE_MESH:
@@ -71,5 +71,5 @@ void D3DMesh::Draw(Renderer *r)
 
 	m_IB->Bind(r);
 	m_VB->Bind(r);
-	dr->GetD3DDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, m_VB->Count(), 0, m_IB->Count() / 3);
+	dr->GetD3DDevice()->DrawIndexedPrimitive((D3DPRIMITIVETYPE)m_D3DType, 0, 0, m_VB->Count(), 0, m_IB->Count() / 3);
 }

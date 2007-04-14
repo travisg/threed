@@ -58,6 +58,48 @@ int D3DVertexBuffer::LoadSimpleVertexes(const float *vertexes, unsigned int coun
 	return 0;
 }
 
+int D3DVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, unsigned int count)
+{
+	switch (format) {
+		case VERT_FORMAT_POS:
+			m_FVF = D3DFVF_XYZ;
+			m_vertexStride = 3*4;
+			break;
+		case VERT_FORMAT_POS_NORM:
+			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL);
+			m_vertexStride = 6*4;
+			break;
+		case VERT_FORMAT_POS_NORM_UV:
+			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX0|D3DFVF_DIFFUSE);
+			m_vertexStride = 8*4 + 4;
+			break;
+		default:
+			assert(0);
+	}
+
+	m_bufferSize = count * m_vertexStride;
+	m_vertexCount = count;
+
+	D3DRenderer::GetD3DRenderer()->GetD3DDevice()->CreateVertexBuffer(m_bufferSize,
+		D3DUSAGE_WRITEONLY,
+		m_FVF,
+		D3DPOOL_MANAGED, &m_buffer, NULL);
+
+	assert(m_buffer);
+
+	D3DCOLOR *pData;
+	m_buffer->Lock(0, 0, (void**)&pData, D3DLOCK_DISCARD);
+	
+	for (unsigned i = 0; i < count; i++) {
+		memcpy(&pData[m_vertexStride/4 * i], &vertexes[(m_vertexStride-1)/4 * i], m_vertexStride-4);
+		pData[m_vertexStride/4 * i + m_vertexStride/4 - 1] = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
+	}
+
+	m_buffer->Unlock();
+
+	return 0;
+}
+
 D3DVertexBuffer::~D3DVertexBuffer()
 {
 }

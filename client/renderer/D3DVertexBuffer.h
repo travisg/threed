@@ -13,6 +13,7 @@ public:
 
 	// load external vertex data
 	virtual int LoadSimpleVertexes(const float *vertexes, unsigned int count); // xyz
+	virtual int LoadVertexes(const float *vertexes, Vertex_Format format, unsigned int count);
 
 protected:
 	struct IDirect3DVertexBuffer9 *m_buffer;

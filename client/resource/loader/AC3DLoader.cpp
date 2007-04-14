@@ -193,7 +193,7 @@ Engine::Spatial *AC3DLoader::ConstructSpatial()
 {
 	Engine::Geometry *geom = new Engine::Geometry();
 
-	geom->m_Mesh = Mesh::CreateMesh(Mesh::MESH_TYPE_TRIANGLES);
+	geom->m_Mesh = Mesh::CreateMesh(MESH_TYPE_TRIANGLE_LIST);
 
 	// load the index buffer
 	IndexBuffer *ib = IndexBuffer::CreateIndexBuffer();

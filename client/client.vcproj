@@ -210,42 +210,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="math"
-			>
-			<File
-				RelativePath="..\lib\math\Math.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\lib\math\Math.h"
-				>
-			</File>
-			<File
-				RelativePath="..\lib\math\Matrix4x4.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\lib\math\Matrix4x4.h"
-				>
-			</File>
-			<File
-				RelativePath="..\lib\math\Vector3.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\lib\math\Vector3.h"
-				>
-			</File>
-			<File
-				RelativePath="..\lib\math\Vector4.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\lib\math\Vector4.h"
-				>
-			</File>
-		</Filter>
-		<Filter
 			Name="renderer"
 			>
 			<File
@@ -363,6 +327,14 @@
 					RelativePath=".\resource\loader\Loader.h"
 					>
 				</File>
+				<File
+					RelativePath=".\resource\loader\MeshLoader.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\resource\loader\MeshLoader.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -396,6 +368,58 @@
 				RelativePath=".\utils\IRefcounted.h"
 				>
 			</File>
+		</Filter>
+		<Filter
+			Name="lib"
+			>
+			<Filter
+				Name="shared"
+				>
+				<File
+					RelativePath="..\lib\shared\defines.h"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\shared\mesh.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="math"
+				>
+				<File
+					RelativePath="..\lib\math\Math.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\math\Math.h"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\math\Matrix4x4.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\math\Matrix4x4.h"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\math\Vector3.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\math\Vector3.h"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\math\Vector4.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\lib\math\Vector4.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\main.cpp"

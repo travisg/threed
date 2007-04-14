@@ -38,7 +38,7 @@ void Geometry::Render(Renderer *r)
 
 void Geometry::SetDefaultGeometry()
 {
-	m_Mesh = Mesh::CreateMesh(Mesh::MESH_TYPE_TRIANGLE_MESH);
+	m_Mesh = Mesh::CreateMesh(MESH_TYPE_TRIANGLE_MESH);
 	m_Mesh->SetDefault();
 }
 

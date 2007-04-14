@@ -1,7 +1,7 @@
 #include <renderer/Mesh.h>
 #include <assert.h>
 
-Mesh::Mesh(MESH_Type type)
+Mesh::Mesh(Mesh_Type type)
 :	m_IB(0),
 	m_VB(0),
 	m_Type(type)

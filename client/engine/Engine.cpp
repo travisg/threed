@@ -61,7 +61,7 @@ void Engine::SetupDefaultScene()
 	SceneNode *node;
 	Spatial *spatial;
 
-#if 1
+#if 0
 	// the balls get to be a high level construct
 	spatial = mResources->ConstructModel("balls");
 	assert(spatial);
@@ -96,6 +96,11 @@ void Engine::SetupDefaultScene()
 	node->AddChild(spatial);
 
 #endif
+
+	spatial = mResources->ConstructModel("csphereout_default");
+	assert(spatial);
+	spatial->Move(Math::Vector3(.5f, .5f, 15.0f));
+	mNodeTree->AddChild(spatial);
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 }

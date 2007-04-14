@@ -8,7 +8,7 @@ class Renderer;
 class D3DMesh : public Mesh
 {
 public:
-	D3DMesh(MESH_Type type);
+	D3DMesh(Mesh_Type type);
 	virtual ~D3DMesh();
 
 	virtual void Draw(Renderer *r);
