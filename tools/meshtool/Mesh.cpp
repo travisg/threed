@@ -8,6 +8,9 @@ Mesh::Mesh()
 
 Mesh::~Mesh()
 {
+	for (SurfaceListIterator surface_i = m_Surfaces.begin(); surface_i != m_Surfaces.end(); surface_i++) {
+		delete *surface_i;
+	}
 }
 
 void Mesh::SetName(const std::string &name)

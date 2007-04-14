@@ -1,13 +1,5 @@
 #include "Surface.h"
 
-Surface::Surface()
-{
-}
-
-Surface::~Surface()
-{
-}
-
 void Surface::AddIndex(int posIndex, int normIndex, int uvIndex)
 {
 	SurfaceIndex i;

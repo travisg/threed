@@ -10,6 +10,9 @@ public:
 
 	void AddMesh(Mesh *m);
 
+	MeshListIteratorConst ListIterator() { return m_Meshes.begin(); }
+	MeshListIteratorConst ListEnd() { return m_Meshes.end(); }
+
 private:
 	MeshList m_Meshes;
 };

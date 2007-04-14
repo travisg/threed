@@ -2,16 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 
 #include "Geometry.h"
 
 extern int ac3d_load(FILE *infp);
 extern int obj_load(FILE *infp, Geometry **new_geometry);
 
+extern int dump_geometry_tree(Geometry *geometry, std::string outfile_root);
+
 int convertfile(const char *infile, const char *outfile)
 {
 	FILE *infp;
-	FILE *outfp;
 	Geometry *new_geometry;
 
 	infp = fopen(infile, "rb");
@@ -24,29 +26,28 @@ int convertfile(const char *infile, const char *outfile)
 	const char *c = strrchr(infile, '.');
 	if (c) {
 		if (!strcmp(c, ".ac")) {
+			std::cout << "loading meshes from AC3d file '" << infile << "'" << std::endl;
 			ac3d_load(infp);
 		} else if (!strcmp(c, ".obj")) {
+			std::cout << "loading meshes from object file '" << infile << "'" << std::endl;
 			obj_load(infp, &new_geometry);
 		} else {
-			fprintf(stderr, "unrecognized input mesh\n");
+			std::cerr << "unrecognized input mesh" << std::endl;
 			fclose(infp);
 			return -1;
 		}
 	} else {
-		fprintf(stderr, "unrecognized input mesh\n");
-		fclose(infp);
-		return -1;
-	}
-
-	outfp = fopen(outfile, "wb+");
-	if (!outfp) {
-		fprintf(stderr, "error opening output file '%s'\n", outfile);
+		std::cerr << "unrecognized input mesh" << std::endl;
 		fclose(infp);
 		return -1;
 	}
 
 	fclose(infp);
-	fclose(outfp);
+
+	// do some processing
+
+	// dump the output
+	dump_geometry_tree(new_geometry, outfile);
 
 	return 0;
 }

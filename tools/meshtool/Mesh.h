@@ -17,6 +17,7 @@ public:
 	void AddSurface(Surface *s);
 
 	void SetName(const std::string &name);
+	std::string GetName() { return m_Name; }
 
 private:
 	std::string m_Name;
@@ -27,8 +28,12 @@ private:
 	VertexList m_UVVerts;
 
 	SurfaceList m_Surfaces;
+
+	friend class UnifiedMesh;
 };
 
 typedef std::vector<Mesh*> MeshList;
+typedef std::vector<Mesh*>::iterator MeshListIterator;
+typedef std::vector<Mesh*>::const_iterator MeshListIteratorConst;
 
 #endif

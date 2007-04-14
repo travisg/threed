@@ -199,6 +199,26 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UnifiedMesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UnifiedMesh.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UnifiedSurface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UnifiedVertex.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UnifiedVertex.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Vertex.cpp"
 				>
 			</File>
@@ -243,6 +263,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="Shared"
+			>
+			<File
+				RelativePath="..\..\lib\shared\defines.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\lib\shared\mesh.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\ac3dloader.cpp"
 			>
@@ -257,6 +289,10 @@
 		</File>
 		<File
 			RelativePath=".\objloader.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\output.cpp"
 			>
 		</File>
 	</Files>

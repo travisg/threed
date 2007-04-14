@@ -7,7 +7,7 @@ extern int convertfile(const char *infile, const char *outfile);
 void usage(char **argv)
 {
 	printf("bad command line. usage:\n");
-	printf("%s convert <infile> <outfile>\n", argv[0]);
+	printf("%s convert <infile> <outfile name root>\n", argv[0]);
 	exit(1);
 }
 

@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <iostream>
 
 #include "Mesh.h"
 #include "Geometry.h"
@@ -14,8 +15,20 @@ retry:
 		return -1; // end of file
 
 	size_t read_len = strlen(line);
-	if (read_len == 0 || line[0] == '#')
+	if (read_len == 0)
 		goto retry;
+
+	// trim crlf
+	for(;;) {
+		if (line[read_len-1] == '\r' || line[read_len - 1] == '\n') {
+			line[read_len-1] = 0;
+			read_len--;
+			if (read_len == 0)
+				goto retry;
+		} else {
+			break;
+		}
+	}
 
 	return (int)read_len;
 }
@@ -67,6 +80,7 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 
 	g = new Geometry;
 
+	std::string nextname = "default";
 	for (;;) {
 		int len = read_line(infp, line, sizeof(line));
 		if (len < 0)
@@ -81,6 +95,8 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 				}
 				mesh = new Mesh;
 				addedSurfaces = false;
+				mesh->SetName(nextname);
+				nextname = "default";
 			}
 
 			Vertex v;
@@ -125,9 +141,19 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 			}
 
 			mesh->AddSurface(s);
+		} else if (strncmp(line, "mtllib", 6) == 0) {
+			// eat these lines
+		} else if (strncmp(line, "usemtl", 6) == 0) {
+			// eat these lines
+		} else if (strncmp(line, "g ", 2) == 0) {
+			// eat these lines
+		} else if (strncmp(line, "#  ExternalName: ", 17) == 0) {
+			nextname = line + 17;
+		} else if (line[0] == '#') {
+			// consume all other comment lines
 		} else {
 			// unknown
-			fprintf(stderr, "unknown .obj file line '%s'\n", line);
+			std::cerr << "unknown .obj file line '" << line << "'" << std::endl;
 //			assert(0);
 		}
 	}
