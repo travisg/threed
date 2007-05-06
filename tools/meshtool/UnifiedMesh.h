@@ -5,6 +5,7 @@
 
 #include "UnifiedVertex.h"
 #include "UnifiedSurface.h"
+#include <shared/mesh.h>
 
 class Mesh;
 
@@ -20,8 +21,8 @@ public:
 	size_t VertCount() const { return m_Verts.size(); }
 	size_t IndexCount() const;
 
-	void WriteVerts(FILE *outfp) const;
-	void WriteIndexes(FILE *outfp) const;
+	void WriteVerts(FILE *outfp, Vertex_Format) const;
+	void WriteIndexes(FILE *outfp, unsigned int indexWidth) const;
 
 protected:
 	UnifiedVertexList m_Verts;

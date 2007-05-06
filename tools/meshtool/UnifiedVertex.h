@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include "Vertex.h"
+#include <shared/mesh.h>
 #include <vector>
 
 class UnifiedVertex {
@@ -12,7 +13,7 @@ public:
 	Vertex m_Normal;
 	Vertex m_UV;
 
-	void Write(FILE *outfp) const;
+	void Write(FILE *outfp, Vertex_Format f) const;
 };
 
 typedef std::vector<UnifiedVertex> UnifiedVertexList;

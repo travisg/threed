@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "UnifiedMesh.h"
 #include "Mesh.h"
 
@@ -60,20 +61,26 @@ size_t UnifiedMesh::IndexCount() const
 }
 
 
-void UnifiedMesh::WriteVerts(FILE *outfp) const
+void UnifiedMesh::WriteVerts(FILE *outfp, Vertex_Format f) const
 {
 	for (UnifiedVertexListIteratorConst vert_i = m_Verts.begin(); vert_i != m_Verts.end(); vert_i++) {
-		(*vert_i).Write(outfp);
+		(*vert_i).Write(outfp, f);
 	}
 }
 
-void UnifiedMesh::WriteIndexes(FILE *outfp) const
+void UnifiedMesh::WriteIndexes(FILE *outfp, unsigned int indexWidth) const
 {
+	assert(indexWidth == 4 || indexWidth == 2);
+
 	for (UnifiedSurfaceListIteratorConst surface_i = m_Surfaces.begin(); surface_i != m_Surfaces.end(); surface_i++) {
 		for (std::vector<int>::const_iterator i = (*surface_i)->m_Indexes.begin(); i != (*surface_i)->m_Indexes.end(); i++) {
-			unsigned int index = *i;
-
-			fwrite(&index, sizeof(index), 1, outfp);
+			if (indexWidth == 4) {
+				unsigned int index = *i;
+				fwrite(&index, sizeof(index), 1, outfp);
+			} else if (indexWidth == 2) {
+				unsigned short index = *i;
+				fwrite(&index, sizeof(index), 1, outfp);
+			}
 		}
 	}
 }
