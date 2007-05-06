@@ -33,13 +33,16 @@ void Engine::SetRenderer(Renderer &r)
 	mRenderer = &r;
 }
 
+static Spatial *testSpatial;
+
 int Engine::InnerLoop()
 {
 	if (mRenderer->StartFrame() < 0)
 		return -1;
 
 //	mNodeTree->Move(Math::Vector3(0, 0, 0.001f));
-	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
+//	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
+	testSpatial->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
 
 	mNodeTree->UpdateTransform(false);
 	mNodeTree->Render(mRenderer);
@@ -97,12 +100,14 @@ void Engine::SetupDefaultScene()
 
 #endif
 
-	spatial = mResources->ConstructModel("csphereout_default");
+	spatial = mResources->ConstructModel("dudeout_default");
 	assert(spatial);
-	spatial->Move(Math::Vector3(.5f, .5f, 15.0f));
+	spatial->Move(Math::Vector3(0, 0, 2.0f));
 	mNodeTree->AddChild(spatial);
 
-	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
+//	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
+
+	testSpatial = spatial;
 }
 
 }

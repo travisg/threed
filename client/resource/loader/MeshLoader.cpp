@@ -66,7 +66,7 @@ Engine::Spatial *MeshLoader::ConstructSpatial()
 	VertexBuffer *vb = VertexBuffer::CreateVertexBuffer();
 	float *verts = new float[m_header.vertlen / sizeof(float)];
 	fseek(m_fp, m_header.vertoffset, SEEK_SET);
-	fread(verts, m_header.vertlen / sizeof(float), 1, m_fp);
+	fread(verts, m_header.vertlen, 1, m_fp);
 	vb->LoadVertexes(verts, (Vertex_Format)m_header.vert_format, m_header.vertcount);
 	delete[] verts;
 	geom->m_Mesh->SetVertexBuffer(vb);
