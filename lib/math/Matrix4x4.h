@@ -3,21 +3,20 @@
 
 #include <iostream>
 
-class Vector3;
-class Vector4;
-
 namespace Math {
 
+class Vector3;
+class Vector4;
+	
 class Matrix4x4
 {
 public:
-	inline Matrix4x4() {}
-	inline ~Matrix4x4() {}
+	Matrix4x4() {}
 	Matrix4x4(const float[16]);
 
 	/* constructors */
-	Matrix4x4(const Matrix4x4 &v);
-	Matrix4x4 &operator=(const Matrix4x4 &v);
+//	Matrix4x4(const Matrix4x4 &v);
+//	Matrix4x4 &operator=(const Matrix4x4 &v);
 
 	static const Matrix4x4 Identity;
 

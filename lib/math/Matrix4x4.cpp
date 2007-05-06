@@ -17,11 +17,25 @@ std::ostream &operator<<(std::ostream &os, const Matrix4x4 &m)
 
 Matrix4x4::Matrix4x4(const float in[16])
 {
-	for (int i = 0; i < 16; i++)
-		val[i] = in[i];
+	val[0] = in[0];
+	val[1] = in[1];
+	val[2] = in[2];
+	val[3] = in[3];
+	val[4] = in[4];
+	val[5] = in[5];
+	val[6] = in[6];
+	val[7] = in[7];
+	val[8] = in[8];
+	val[9] = in[9];
+	val[10] = in[10];
+	val[11] = in[11];
+	val[12] = in[12];
+	val[13] = in[13];
+	val[14] = in[14];
+	val[15] = in[15];
 }
 
-
+#if 0
 Matrix4x4::Matrix4x4(const Matrix4x4 &m)
 {
 	for (int i = 0; i < 16; i++)
@@ -38,25 +52,11 @@ Matrix4x4 &Matrix4x4::operator=(const Matrix4x4 &m)
 
 	return *this;
 }
+#endif
 
 Matrix4x4 &Matrix4x4::SetIdentity()
 {
-	val[0] = 1;
-	val[1] = 0;
-	val[2] = 0;
-	val[3] = 0;
-	val[4] = 0;
-	val[5] = 1;
-	val[6] = 0;
-	val[7] = 0;
-	val[8] = 0;
-	val[9] = 0;
-	val[10] = 1;
-	val[11] = 0;
-	val[12] = 0;
-	val[13] = 0;
-	val[14] = 0;
-	val[15] = 1;
+	*this = Identity;
 	return *this;
 }
 
@@ -324,9 +324,7 @@ Matrix4x4 &Matrix4x4::operator*=(const Matrix4x4 &m)
 					 val[11] * m.val[14] +
 					 val[15] * m.val[15];
 
-	for (unsigned int i = 0; i < 16; i++)
-		val[i] = result.val[i];
-
+	*this = result;
 	return *this;
 }
 

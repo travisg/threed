@@ -16,7 +16,7 @@ public:
 	static T tan(T val);
 
 private:
-	Math<T>() {}
+	Math<T>();
 };
 
 }
