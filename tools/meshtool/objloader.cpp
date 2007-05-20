@@ -77,10 +77,11 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 	Mesh *mesh = 0;
 	char line[1024];
 	bool addedSurfaces = true; // have we started adding surfaces in the current mesh?
+	int surfacenum = 0;
 
 	g = new Geometry;
 
-	std::string nextname = "default";
+	std::string nextname = "default0";
 	for (;;) {
 		int len = read_line(infp, line, sizeof(line));
 		if (len < 0)
@@ -93,26 +94,29 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 				if (mesh) {
 					g->AddMesh(mesh);
 				}
-				mesh = new Mesh;
+				mesh = g->CreateMesh();
 				addedSurfaces = false;
+				surfacenum++;
 				mesh->SetName(nextname);
-				nextname = "default";
+				char tempname[512];
+				sprintf(tempname, "default%d", surfacenum);
+				nextname = tempname;
 			}
 
 			Vertex v;
 			sscanf(line, "v %f %f %f", &v.x, &v.y, &v.z);
-			mesh->AddVert(v);
+			g->AddVert(v);
 		} else if (strncmp(line, "vn ", 3) == 0) {
 			Vertex v;
 			sscanf(line, "vn %f %f %f", &v.x, &v.y, &v.z);
-			mesh->AddNormalVert(v);
+			g->AddNormalVert(v);
 		} else if (strncmp(line, "vp ", 3) == 0) {
 			// point in space
 			// consume them for now
 		} else if (strncmp(line, "vt ", 3) == 0) {
 			Vertex v;
 			sscanf(line, "vt %f %f", &v.u, &v.v);
-			mesh->AddUVVert(v);
+			g->AddUVVert(v);
 		} else if (strncmp(line, "f ", 2) == 0) {
 			addedSurfaces = true;
 
@@ -134,9 +138,9 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 				if (num_subtokens > 0)
 					posindex = atoi(subtokens[0]);
 				if (num_subtokens > 1)
-					normindex = atoi(subtokens[1]);
+					uvindex = atoi(subtokens[1]);
 				if (num_subtokens > 2)
-					uvindex = atoi(subtokens[2]);
+					normindex = atoi(subtokens[2]);
 				s->AddIndex(posindex - 1, normindex - 1, uvindex - 1);
 			}
 
@@ -146,6 +150,10 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 		} else if (strncmp(line, "usemtl", 6) == 0) {
 			// eat these lines
 		} else if (strncmp(line, "g ", 2) == 0) {
+			// eat these lines
+		} else if (strncmp(line, "s ", 2) == 0) {
+			// eat these lines
+		} else if (strncmp(line, "l ", 2) == 0) {
 			// eat these lines
 		} else if (strncmp(line, "#  ExternalName: ", 17) == 0) {
 			nextname = line + 17;

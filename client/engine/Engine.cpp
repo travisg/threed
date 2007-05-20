@@ -100,14 +100,40 @@ void Engine::SetupDefaultScene()
 
 #endif
 
-	spatial = mResources->ConstructModel("dudeout_default");
+	// plane
+	SceneNode *planenode = new SceneNode();
+	planenode->Move(Math::Vector3(0, 0, 10.0f));
+	planenode->Rotate(Math::Vector3(-1, 1, 0));
+	mNodeTree->AddChild(planenode);
+	
+	spatial = mResources->ConstructModel("plane_default0");
+	assert(spatial);
+	planenode->AddChild(spatial);	
+	spatial = mResources->ConstructModel("plane_default1");
+	assert(spatial);
+	planenode->AddChild(spatial);	
+	spatial = mResources->ConstructModel("plane_default2");
+	assert(spatial);
+	planenode->AddChild(spatial);	
+	spatial = mResources->ConstructModel("plane_default3");
+	assert(spatial);
+	planenode->AddChild(spatial);	
+	spatial = mResources->ConstructModel("plane_default4");
+	assert(spatial);
+	planenode->AddChild(spatial);	
+	spatial = mResources->ConstructModel("plane_default5");
+	assert(spatial);
+	planenode->AddChild(spatial);	
+
+	spatial = mResources->ConstructModel("garr_garr_1");
 	assert(spatial);
 	spatial->Move(Math::Vector3(0, 0, 2.0f));
 	mNodeTree->AddChild(spatial);
 
+	testSpatial = spatial;
+
 //	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 
-	testSpatial = spatial;
 }
 
 }

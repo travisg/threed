@@ -6,7 +6,6 @@
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <d3dtypes.h>
 #include <assert.h>
 
 struct Vertex {
@@ -45,6 +44,14 @@ D3DMesh::D3DMesh(Mesh_Type type)
 		default:
 			assert(0);
 	}
+
+	ZeroMemory(&m_D3DMaterial, sizeof(D3DMATERIAL9));
+	m_D3DMaterial.Diffuse.r = 1.0f;
+	m_D3DMaterial.Diffuse.g = 1.0f;
+	m_D3DMaterial.Diffuse.b = 1.0f;
+	m_D3DMaterial.Ambient.r = 1.0f;
+	m_D3DMaterial.Ambient.g = 1.0f;
+	m_D3DMaterial.Ambient.b = 1.0f;
 }
 
 D3DMesh::~D3DMesh()
@@ -69,7 +76,9 @@ void D3DMesh::Draw(Renderer *r)
 	assert(m_IB);
 	assert(m_VB);
 
+
 	m_IB->Bind(r);
 	m_VB->Bind(r);
-	dr->GetD3DDevice()->DrawIndexedPrimitive((D3DPRIMITIVETYPE)m_D3DType, 0, 0, m_VB->Count(), 0, m_IB->Count() / 3);
+	dr->GetD3DDevice()->SetMaterial(&m_D3DMaterial);
+	dr->GetD3DDevice()->DrawIndexedPrimitive(m_D3DType, 0, 0, m_VB->Count(), 0, m_IB->Count() / 3);
 }

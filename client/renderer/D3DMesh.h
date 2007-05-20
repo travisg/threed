@@ -4,6 +4,8 @@
 class Renderer;
 
 #include <renderer/Mesh.h>
+#include <d3d9.h>
+#include <d3dx9.h>
 
 class D3DMesh : public Mesh
 {
@@ -17,7 +19,8 @@ public:
 
 
 protected:
-	unsigned int m_D3DType;
+	D3DPRIMITIVETYPE m_D3DType;
+	D3DMATERIAL9 m_D3DMaterial;
 };
 
 #endif

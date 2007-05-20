@@ -177,6 +177,37 @@ Matrix4x4 &Matrix4x4::SetRotationZ(float angle)
 	return *this;
 }
 
+Matrix4x4 &Matrix4x4::SetProjectionPerspective(float fovy, float aspect, float nearz, float farz)
+{
+#if USE_DIRECTX
+	// NOTE: same as D3DXMatrixPerspectiveFovLH
+	float yScale = 1.0f / Math<float>::tan(fovy/2);
+	float xScale = yScale / aspect;
+
+	val[0] = xScale;
+	val[1] = 0;
+	val[2] = 0;
+	val[3] = 0;
+	val[4] = 0;
+	val[5] = yScale;
+	val[6] = 0;
+	val[7] = 0;
+	val[8] = 0;
+	val[9] = 0;
+	val[10] = farz/(farz - nearz);
+	val[11] = 1;
+	val[12] = 0;
+	val[13] = 0;
+	val[14] = -nearz * farz/(farz - nearz);
+	val[15] = 0;
+#else
+#error "need right handed perspective matrix"
+#endif
+
+	return *this;
+}
+
+
 Matrix4x4 Matrix4x4::operator*(const Matrix4x4 &m) const
 {
 	Matrix4x4 result;

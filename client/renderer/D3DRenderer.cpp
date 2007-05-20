@@ -6,7 +6,7 @@
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <d3dtypes.h>
+#include <assert.h>
 
 static D3DRenderer *sRenderer;
 
@@ -73,32 +73,52 @@ int D3DRenderer::Initialize()
 	present_parameters.Windowed = true;
 	present_parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	present_parameters.EnableAutoDepthStencil = true;
-	present_parameters.AutoDepthStencilFormat = D3DFMT_D16;
+	present_parameters.AutoDepthStencilFormat = D3DFMT_D24X8;
 	present_parameters.hDeviceWindow = GetActiveWindow();
 	present_parameters.BackBufferWidth = 800;
 	present_parameters.BackBufferHeight = 600;
-	present_parameters.BackBufferFormat = D3DFMT_A8R8G8B8;
+	present_parameters.BackBufferFormat = D3DFMT_UNKNOWN; // use the current format (windowed only)
+	present_parameters.BackBufferCount = 1;
 	present_parameters.MultiSampleType = D3DMULTISAMPLE_NONE;
+	present_parameters.MultiSampleQuality = 0;
 
-	mD3DObject->CreateDevice(D3DADAPTER_DEFAULT,D3DDEVTYPE_HAL,
-           GetActiveWindow(), D3DCREATE_SOFTWARE_VERTEXPROCESSING,
-		   &present_parameters,&mD3DDevice);
+	mD3DObject->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
+           GetActiveWindow(), D3DCREATE_HARDWARE_VERTEXPROCESSING,
+		   &present_parameters, &mD3DDevice);
 
-   D3DXMATRIX              projection_matrix;  //   properties your Direct3D_device will have
+	mProjectionMatrix.SetProjectionPerspective(D3DX_PI / 4.0f, (float) mWidth/mHeight, 1, 1000);
+	mD3DDevice->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(256,256,256));
+	mD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 
+	mD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	mD3DDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
 
-D3DXMatrixPerspectiveFovLH(&projection_matrix, D3DX_PI / 4.0f,(float) mWidth/mHeight,1, 1000);
-mD3DDevice->SetTransform(D3DTS_PROJECTION,&projection_matrix);
-mD3DDevice->SetRenderState(D3DRS_AMBIENT,RGB(255,0,0));
-mD3DDevice->SetRenderState(D3DRS_LIGHTING,false);
+	// Fill in a light structure defining our light
+	static D3DLIGHT9 light;
+	ZeroMemory( &light, sizeof(D3DLIGHT9) );
+	light.Type = D3DLIGHT_POINT;
+	light.Diffuse.r = 1.0f;
+	light.Diffuse.g = 1.0f;
+	light.Diffuse.b = 1.0f;
+	light.Ambient.r = 0.1f;
+	light.Ambient.g = 0.1f;
+	light.Ambient.b = 0.1f;
+//	light.Specular = light.Diffuse;
 
-mD3DDevice->SetRenderState(D3DRS_CULLMODE,D3DCULL_NONE);
+	// Point lights have no direction but do have a position
+	light.Position.x = 5;
+	light.Position.y = 5;
+	light.Position.z = 5;
 
-mD3DDevice->SetRenderState(D3DRS_ZENABLE,D3DZB_TRUE);
-mD3DDevice->SetFVF((D3DFVF_XYZ | D3DFVF_DIFFUSE));
+	// Tell the device about the light and turn it on
+	light.Attenuation0 = 1.0f;
+	light.Range = 1000.0f;
 
-
-
+	HRESULT hr;
+	hr = mD3DDevice->SetLight( 0, &light );
+	assert(SUCCEEDED(hr));
+	hr = mD3DDevice->LightEnable( 0, TRUE );
+	assert(SUCCEEDED(hr));
 
 	return 0;
 }
@@ -115,7 +135,9 @@ int D3DRenderer::StartFrame()
 			break;
 	}
 
-	mD3DDevice->Clear(0,NULL,D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0),1.0f,0);
+	mD3DDevice->SetTransform(D3DTS_PROJECTION, (D3DXMATRIX *)&mProjectionMatrix);
+
+	mD3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
 	mD3DDevice->BeginScene();
 
 	return 0;

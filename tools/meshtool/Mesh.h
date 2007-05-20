@@ -7,25 +7,24 @@
 
 class Mesh {
 public:
-	Mesh();
+	Mesh(const VertexList &posVerts, const VertexList &normalVerts, const VertexList &tangentVerts, const VertexList &uvVerts);
 	virtual ~Mesh();
 
-	void AddVert(const Vertex &v);
-	void AddNormalVert(const Vertex &v);
-	void AddTangentVert(const Vertex &v);
-	void AddUVVert(const Vertex &v);
 	void AddSurface(Surface *s);
 
 	void SetName(const std::string &name);
 	std::string GetName() { return m_Name; }
 
+	void SetVertexLists();
+
 private:
 	std::string m_Name;
 
-	VertexList m_Verts;
-	VertexList m_NormalVerts;
-	VertexList m_TangentVerts;
-	VertexList m_UVVerts;
+	// vertex list, probably shared between multiple meshes
+	const VertexList &m_Verts;
+	const VertexList &m_NormalVerts;
+	const VertexList &m_TangentVerts;
+	const VertexList &m_UVVerts;
 
 	SurfaceList m_Surfaces;
 

@@ -4,7 +4,6 @@
 #include <windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <d3dtypes.h>
 #include <assert.h>
 
 
@@ -66,14 +65,14 @@ int D3DVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, u
 			m_vertexStride = 3*4 + 4;
 			break;
 		case VERT_FORMAT_POS_NORM:
-			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL);
-			m_vertexStride = 6*4;
+			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE); // give it a color
+			m_vertexStride = 6*4 + 4;
 			break;
 		case VERT_FORMAT_POS_NORM_UV:
-			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX0|D3DFVF_DIFFUSE);
-			m_vertexStride = 8*4 + 4;
-//			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX0);
-//			m_vertexStride = 8*4;
+//			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX0|D3DFVF_DIFFUSE);
+//			m_vertexStride = 8*4 + 4;
+			m_FVF = (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX0);
+			m_vertexStride = 8*4;
 			break;
 		default:
 			assert(0);
@@ -90,17 +89,24 @@ int D3DVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, u
 	assert(m_buffer);
 
 	D3DCOLOR *pData;
+//	D3DCOLOR color = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
+	D3DCOLOR color = D3DCOLOR_XRGB(0xff, 0xff, 0xff);
 	m_buffer->Lock(0, 0, (void**)&pData, D3DLOCK_DISCARD);
 
 	if (m_FVF == (D3DFVF_XYZ|D3DFVF_DIFFUSE)) {
 		for (unsigned i = 0; i < count; i++) {
 			memcpy(&pData[i*4], &vertexes[i*3], 3*4);
-			pData[i*4+3] = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
+			pData[i*4+3] = color;
+		}
+	} else if (m_FVF == (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_DIFFUSE)) {
+		for (unsigned i = 0; i < count; i++) {
+			memcpy(&pData[i*7], &vertexes[i*6], 6*4);
+			pData[i*7+6] = color;
 		}
 	} else if (m_FVF == (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX0|D3DFVF_DIFFUSE)) {
 		for (unsigned i = 0; i < count; i++) {
 			memcpy(&pData[m_vertexStride/4 * i], &vertexes[(m_vertexStride-1)/4 * i], m_vertexStride-4);
-			pData[m_vertexStride/4 * i + m_vertexStride/4 - 1] = D3DCOLOR_XRGB(rand() & 0xff, rand() & 0xff, rand() & 0xff);
+			pData[m_vertexStride/4 * i + m_vertexStride/4 - 1] = color;
 		}
 	} else {
 		memcpy(pData, vertexes, m_vertexStride * count);

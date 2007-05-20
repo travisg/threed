@@ -43,6 +43,7 @@
 				AdditionalIncludeDirectories=".;..\lib;C:\programming\SDL-1.2.11\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
+				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
@@ -119,6 +120,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories=".;..\lib;C:\programming\SDL-1.2.11\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				ExceptionHandling="1"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
 				UsePrecompiledHeader="0"
@@ -422,6 +424,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\defines.h"
+			>
+		</File>
 		<File
 			RelativePath=".\main.cpp"
 			>

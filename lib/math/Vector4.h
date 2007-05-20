@@ -1,6 +1,7 @@
 #ifndef __VECTOR4_H
 #define __VECTOR4_H
 
+#include <shared/defines.h>
 #include <ostream>
 
 namespace Math {

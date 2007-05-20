@@ -14,8 +14,6 @@ public:
 
 	virtual void Render(Renderer *r);
 
-	void SetVertices(const float *vertices, unsigned int count);
-
 	// temporary hack
 	void SetDefaultGeometry();
 

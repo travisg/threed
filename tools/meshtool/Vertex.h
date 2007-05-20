@@ -5,8 +5,10 @@
 
 class Vertex {
 public:
-	Vertex();
-	~Vertex();
+	Vertex() {}
+	~Vertex() {}
+	Vertex(float inx, float iny, float inz, float inw) : x(inx), y(iny), z(inz), w(inw) {}
+	Vertex(float inu, float inv) : u(inu), v(inv), z(0), w(0) {}
 
 	union {
 		struct {
@@ -16,6 +18,8 @@ public:
 			float u, v;
 		};
 	};
+
+	static Vertex EmptyVertex;
 };
 
 typedef std::vector<Vertex> VertexList;

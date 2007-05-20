@@ -1,8 +1,12 @@
 #include "Mesh.h"
 
 
-Mesh::Mesh()
-:	m_Name("default")
+Mesh::Mesh(const VertexList &posVerts, const VertexList &normalVerts, const VertexList &tangentVerts, const VertexList &uvVerts)
+:	m_Name("default"),
+	m_Verts(posVerts),
+	m_NormalVerts(normalVerts),
+	m_TangentVerts(tangentVerts),
+	m_UVVerts(uvVerts)
 {
 }
 
@@ -16,26 +20,6 @@ Mesh::~Mesh()
 void Mesh::SetName(const std::string &name)
 {
 	m_Name = name;
-}
-
-void Mesh::AddVert(const Vertex &v)
-{
-	m_Verts.push_back(v);
-}
-
-void Mesh::AddNormalVert(const Vertex &v)
-{
-	m_NormalVerts.push_back(v);
-}
-
-void Mesh::AddTangentVert(const Vertex &v)
-{
-	m_TangentVerts.push_back(v);
-}
-
-void Mesh::AddUVVert(const Vertex &v)
-{
-	m_UVVerts.push_back(v);
 }
 
 void Mesh::AddSurface(Surface *s)

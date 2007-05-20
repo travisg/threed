@@ -1,6 +1,7 @@
 #ifndef __MATRIX4X4_H
 #define __MATRIX4X4_H
 
+#include <shared/defines.h>
 #include <iostream>
 
 namespace Math {
@@ -30,6 +31,7 @@ public:
 	Matrix4x4 &SetRotationX(float angle);
 	Matrix4x4 &SetRotationY(float angle);
 	Matrix4x4 &SetRotationZ(float angle);
+	Matrix4x4 &SetProjectionPerspective(float fovy, float aspect, float nearz, float farz);
 
 	/* operators */
 	Matrix4x4 operator*(const Matrix4x4 &v) const;
@@ -37,6 +39,7 @@ public:
 	Vector4 operator*(const Vector4 &v) const;
 
 	Vector3 Transform(const Vector3 &point) const;
+
 
 private:
 	/* data */

@@ -18,29 +18,60 @@ UnifiedMesh::~UnifiedMesh()
 void UnifiedMesh::CreateFromMesh(const Mesh &mesh)
 {
 	unsigned int currVert = 0;
-	unsigned int currSurf = 0;
+	unsigned int currInSurf = 0;
+	unsigned int currOutSurf = 0;
 
 	// start by building a non optimized list
 	for (SurfaceListIteratorConst surface_i = mesh.m_Surfaces.begin(); surface_i != mesh.m_Surfaces.end(); surface_i++) {
 		Surface *surface = *surface_i;
 
-		UnifiedSurface *usurface = new UnifiedSurface;
-
-		for (SurfaceIndexListIteratorConst index_i = surface->m_Indexes.begin(); index_i != surface->m_Indexes.end(); index_i++) {
-			SurfaceIndex index = *index_i;
-
-			UnifiedVertex uvert;
-			uvert.m_Pos = mesh.m_Verts[index.posIndex];
-			uvert.m_Normal = mesh.m_NormalVerts[index.normIndex];
-			uvert.m_UV = mesh.m_UVVerts[index.uvIndex];
-
-			m_Verts.push_back(uvert);
-			usurface->m_Indexes.push_back(currVert);
-			currVert++;
+		// see if we need to split this surface into triangles
+		if (surface->m_Indexes.size() < 3) {
+			assert(0); // can't deal with this
 		}
 
-		m_Surfaces.push_back(usurface);
-		currSurf++;
+		// for each surface that has > 3 elements, build a triangle fan with a root of the first index
+		// assumes the surface is convex
+		for (unsigned int surfaceoffset = 0; surfaceoffset < surface->m_Indexes.size() - 2; surfaceoffset++) {
+			UnifiedSurface *usurface = new UnifiedSurface;
+
+			SurfaceIndexListIteratorConst index_i = surface->m_Indexes.begin();
+
+			// push the root vert
+			{
+				SurfaceIndex rootindex = *index_i;
+
+				UnifiedVertex uvert;
+				uvert.m_Pos = (rootindex.posIndex >= 0) ? mesh.m_Verts[rootindex.posIndex] : Vertex::EmptyVertex;
+				uvert.m_Normal = (rootindex.normIndex >= 0) ? mesh.m_NormalVerts[rootindex.normIndex] : Vertex::EmptyVertex;
+				uvert.m_UV = (rootindex.uvIndex >= 0) ? mesh.m_UVVerts[rootindex.uvIndex] : Vertex::EmptyVertex;
+
+				m_Verts.push_back(uvert);
+				usurface->m_Indexes.push_back(currVert);
+				currVert++;
+				index_i++;
+			}
+
+			// push the other 2 verts
+			index_i += surfaceoffset;
+			for (int i = 0; i < 2; i++) {
+				SurfaceIndex index = *index_i;
+
+				UnifiedVertex uvert;
+				uvert.m_Pos = (index.posIndex >= 0) ? mesh.m_Verts[index.posIndex] : Vertex::EmptyVertex;
+				uvert.m_Normal = (index.normIndex >= 0) ? mesh.m_NormalVerts[index.normIndex] : Vertex::EmptyVertex;
+				uvert.m_UV = (index.uvIndex >= 0) ? mesh.m_UVVerts[index.uvIndex] : Vertex::EmptyVertex;
+
+				m_Verts.push_back(uvert);
+				usurface->m_Indexes.push_back(currVert);
+				currVert++;
+				index_i++;
+			}
+
+			m_Surfaces.push_back(usurface);
+			currOutSurf++;
+		}
+		currInSurf++;
 	}
 }
 
