@@ -5,6 +5,7 @@
 #include "Mesh.h"
 #include "UnifiedMesh.h"
 #include <shared/mesh.h>
+#include <tinyxml/tinyxml.h>
 
 int dump_geometry_tree(Geometry *geometry, std::string outfile_root)
 {
@@ -51,6 +52,28 @@ int dump_geometry_tree(Geometry *geometry, std::string outfile_root)
 
 		fclose(outfp);
 	}
+
+	return 0;
+}
+
+int dump_geometry_xml(Geometry *geometry, std::string outfile_root)
+{
+	TiXmlDocument doc(outfile_root);
+
+	TiXmlElement rootelement("mesh");
+
+	for (MeshListIteratorConst i = geometry->ListIterator(); i != geometry->ListEnd(); i++) {
+		Mesh *mesh = *i;
+
+		TiXmlElement *e = new TiXmlElement("submesh");
+		e->SetAttribute("name", mesh->GetName());
+
+		rootelement.InsertEndChild(*e);
+	}
+	doc.InsertEndChild(rootelement);
+
+	doc.Print();
+	doc.SaveFile(outfile_root + ".xml");
 
 	return 0;
 }

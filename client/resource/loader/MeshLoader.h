@@ -4,6 +4,7 @@
 #include <resource/loader/Loader.h>
 #include <shared/mesh.h>
 #include <stdio.h>
+#include <tinyxml/tinyxml.h>
 
 class MeshLoader : public Loader {
 public:
@@ -15,8 +16,11 @@ public:
 	virtual Engine::Spatial *ConstructSpatial();
 
 private:
+	std::string m_resourceName;
 	FILE *m_fp;
 	mesh_header m_header;
+	TiXmlDocument m_xmlDoc;
+	int m_meshCount;
 };
 
 #endif

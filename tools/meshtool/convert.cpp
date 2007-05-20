@@ -10,6 +10,7 @@ extern int ac3d_load(FILE *infp);
 extern int obj_load(FILE *infp, Geometry **new_geometry);
 
 extern int dump_geometry_tree(Geometry *geometry, std::string outfile_root);
+extern int dump_geometry_xml(Geometry *geometry, std::string outfile_root);
 
 int convertfile(const char *infile, const char *outfile)
 {
@@ -48,6 +49,9 @@ int convertfile(const char *infile, const char *outfile)
 
 	// dump the output
 	dump_geometry_tree(new_geometry, outfile);
+
+	// dump an xml file describing it
+	dump_geometry_xml(new_geometry, outfile);
 
 	return 0;
 }
