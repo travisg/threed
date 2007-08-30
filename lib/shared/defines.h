@@ -15,6 +15,9 @@ typedef INT64 int64_t;
 #define USE_DIRECTX 1
 #else
 #define USE_OPENGL 1
+
+#include <stdint.h>
+
 #endif
 
 #endif

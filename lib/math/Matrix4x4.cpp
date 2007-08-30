@@ -201,7 +201,7 @@ Matrix4x4 &Matrix4x4::SetProjectionPerspective(float fovy, float aspect, float n
 	val[14] = -nearz * farz/(farz - nearz);
 	val[15] = 0;
 #else
-#error "need right handed perspective matrix"
+#warning "need right handed perspective matrix"
 #endif
 
 	return *this;

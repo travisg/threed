@@ -1,6 +1,8 @@
 TARGET := threed
 BUILDDIR := build
 
+include ../macros.mk
+
 #PROFILE := -pg
 
 OBJDUMP := objdump
@@ -48,16 +50,25 @@ all:: $(BUILDDIR)/$(TARGET)$(BINEXT) $(BUILDDIR)/$(TARGET).lst
 
 OBJS := \
 	main.o \
-	math/Math.o \
-	math/Matrix4x4.o \
-	math/Vector3.o \
-	math/Vector4.o \
 	engine/Engine.o \
 	engine/Geometry.o \
 	engine/SceneNode.o \
 	engine/Spatial.o \
 	renderer/Renderer.o \
-	renderer/VertexBuffer.o
+	renderer/VertexBuffer.o \
+	resource/MeshResource.o \
+	resource/Resource.o \
+	resource/ResourceManager.o \
+	resource/loader/AC3DLoader.o \
+	resource/loader/Loader.o \
+	resource/loader/MeshLoader.o \
+	utils/File.o \
+	utils/FileManager.o \
+	utils/HostFile.o
+
+# some lib includes
+include ../lib/math/rules.mk
+include ../lib/tinyxml/rules.mk
 
 OBJS := $(addprefix $(BUILDDIR)/,$(OBJS))
 
@@ -66,8 +77,8 @@ DEPS := $(OBJS:.o=.d)
 # The main target
 $(BUILDDIR)/$(TARGET)$(BINEXT): $(OBJS)
 	@$(MKDIR)
-	@echo linking $<
-	@$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
+	@echo linking $@
+	$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
 
 # A dissassembly of it
 $(BUILDDIR)/$(TARGET).lst: $(BUILDDIR)/$(TARGET)$(BINEXT)
@@ -83,9 +94,6 @@ clean:
 
 spotless:
 	rm -rf build
-
-# makes sure the target dir exists
-MKDIR = if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi
 
 $(BUILDDIR)/%.o: %.c
 	@$(MKDIR)
