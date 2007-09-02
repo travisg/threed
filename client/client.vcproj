@@ -251,37 +251,41 @@
 				Name="Direct3D"
 				>
 				<File
-					RelativePath=".\renderer\D3DIndexBuffer.cpp"
+					RelativePath=".\renderer\Direct3D\D3DIndexBuffer.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\renderer\D3DIndexBuffer.h"
+					RelativePath=".\renderer\Direct3D\D3DIndexBuffer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\renderer\D3DMesh.cpp"
+					RelativePath=".\renderer\Direct3D\D3DMesh.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\renderer\D3DMesh.h"
+					RelativePath=".\renderer\Direct3D\D3DMesh.h"
 					>
 				</File>
 				<File
-					RelativePath=".\renderer\D3DRenderer.cpp"
+					RelativePath=".\renderer\Direct3D\D3DRenderer.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\renderer\D3DRenderer.h"
+					RelativePath=".\renderer\Direct3D\D3DRenderer.h"
 					>
 				</File>
 				<File
-					RelativePath=".\renderer\D3DVertexBuffer.cpp"
+					RelativePath=".\renderer\Direct3D\D3DVertexBuffer.cpp"
 					>
 				</File>
 				<File
-					RelativePath=".\renderer\D3DVertexBuffer.h"
+					RelativePath=".\renderer\Direct3D\D3DVertexBuffer.h"
 					>
 				</File>
+			</Filter>
+			<Filter
+				Name="OpenGL"
+				>
 			</Filter>
 		</Filter>
 		<Filter

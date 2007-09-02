@@ -1,5 +1,5 @@
 #include <iostream>
-#include <renderer/D3DRenderer.h>
+#include <renderer/Direct3D/D3DRenderer.h>
 #include <SDL/SDL.h>
 #include <SDL/SDL_thread.h>
 

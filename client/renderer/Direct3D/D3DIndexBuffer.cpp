@@ -1,5 +1,5 @@
-#include <renderer/D3DRenderer.h>
-#include <renderer/D3DIndexBuffer.h>
+#include <renderer/Direct3D/D3DRenderer.h>
+#include <renderer/Direct3D/D3DIndexBuffer.h>
 
 #include <windows.h>
 #include <d3d9.h>
