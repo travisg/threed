@@ -133,12 +133,17 @@ int main(int argc, char **argv)
 	e->SetupDefaultScene();
 
 	// main loop
-	for (;;) {
+	bool done = false;
+	while (!done) {
+		if (e->InnerLoop() < 0)
+			break;
+
 		// deal with any pending messages
 		SDL_Event event;
 		if (SDL_PollEvent(&event) != 0) {
 			switch (event.type) {
 			case SDL_QUIT:
+				done = true;
 				break;
 			case SDL_VIDEORESIZE:
 				Renderer::GetRenderer()->ResizeWindow(event.resize.w, event.resize.h);
@@ -151,9 +156,6 @@ int main(int argc, char **argv)
 				break;
 			}
 		}
-
-		if (e->InnerLoop() < 0)
-			break;
 	}
 
 	// XXX tear everything down
