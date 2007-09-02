@@ -24,7 +24,7 @@ endif
 
 # Darwin (Mac OS X) too
 ifeq ($(UNAME),Darwin)
-CFLAGS += -DASM_LEADING_UNDERSCORES=1 -mdynamic-no-pic -I/sw/include -fast
+CFLAGS += -DASM_LEADING_UNDERSCORES=1 -mdynamic-no-pic -I/sw/include
 LDLIBS += 
 endif
 
