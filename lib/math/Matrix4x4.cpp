@@ -1,5 +1,6 @@
 #include <math/Math.h>
 #include <math/Matrix4x4.h>
+#include <assert.h>
 
 namespace Math {
 
@@ -201,7 +202,9 @@ Matrix4x4 &Matrix4x4::SetProjectionPerspective(float fovy, float aspect, float n
 	val[14] = -nearz * farz/(farz - nearz);
 	val[15] = 0;
 #else
-#warning "need right handed perspective matrix"
+	// XXX unimplemented, but probably unnecessary
+	assert(0);
+//#warning "need right handed perspective matrix"
 #endif
 
 	return *this;

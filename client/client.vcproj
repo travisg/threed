@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;$(DXSDK_DIR)lib/x86/d3d9.lib&quot; &quot;$(DXSDK_DIR)lib/x86/d3dx9.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot;"
+				AdditionalDependencies="&quot;C:\programming\SDL-1.2.11\lib\SDLmain.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot; opengl32.lib glu32.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -250,42 +250,46 @@
 			<Filter
 				Name="Direct3D"
 				>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DIndexBuffer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DIndexBuffer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DMesh.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DMesh.h"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DRenderer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DRenderer.h"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DVertexBuffer.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\renderer\Direct3D\D3DVertexBuffer.h"
-					>
-				</File>
 			</Filter>
 			<Filter
 				Name="OpenGL"
 				>
+				<File
+					RelativePath=".\renderer\OpenGL\glinc.h"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLIndexBuffer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLIndexBuffer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLMesh.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLMesh.h"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLRenderer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLRenderer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLVertexBuffer.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLVertexBuffer.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

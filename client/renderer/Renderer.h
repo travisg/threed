@@ -15,7 +15,10 @@ public:
 	virtual int StartFrame() = 0;
 	virtual int EndFrame() = 0;
 
-	virtual void SetWorldMatrix(const Math::Matrix4x4 &mat) = 0;	
+	virtual void SetWorldMatrix(const Math::Matrix4x4 &mat) = 0;
+	virtual void UnsetWorldMatrix() = 0;
+
+	virtual void ResizeWindow(int width, int height) = 0;
 
 protected:
 	virtual int Initialize() = 0;

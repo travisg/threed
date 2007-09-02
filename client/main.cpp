@@ -4,6 +4,7 @@
 #include <math/Math.h>
 #include <engine/Engine.h>
 #include <renderer/Renderer.h>
+#include <SDL/SDL.h>
 
 #if 0
 class Window : public Surface {
@@ -133,6 +134,24 @@ int main(int argc, char **argv)
 
 	// main loop
 	for (;;) {
+		// deal with any pending messages
+		SDL_Event event;
+		if (SDL_PollEvent(&event) != 0) {
+			switch (event.type) {
+			case SDL_QUIT:
+				break;
+			case SDL_VIDEORESIZE:
+				Renderer::GetRenderer()->ResizeWindow(event.resize.w, event.resize.h);
+				break;
+			case SDL_KEYDOWN:
+				printf("keydown\n");
+				break;
+			case SDL_KEYUP:
+				printf("keyup\n");
+				break;
+			}
+		}
+
 		if (e->InnerLoop() < 0)
 			break;
 	}

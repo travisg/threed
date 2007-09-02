@@ -20,6 +20,8 @@ void Geometry::Render(Renderer *r)
 	r->SetWorldMatrix(mWorldTransform);
 
 	m_Mesh->Draw(r);
+
+	r->UnsetWorldMatrix();
 }
 
 void Geometry::SetDefaultGeometry()

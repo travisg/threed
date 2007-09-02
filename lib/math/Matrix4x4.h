@@ -40,6 +40,7 @@ public:
 
 	Vector3 Transform(const Vector3 &point) const;
 
+	operator const float*() const { return val; }
 
 private:
 	/* data */

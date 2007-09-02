@@ -37,8 +37,7 @@ static Spatial *testSpatial;
 
 int Engine::InnerLoop()
 {
-	if (mRenderer->StartFrame() < 0)
-		return -1;
+	mRenderer->StartFrame();
 
 //	mNodeTree->Move(Math::Vector3(0, 0, 0.001f));
 //	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
@@ -103,18 +102,19 @@ void Engine::SetupDefaultScene()
 	// plane
 	Spatial *plane = mResources->ConstructModel("plane");
 	assert(plane);
-	plane->Move(Math::Vector3(0, 0, 10.0f));
+	plane->Move(Math::Vector3(0, 0, -10.0f));
 	plane->Rotate(Math::Vector3(-1, 1, 0));
 	mNodeTree->AddChild(plane);
 
 	spatial = mResources->ConstructModel("dude");
 	assert(spatial);
-	spatial->Move(Math::Vector3(0, 0, 2.0f));
+	spatial->Scale(5.0f);
+	spatial->Move(Math::Vector3(0, 0, 0));
 	mNodeTree->AddChild(spatial);
 	testSpatial = spatial;
 
 
-//	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
+	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 
 }
 
