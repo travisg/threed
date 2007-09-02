@@ -1,14 +1,14 @@
-TARGET := threed
+TARGET := meshtool
 BUILDDIR := build
 
-include ../macros.mk
+include ../../macros.mk
 
 #PROFILE := -pg
 
 OBJDUMP := objdump
 CFLAGS := -O2 -g -I. -Wall -W -Wno-unused-parameter -Wno-multichar -fno-exceptions -finline $(PROFILE)
 LDFLAGS := -g $(PROFILE)
-LDLIBS := -lSDL -lstdc++
+LDLIBS := -lstdc++
 
 UNAME := $(shell uname -s)
 ARCH := $(shell uname -m)
@@ -25,7 +25,7 @@ endif
 # Darwin (Mac OS X) too
 ifeq ($(UNAME),Darwin)
 CFLAGS += -DASM_LEADING_UNDERSCORES=1 -mdynamic-no-pic -I/sw/include -fast
-LDLIBS += -framework Cocoa -framework OpenGL -L/sw/lib -lSDLmain -lstdc++
+LDLIBS += 
 endif
 
 # FreeBSD
@@ -49,33 +49,11 @@ endif
 all:: $(BUILDDIR)/$(TARGET)$(BINEXT) $(BUILDDIR)/$(TARGET).lst
 
 OBJS := \
-	main.o \
-	engine/Engine.o \
-	engine/Geometry.o \
-	engine/SceneNode.o \
-	engine/Spatial.o \
-	renderer/Renderer.o \
-	renderer/VertexBuffer.o \
-	renderer/IndexBuffer.o \
-	renderer/Mesh.o \
-	renderer/OpenGL/GLIndexBuffer.o \
-	renderer/OpenGL/GLMesh.o \
-	renderer/OpenGL/GLRenderer.o \
-	renderer/OpenGL/GLVertexBuffer.o \
-	renderer/OpenGL/glext.o \
-	resource/MeshResource.o \
-	resource/Resource.o \
-	resource/ResourceManager.o \
-	resource/loader/AC3DLoader.o \
-	resource/loader/Loader.o \
-	resource/loader/MeshLoader.o \
-	utils/File.o \
-	utils/FileManager.o \
-	utils/HostFile.o
+	$(subst cpp,o,$(wildcard *.cpp))
 
 # some lib includes
-include ../lib/math/rules.mk
-include ../lib/tinyxml/rules.mk
+include ../../lib/math/rules.mk
+include ../../lib/tinyxml/rules.mk
 
 OBJS := $(addprefix $(BUILDDIR)/,$(OBJS))
 
@@ -86,7 +64,7 @@ $(BUILDDIR)/$(TARGET)$(BINEXT): $(OBJS)
 	@$(MKDIR)
 	@echo linking $@
 	@$(CC) $(LDFLAGS) $(OBJS) -o $@ $(LDLIBS)
-	cp $@ ..
+	cp $@ ../..
 
 # A dissassembly of it
 $(BUILDDIR)/$(TARGET).lst: $(BUILDDIR)/$(TARGET)$(BINEXT)

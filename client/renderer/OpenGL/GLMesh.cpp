@@ -7,7 +7,7 @@
 #include "glinc.h"
 
 struct Vertex {
-	FLOAT x, y, z;
+	float x, y, z;
 };
 static struct Vertex aTriangle[] = {
                          { 0.0f, 1.0f, 0.0f }, // top

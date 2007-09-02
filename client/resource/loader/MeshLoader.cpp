@@ -30,7 +30,7 @@ int MeshLoader::OpenResource(const char *resource)
 {
 	char path[4096];
 
-	sprintf(path, "../resources/mesh/%s.xml", resource);
+	sprintf(path, "resources/mesh/%s.xml", resource);
 
 	// try to open the xml document that describes the mesh
 	if (!m_xmlDoc.LoadFile(path))
@@ -74,7 +74,7 @@ Engine::Spatial *MeshLoader::ConstructSpatial()
 
 		char path[4096];
 
-		sprintf(path, "../resources/mesh/%s_%s.mesh", m_resourceName.c_str(), e->Attribute("name"));
+		sprintf(path, "resources/mesh/%s_%s.mesh", m_resourceName.c_str(), e->Attribute("name"));
 
 		m_fp = fopen(path, "rb");
 		if (!m_fp)
