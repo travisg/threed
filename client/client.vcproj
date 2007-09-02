@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\lib;C:\programming\SDL-1.2.11\include"
+				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.11\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -118,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".;..\lib;C:\programming\SDL-1.2.11\include"
+				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.11\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;$(DXSDK_DIR)lib/x86/d3d9.lib&quot; &quot;$(DXSDK_DIR)lib/x86/d3dx9.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot;"
+				AdditionalDependencies="&quot;C:\programming\SDL-1.2.11\lib\SDLmain.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot; opengl32.lib glu32.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -254,6 +254,10 @@
 			<Filter
 				Name="OpenGL"
 				>
+				<File
+					RelativePath=".\renderer\OpenGL\glext.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\renderer\OpenGL\glinc.h"
 					>

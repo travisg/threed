@@ -4,6 +4,7 @@
 class Renderer;
 
 #include <renderer/Mesh.h>
+#include "glinc.h"
 
 class GLMesh : public Mesh
 {
@@ -17,8 +18,7 @@ public:
 
 
 protected:
-//	D3DPRIMITIVETYPE m_D3DType;
-//	D3DMATERIAL9 m_D3DMaterial;
+	GLenum m_Type;
 };
 
 #endif

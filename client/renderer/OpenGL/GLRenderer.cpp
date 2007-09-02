@@ -78,6 +78,8 @@ int GLRenderer::Initialize()
 	glShadeModel(GL_SMOOTH);									// Select Smooth Shading
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Set Perspective Calculations To Most Accurate
 
+	InitGLExt();
+
 #if 0
 	// set up D3D
 	mD3DObject = Direct3DCreate9(D3D_SDK_VERSION);

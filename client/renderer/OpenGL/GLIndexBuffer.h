@@ -15,11 +15,8 @@ public:
 	// load indexes
 	virtual int LoadIndexes(unsigned int *indexes, unsigned int count);
 
-	// draw (called from GLmesh)
-	void Draw(GLenum mode);
-
 protected:
-	unsigned int *m_Indexes;
+	GLuint m_BufferHandle;
 };
 
 #endif

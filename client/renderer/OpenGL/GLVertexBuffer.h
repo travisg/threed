@@ -2,6 +2,7 @@
 #define __GL_VERTEXBUFFER_H
 
 #include <renderer/VertexBuffer.h>
+#include "glinc.h"
 
 class GLVertexBuffer : public VertexBuffer
 {
@@ -18,7 +19,7 @@ public:
 protected:
 	unsigned int m_vertexStride;
 	unsigned int m_Format;
-	void *m_Buffer;
+	GLuint m_BufferHandle;
 };
 
 #endif

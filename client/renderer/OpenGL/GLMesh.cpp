@@ -29,29 +29,19 @@ Mesh *Mesh::CreateMesh(Mesh_Type type)
 GLMesh::GLMesh(Mesh_Type type)
 :	Mesh(type)
 {
-#if 0
 	switch (type) {
 		case MESH_TYPE_TRIANGLE_LIST:
-			m_D3DType = D3DPT_TRIANGLELIST;
+			m_Type = GL_TRIANGLES;
 			break;
 		case MESH_TYPE_TRIANGLE_MESH:
-			m_D3DType = D3DPT_TRIANGLESTRIP;
+			m_Type = GL_TRIANGLE_STRIP;
 			break;
 		case MESH_TYPE_TRIANGLE_FAN:
-			m_D3DType = D3DPT_TRIANGLEFAN;
+			m_Type = GL_TRIANGLE_FAN;
 			break;
 		default:
 			assert(0);
 	}
-
-	ZeroMemory(&m_D3DMaterial, sizeof(D3DMATERIAL9));
-	m_D3DMaterial.Diffuse.r = 1.0f;
-	m_D3DMaterial.Diffuse.g = 1.0f;
-	m_D3DMaterial.Diffuse.b = 1.0f;
-	m_D3DMaterial.Ambient.r = 1.0f;
-	m_D3DMaterial.Ambient.g = 1.0f;
-	m_D3DMaterial.Ambient.b = 1.0f;
-#endif
 }
 
 GLMesh::~GLMesh()
@@ -76,8 +66,7 @@ void GLMesh::Draw(Renderer *r)
 	assert(m_IB);
 	assert(m_VB);
 
-	glColor3f(1.0f, 0.5f, 1.0f);
 	m_IB->Bind(r);
 	m_VB->Bind(r);
-	((GLIndexBuffer *)m_IB)->Draw(GL_TRIANGLES);
+	glDrawElements(m_Type, m_IB->Count(), GL_UNSIGNED_INT, 0);
 }

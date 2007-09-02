@@ -12,10 +12,16 @@ VertexBuffer *VertexBuffer::CreateVertexBuffer()
 
 GLVertexBuffer::GLVertexBuffer()
 :	VertexBuffer(),
-	m_Buffer(0),
+	m_BufferHandle(0),
 	m_Format(0),
 	m_vertexStride(0)
 {
+}
+
+GLVertexBuffer::~GLVertexBuffer()
+{
+	glDeleteBuffersARB(1, &m_BufferHandle);
+	m_BufferHandle = 0;
 }
 
 // simple xyz vertexes
@@ -81,8 +87,11 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 	m_vertexCount = count;
 	m_bufferSize = m_vertexStride * m_vertexCount;
 
-	// allocate a buffer
-	m_Buffer = new GLbyte[m_bufferSize];
+	glGenBuffersARB(1, &m_BufferHandle);
+	glBindBufferARB(GL_ARRAY_BUFFER, m_BufferHandle);
+	glBufferDataARB(GL_ARRAY_BUFFER, m_bufferSize, NULL, GL_STATIC_DRAW);
+	void *buffer = glMapBufferARB(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+	assert(buffer);
 
 	switch (format) {
 		case VERT_FORMAT_POS_NORM: {
@@ -96,7 +105,7 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 				float normx, normy, normz;
 			};
 			
-			struct target *t = (struct target *)m_Buffer;
+			struct target *t = (struct target *)buffer;
 			const struct src *s = (const struct src *)vertexes;
 			for (unsigned int i = 0; i < m_vertexCount; i++) {
 				t->posx = s->posx;
@@ -118,15 +127,14 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 			assert(0);
 	}
 
-	return 0;
-}
+	glUnmapBufferARB(GL_ARRAY_BUFFER);
 
-GLVertexBuffer::~GLVertexBuffer()
-{
+	return 0;
 }
 
 void GLVertexBuffer::Bind(Renderer *r)
 {
-	glInterleavedArrays(m_Format, 0, m_Buffer);
+	glBindBufferARB(GL_ARRAY_BUFFER, m_BufferHandle);	
+	glInterleavedArrays(m_Format, 0, 0);
 }
 
