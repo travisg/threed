@@ -41,7 +41,7 @@ int Engine::InnerLoop()
 
 //	mNodeTree->Move(Math::Vector3(0, 0, 0.001f));
 //	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
-	testSpatial->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
+//	testSpatial->Rotate(Math::Vector3(0.00f, 0.01f, 0.00f));
 
 	mNodeTree->UpdateTransform(false);
 	mNodeTree->Render(mRenderer);
@@ -106,13 +106,19 @@ void Engine::SetupDefaultScene()
 	plane->Rotate(Math::Vector3(-1, 1, 0));
 	mNodeTree->AddChild(plane);
 
-	spatial = mResources->ConstructModel("dude");
+	spatial = mResources->ConstructModel("garr");
 	assert(spatial);
 	spatial->Scale(5.0f);
-	spatial->Move(Math::Vector3(0, 0, 0));
 	mNodeTree->AddChild(spatial);
+
 	testSpatial = spatial;
 
+	spatial = mResources->ConstructModel("plane");
+	assert(spatial);
+	spatial->Scale(1.5f);
+	spatial->Move(Math::Vector3(-5, 3.0f, -20.0f));
+	spatial->Rotate(Math::Vector3(1, 0, -10));
+	mNodeTree->AddChild(spatial);
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 

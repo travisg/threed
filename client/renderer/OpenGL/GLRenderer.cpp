@@ -177,6 +177,7 @@ int GLRenderer::StartFrame()
 //	glTranslatef(1, 0, 0);
 //	dumpmatrix(GL_MODELVIEW_MATRIX);
 
+#if 0
 	glPushMatrix();
 	glRotatef(rot, 1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLES);								// Begin Drawing Triangles
@@ -202,7 +203,7 @@ int GLRenderer::StartFrame()
 	glVertex3f( 1.0f,-1.0f, 1.0f);				// ...For The 3rd Vertex
 	glEnd();											// Done Drawing Triangles
 	glPopMatrix();
-
+#endif
 
 	return 0;
 }

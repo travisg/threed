@@ -3,6 +3,7 @@
 #include <iostream>
 #include <math/Math.h>
 #include <engine/Engine.h>
+#include <engine/SceneNode.h>
 #include <renderer/Renderer.h>
 #include <SDL/SDL.h>
 
@@ -134,6 +135,11 @@ int main(int argc, char **argv)
 
 	// main loop
 	bool done = false;
+	// mousecontrol
+	enum {
+		MOUSE_CONTROL_WORLD,
+	} mouseControl = MOUSE_CONTROL_WORLD;
+	uint8_t mouseDown = 0;
 	while (!done) {
 		if (e->InnerLoop() < 0)
 			break;
@@ -149,13 +155,28 @@ int main(int argc, char **argv)
 				Renderer::GetRenderer()->ResizeWindow(event.resize.w, event.resize.h);
 				break;
 			case SDL_KEYDOWN:
-				printf("keydown\n");
+				switch (event.key.keysym.sym) {
+					case SDLK_w:
+						mouseControl = MOUSE_CONTROL_WORLD;
+						printf("world mouse control\n");
+						break;
+				}
 				break;
 			case SDL_KEYUP:
-				printf("keyup\n");
+				break;
+			case SDL_MOUSEMOTION:
+//				printf("mousemotion\n");
+				if (mouseDown & SDL_BUTTON_RMASK && mouseControl == MOUSE_CONTROL_WORLD) {
+					e->GetRootNode()->Rotate(Math::Vector3(0, 0, event.motion.xrel / 256.0));
+				} else if (mouseDown & SDL_BUTTON_LMASK && mouseControl == MOUSE_CONTROL_WORLD) {
+					e->GetRootNode()->Rotate(Math::Vector3(event.motion.yrel / 256.0, event.motion.xrel / 256.0, 0));
+				}
 				break;
 			}
 		}
+
+		// get the current mouse state
+		mouseDown = SDL_GetMouseState(NULL, NULL);
 	}
 
 	// XXX tear everything down

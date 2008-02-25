@@ -22,6 +22,9 @@ public:
 
 	int InnerLoop();
 
+	// debug stuff
+	SceneNode *GetRootNode() { return mNodeTree; }
+
 private:
 	Renderer *mRenderer;
 	ResourceManager *mResources;
