@@ -7,6 +7,7 @@ class ResourceManager;
 namespace Engine {
 
 class SceneNode;
+class Camera;
 
 class Engine {
 public:
@@ -24,11 +25,13 @@ public:
 
 	// debug stuff
 	SceneNode *GetRootNode() { return mNodeTree; }
+	Camera *GetCamera() { return mMainCamera; }
 
 private:
 	Renderer *mRenderer;
 	ResourceManager *mResources;
 	SceneNode *mNodeTree;
+	Camera *mMainCamera;
 };
 
 extern Engine *gEngine;

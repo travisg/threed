@@ -27,6 +27,9 @@ public:
 
 	Spatial *mParent;
 
+	// debug
+	void PrintPosition();
+
 protected:
 	// recalculate the world matrix based on the spatial transforms
 	void UpdateWorldMatrix();

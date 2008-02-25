@@ -168,16 +168,19 @@ int GLRenderer::StartFrame()
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(10.0f, 10.f, 10.f, 0, 0, 0, 0, 1, 0);
 
-	static float rot = 0.0f;
-	rot += 0.5f;
+//	dumpmatrix(GL_MODELVIEW_MATRIX);
+//	gluLookAt(10.0f, 10.f, 10.f, 0, 0, 0, 0, 1, 0);
+//	dumpmatrix(GL_MODELVIEW_MATRIX);
 
 //	glLoadIdentity();
 //	glTranslatef(1, 0, 0);
 //	dumpmatrix(GL_MODELVIEW_MATRIX);
 
 #if 0
+	static float rot = 0.0f;
+	rot += 0.5f;
+
 	glPushMatrix();
 	glRotatef(rot, 1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLES);								// Begin Drawing Triangles
@@ -215,6 +218,11 @@ int GLRenderer::EndFrame()
 
 	SDL_GL_SwapBuffers();
 	return 0;
+}
+
+void GLRenderer::SetViewMatrix(const Math::Matrix4x4 &mat)
+{
+	glMultMatrixf(mat);
 }
 
 void GLRenderer::SetWorldMatrix(const Math::Matrix4x4 &mat)

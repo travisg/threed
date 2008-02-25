@@ -180,6 +180,14 @@
 			Name="engine"
 			>
 			<File
+				RelativePath=".\engine\Camera.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\engine\Camera.h"
+				>
+			</File>
+			<File
 				RelativePath=".\engine\Engine.cpp"
 				>
 			</File>

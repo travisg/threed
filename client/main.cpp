@@ -4,6 +4,7 @@
 #include <math/Math.h>
 #include <engine/Engine.h>
 #include <engine/SceneNode.h>
+#include <engine/Camera.h>
 #include <renderer/Renderer.h>
 #include <SDL/SDL.h>
 
@@ -137,8 +138,9 @@ int main(int argc, char **argv)
 	bool done = false;
 	// mousecontrol
 	enum {
+		MOUSE_CONTROL_CAMERA,
 		MOUSE_CONTROL_WORLD,
-	} mouseControl = MOUSE_CONTROL_WORLD;
+	} mouseControl = MOUSE_CONTROL_CAMERA;
 	uint8_t mouseDown = 0;
 	while (!done) {
 		if (e->InnerLoop() < 0)
@@ -160,16 +162,46 @@ int main(int argc, char **argv)
 						mouseControl = MOUSE_CONTROL_WORLD;
 						printf("world mouse control\n");
 						break;
+					case SDLK_c:
+						mouseControl = MOUSE_CONTROL_CAMERA;
+						printf("camera mouse control\n");
+						break;
+					default:
+						;
 				}
 				break;
 			case SDL_KEYUP:
 				break;
 			case SDL_MOUSEMOTION:
 //				printf("mousemotion\n");
-				if (mouseDown & SDL_BUTTON_RMASK && mouseControl == MOUSE_CONTROL_WORLD) {
-					e->GetRootNode()->Rotate(Math::Vector3(0, 0, event.motion.xrel / 256.0));
-				} else if (mouseDown & SDL_BUTTON_LMASK && mouseControl == MOUSE_CONTROL_WORLD) {
-					e->GetRootNode()->Rotate(Math::Vector3(event.motion.yrel / 256.0, event.motion.xrel / 256.0, 0));
+				if (mouseControl == MOUSE_CONTROL_CAMERA) {
+					if (mouseDown & SDL_BUTTON_LMASK) {
+						e->GetCamera()->Move(Math::Vector3(event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
+						e->GetCamera()->PrintPosition();
+					}
+					if (mouseDown & SDL_BUTTON_RMASK) {
+						e->GetCamera()->Rotate(Math::Vector3(event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
+						e->GetCamera()->PrintPosition();
+					}
+				}
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+				if (mouseControl == MOUSE_CONTROL_CAMERA) {
+					if (mouseDown & SDL_BUTTON_LMASK && event.button.button == SDL_BUTTON_WHEELDOWN) {
+						e->GetCamera()->Move(Math::Vector3(0, 0, 1.0f));
+						e->GetCamera()->PrintPosition();
+					}
+					if (mouseDown & SDL_BUTTON_LMASK && event.button.button == SDL_BUTTON_WHEELUP) {
+						e->GetCamera()->Move(Math::Vector3(0, 0, -1.0f));
+						e->GetCamera()->PrintPosition();
+					}
+
+					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELDOWN) {
+						e->GetCamera()->Rotate(Math::Vector3(0, 0, 0.1f));
+					}
+					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELUP) {
+						e->GetCamera()->Rotate(Math::Vector3(0, 0, -0.1f));
+					}
 				}
 				break;
 			}

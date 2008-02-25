@@ -1,3 +1,4 @@
+#include <iostream>
 #include <engine/Spatial.h>
 
 namespace Engine {
@@ -95,6 +96,11 @@ void Spatial::UpdateWorldMatrix()
 	mDirty = false;
 
 //	std::cout << "UpdateWorldMatrix: mWorldTransform \n" << mWorldTransform << "\n";
+}
+
+void Spatial::PrintPosition()
+{
+	std::cout << mLocalTranslate << std::endl;
 }
 
 }

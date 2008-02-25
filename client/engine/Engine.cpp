@@ -1,6 +1,7 @@
 #include <engine/Engine.h>
 #include <engine/SceneNode.h>
 #include <engine/Geometry.h>
+#include <engine/Camera.h>
 #include <renderer/Renderer.h>
 #include <resource/ResourceManager.h>
 #include <assert.h>
@@ -12,7 +13,8 @@ Engine *gEngine;
 
 Engine::Engine()
 :	mRenderer(0),
-	mResources(0)
+	mResources(0),
+	mMainCamera(0)
 {
 	mNodeTree = new SceneNode;
 	mResources = new ResourceManager;
@@ -43,6 +45,11 @@ int Engine::InnerLoop()
 //	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
 //	testSpatial->Rotate(Math::Vector3(0.00f, 0.01f, 0.00f));
 
+	// set up the main camera
+	mMainCamera->UpdateTransform(false);
+	mMainCamera->Render(mRenderer);
+
+	// update the scene graph
 	mNodeTree->UpdateTransform(false);
 	mNodeTree->Render(mRenderer);
 
@@ -122,6 +129,8 @@ void Engine::SetupDefaultScene()
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 
+	// create a camera to look through
+	mMainCamera = new Camera();
 }
 
 }

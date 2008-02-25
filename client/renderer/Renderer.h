@@ -15,6 +15,8 @@ public:
 	virtual int StartFrame() = 0;
 	virtual int EndFrame() = 0;
 
+	virtual void SetViewMatrix(const Math::Matrix4x4 &mat) = 0;
+
 	virtual void SetWorldMatrix(const Math::Matrix4x4 &mat) = 0;
 	virtual void UnsetWorldMatrix() = 0;
 
