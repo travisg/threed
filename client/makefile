@@ -50,6 +50,7 @@ all:: $(BUILDDIR)/$(TARGET)$(BINEXT) $(BUILDDIR)/$(TARGET).lst
 
 OBJS := \
 	main.o \
+	engine/Camera.o \
 	engine/Engine.o \
 	engine/Geometry.o \
 	engine/SceneNode.o \

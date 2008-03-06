@@ -20,7 +20,7 @@ GLVertexBuffer::GLVertexBuffer()
 
 GLVertexBuffer::~GLVertexBuffer()
 {
-	glDeleteBuffersARB(1, &m_BufferHandle);
+	glDeleteBuffers(1, &m_BufferHandle);
 	m_BufferHandle = 0;
 }
 
@@ -87,10 +87,10 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 	m_vertexCount = count;
 	m_bufferSize = m_vertexStride * m_vertexCount;
 
-	glGenBuffersARB(1, &m_BufferHandle);
-	glBindBufferARB(GL_ARRAY_BUFFER, m_BufferHandle);
-	glBufferDataARB(GL_ARRAY_BUFFER, m_bufferSize, NULL, GL_STATIC_DRAW);
-	void *buffer = glMapBufferARB(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+	glGenBuffers(1, &m_BufferHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, m_BufferHandle);
+	glBufferData(GL_ARRAY_BUFFER, m_bufferSize, NULL, GL_STATIC_DRAW);
+	void *buffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	assert(buffer);
 
 	switch (format) {
@@ -127,14 +127,14 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 			assert(0);
 	}
 
-	glUnmapBufferARB(GL_ARRAY_BUFFER);
+	glUnmapBuffer(GL_ARRAY_BUFFER);
 
 	return 0;
 }
 
 void GLVertexBuffer::Bind(Renderer *r)
 {
-	glBindBufferARB(GL_ARRAY_BUFFER, m_BufferHandle);	
+	glBindBuffer(GL_ARRAY_BUFFER, m_BufferHandle);	
 	glInterleavedArrays(m_Format, 0, 0);
 }
 
