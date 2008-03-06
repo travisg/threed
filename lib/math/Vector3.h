@@ -46,6 +46,8 @@ public:
 	float Dot(const Vector3 &v) const;
 	friend float Dot(const Vector3 &v1, const Vector3 &v2);
 
+	operator const float*() const { return &x; }
+
 private:
 	/* data */
 	float x, y, z, _w;

@@ -46,6 +46,8 @@ public:
 	friend float Dot(const Vector4 &v1, const Vector4 &v2);
 	void Normalize();
 
+	operator const float*() const { return &x; }
+
 private:
 	/* data */
 	float x, y, z, w;

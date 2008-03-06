@@ -48,7 +48,7 @@ int Engine::InnerLoop()
 
 	Math::Matrix4x4 proj;
 	proj.SetProjectionPerspective(Math::DegreeToRadians(45.0f * mMainCamera->GetZoom()), (float)(mRenderer->GetWindowWidth())/(float)(mRenderer->GetWindowHeight()), 1.0f, 1000.0f);
-	std::cout << proj << std::endl;
+//	std::cout << proj << std::endl;
 //	proj.SetProjectionOrtho(0, (float)(mRenderer->GetWindowWidth()), 0, (float)(mRenderer->GetWindowHeight()), 1.0f, 100.0f);
 	mRenderer->SetProjMatrix(proj);
 

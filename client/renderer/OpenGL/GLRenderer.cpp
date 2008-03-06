@@ -8,6 +8,30 @@
 
 static GLRenderer *sRenderer;
 
+const char testvshader[] = 
+"varying vec3 color;\n"
+"varying vec3 normal;\n"
+"varying vec4 pos;\n"
+"void main()\n"
+"{\n"
+"	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\n"
+"	pos = gl_Position;\n"
+"	color = gl_Color.xyz;\n"
+"	normal = gl_Normal;\n"
+"}\n";
+
+const char testfshader[] = 
+"uniform vec3 sunvec;\n"
+"varying vec3 color;\n"
+"varying vec3 normal;\n"
+"varying vec4 pos;\n"
+"void main()\n"
+"{\n"
+"	vec3 c = color * dot(normal, sunvec);"
+"	gl_FragColor =  vec4(c, 1.0);\n"
+"}\n";
+
+
 Renderer *Renderer::CreateRenderer()
 {
 	Renderer *r;
@@ -71,6 +95,17 @@ int GLRenderer::Initialize()
 
 	SDL_WM_SetCaption("ThreeD","ThreeD");
 
+	InitGLExt();
+
+	const char *str = (const char *)glGetString(GL_VERSION);
+	std::cout << "GL Version String: " << str << std::endl;
+
+	str = (const char *)glGetString(GL_EXTENSIONS);
+	std::cout << "GL Extension String: " << str << std::endl;
+
+	str = (const char *)glGetString(GL_SHADING_LANGUAGE_VERSION);
+	std::cout << "GL Shader Version String: " << str << std::endl;
+
 	glClearColor(0.0f,0.0f,0.0f,0.5f);							// Black Background
 	glClearDepth(1.0f);											// Depth Buffer Setup
 	glDepthFunc(GL_LEQUAL);										// The Type Of Depth Testing (Less Or Equal)
@@ -78,64 +113,59 @@ int GLRenderer::Initialize()
 	glShadeModel(GL_SMOOTH);									// Select Smooth Shading
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Set Perspective Calculations To Most Accurate
 
-	InitGLExt();
+	// vertex shader
+	GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
+	const GLchar *shaderptr = (const GLchar *)testvshader;
+	glShaderSource(vshader, 1, &shaderptr, NULL);
+	glCompileShader(vshader);
+	GLint success;
+	glGetShaderiv(vshader, GL_COMPILE_STATUS, &success);
+	char resultstr[1024];
+	GLsizei len;
+	glGetShaderInfoLog(vshader, sizeof(resultstr), &len, resultstr);
 
-#if 0
-	// set up D3D
-	mD3DObject = Direct3DCreate9(D3D_SDK_VERSION);
+	assert(success == GL_TRUE);
 
-	D3DPRESENT_PARAMETERS   present_parameters;
-	ZeroMemory(&present_parameters, sizeof(present_parameters));
-	present_parameters.Windowed = true;
-	present_parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
-	present_parameters.EnableAutoDepthStencil = true;
-	present_parameters.AutoDepthStencilFormat = D3DFMT_D24X8;
-	present_parameters.hDeviceWindow = GetActiveWindow();
-	present_parameters.BackBufferWidth = 800;
-	present_parameters.BackBufferHeight = 600;
-	present_parameters.BackBufferFormat = D3DFMT_UNKNOWN; // use the current format (windowed only)
-	present_parameters.BackBufferCount = 1;
-	present_parameters.MultiSampleType = D3DMULTISAMPLE_NONE;
-	present_parameters.MultiSampleQuality = 0;
+	// fragment shader
+	GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
+	shaderptr = (const GLchar *)testfshader;
+	glShaderSource(fshader, 1, &shaderptr, NULL);
+	glCompileShader(fshader);
+	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success);
+	glGetShaderInfoLog(fshader, sizeof(resultstr), &len, resultstr);
 
-	mD3DObject->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL,
-           GetActiveWindow(), D3DCREATE_HARDWARE_VERTEXPROCESSING,
-		   &present_parameters, &mD3DDevice);
+	assert(success == GL_TRUE);
 
-	mProjectionMatrix.SetProjectionPerspective(D3DX_PI / 4.0f, (float) mWidth/mHeight, 1, 1000);
-	mD3DDevice->SetRenderState(D3DRS_AMBIENT, D3DCOLOR_XRGB(256,256,256));
-	mD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+	// program
+	GLuint program = glCreateProgram();
+	glAttachShader(program, vshader);
+	glAttachShader(program, fshader);
+	glLinkProgram(program);
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	glGetProgramInfoLog(program, sizeof(resultstr), &len, resultstr);
 
-	mD3DDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	mD3DDevice->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+	assert(success == GL_TRUE);
 
-	// Fill in a light structure defining our light
-	static D3DLIGHT9 light;
-	ZeroMemory( &light, sizeof(D3DLIGHT9) );
-	light.Type = D3DLIGHT_POINT;
-	light.Diffuse.r = 1.0f;
-	light.Diffuse.g = 1.0f;
-	light.Diffuse.b = 1.0f;
-	light.Ambient.r = 0.1f;
-	light.Ambient.g = 0.1f;
-	light.Ambient.b = 0.1f;
-//	light.Specular = light.Diffuse;
+	GLint uniforms;
+	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &uniforms);
 
-	// Point lights have no direction but do have a position
-	light.Position.x = 5;
-	light.Position.y = 5;
-	light.Position.z = 5;
+	glUseProgram(program);
 
-	// Tell the device about the light and turn it on
-	light.Attenuation0 = 1.0f;
-	light.Range = 1000.0f;
+	for (int i = 0; i < uniforms; i++) {
+		char uname[1024];
+		GLsizei len;
+		GLint size;
+		GLenum type;
+		glGetActiveUniform(program, i, sizeof(uname), &len, &size, &type, uname);
 
-	HRESULT hr;
-	hr = mD3DDevice->SetLight( 0, &light );
-	assert(SUCCEEDED(hr));
-	hr = mD3DDevice->LightEnable( 0, TRUE );
-	assert(SUCCEEDED(hr));
-#endif
+		if (strcmp(uname, "sunvec") == 0) {
+			GLint location = glGetUniformLocation(program, uname);
+			glUniform3f(location, 1.0, 1.0, 1.0);
+		}
+
+		std::cout << uname << std::endl;
+	}
+
 	return 0;
 }
 
@@ -224,7 +254,6 @@ void GLRenderer::SetProjMatrix(const Math::Matrix4x4 &mat)
 {
 	glMatrixMode(GL_PROJECTION);
 	glLoadMatrixf(mat);
-	dumpmatrix(GL_PROJECTION_MATRIX);
 	glMatrixMode(GL_MODELVIEW);
 }
 
@@ -243,36 +272,3 @@ void GLRenderer::UnsetWorldMatrix()
 {
 	glPopMatrix();
 }
-
-#if 0
-void GLRenderer::Draw(Engine::Geometry *geo)
-{
-   struct IDirect3DVertexBuffer9 *tri_buffer = NULL;  //data buffer which the Direct3D_device can draw from
-   VOID* pData;                                //pointer to beginning of vertex buffer
-   //actual data to be fed to the vertex buffer
-   struct Vertex {
-		FLOAT x, y, z;
-		unsigned int diffuse;
-		unsigned int pad[4];
-   };
-   static struct Vertex aTriangle[] = {
-							 {-2.0f,1.0f,10.0f,D3DCOLOR_XRGB(0xff,0,0)},
-                             {-3.0f,-1.0f,10.0f,D3DCOLOR_XRGB(0,0xff,0)},
-                             {-1.0f,-1.0f,10.0f,D3DCOLOR_XRGB(0,0,0xff)},
-                             {-0.0f,-2.0f,10.0f,D3DCOLOR_XRGB(0xff,0,0xff)},
-                             {1.0f,-3.0f,10.0f,D3DCOLOR_XRGB(0xff,0xff,0xff)},
-   };
-
-//	aTriangle[2].y += 0.1f;
-
-	mD3DDevice->CreateVertexBuffer(sizeof(aTriangle),D3DUSAGE_WRITEONLY,
-										(D3DFVF_XYZ|D3DFVF_DIFFUSE),
-										D3DPOOL_MANAGED,&tri_buffer,NULL);
-	tri_buffer->Lock(0,sizeof(pData),(void**)&pData,0);
-	memcpy(pData,aTriangle,sizeof(aTriangle));
-	tri_buffer->Unlock();
-
-	mD3DDevice->SetStreamSource(0,tri_buffer,0,sizeof(D3DVERTEX));
-	mD3DDevice->DrawPrimitive(D3DPT_TRIANGLEFAN,0,3);
-}
-#endif
