@@ -28,6 +28,10 @@ Vector3 Vector3::operator-(const Vector3 &f) const
 	return Vector3(x - f.x, y - f.y, z - f.z);
 }
 
+Vector3 Vector3::operator-() const
+{
+	return Vector3(-x, -y, -z);
+}
 
 Vector3 &Vector3::operator-=(const Vector3 &f)
 {

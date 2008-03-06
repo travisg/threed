@@ -202,14 +202,59 @@ Matrix4x4 &Matrix4x4::SetProjectionPerspective(float fovy, float aspect, float n
 	val[14] = -nearz * farz/(farz - nearz);
 	val[15] = 0;
 #else
-	// XXX unimplemented, but probably unnecessary
-	assert(0);
-//#warning "need right handed perspective matrix"
+	// NOTE: same as gluPerspective, but in radians
+	float f = 1.0f / Math<float>::tan(fovy / 2.0f);
+
+	val[0] = f / aspect;
+	val[1] = 0;
+	val[2] = 0;
+	val[3] = 0;
+	val[4] = 0;
+	val[5] = f;
+	val[6] = 0;
+	val[7] = 0;
+	val[8] = 0;
+	val[9] = 0;
+	val[10] = (farz + nearz) / (nearz - farz);
+	val[11] = (2 * farz * nearz) / (nearz - farz);
+	val[12] = 0;
+	val[13] = 0;
+	val[14] = -1.0;
+	val[15] = 0;
 #endif
 
 	return *this;
 }
 
+Matrix4x4 &Matrix4x4::SetProjectionOrtho(float left, float right, float bottom, float top, float nearz, float farz)
+{
+#if USE_DIRECTX
+	assert(0);
+#else
+	float tx = - (right + left) / (right - left);
+	float ty = - (top + bottom) / (top - bottom);
+	float tz = - (farz + nearz) / (farz - nearz);
+
+	val[0] = 2.0f / (right - left);
+	val[1] = 0;
+	val[2] = 0;
+	val[3] = tx;
+	val[4] = 0;
+	val[5] = 2.0f / (top - bottom);
+	val[6] = 0;
+	val[7] = ty;
+	val[8] = 0;
+	val[9] = 0;
+	val[10] = (-2.0f) / (farz - nearz);
+	val[11] = tz;
+	val[12] = 0;
+	val[13] = 0;
+	val[14] = 0;
+	val[15] = 1;
+#endif
+
+	return *this;
+}
 
 Matrix4x4 Matrix4x4::operator*(const Matrix4x4 &m) const
 {
@@ -360,6 +405,33 @@ Matrix4x4 &Matrix4x4::operator*=(const Matrix4x4 &m)
 
 	*this = result;
 	return *this;
+}
+
+Matrix4x4 Matrix4x4::Inverse() const
+{
+	Matrix4x4 result;
+
+	result.val[0] = val[0];
+	result.val[1] = val[4];
+	result.val[2] = val[8];
+	result.val[3] = val[12];
+
+	result.val[4] = val[1];
+	result.val[5] = val[5];
+	result.val[6] = val[9];
+	result.val[7] = val[13];
+
+	result.val[8] = val[2];
+	result.val[9] = val[6];
+	result.val[10] = val[10];
+	result.val[11] = val[14];
+
+	result.val[12] = val[3];
+	result.val[13] = val[7];
+	result.val[14] = val[11];
+	result.val[15] = val[15];
+
+	return result;
 }
 
 Vector4 Matrix4x4::operator*(const Vector4 &v) const

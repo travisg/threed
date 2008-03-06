@@ -2,6 +2,7 @@
 #include <engine/SceneNode.h>
 #include <engine/Geometry.h>
 #include <engine/Camera.h>
+#include <Math/Math.h>
 #include <renderer/Renderer.h>
 #include <resource/ResourceManager.h>
 #include <assert.h>
@@ -45,8 +46,13 @@ int Engine::InnerLoop()
 //	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
 //	testSpatial->Rotate(Math::Vector3(0.00f, 0.01f, 0.00f));
 
+	Math::Matrix4x4 proj;
+	proj.SetProjectionPerspective(Math::DegreeToRadians(45.0f * mMainCamera->GetZoom()), (float)(mRenderer->GetWindowWidth())/(float)(mRenderer->GetWindowHeight()), 1.0f, 1000.0f);
+	std::cout << proj << std::endl;
+//	proj.SetProjectionOrtho(0, (float)(mRenderer->GetWindowWidth()), 0, (float)(mRenderer->GetWindowHeight()), 1.0f, 100.0f);
+	mRenderer->SetProjMatrix(proj);
+
 	// set up the main camera
-	mMainCamera->UpdateTransform(false);
 	mMainCamera->Render(mRenderer);
 
 	// update the scene graph
@@ -131,6 +137,7 @@ void Engine::SetupDefaultScene()
 
 	// create a camera to look through
 	mMainCamera = new Camera();
+	mMainCamera->SetPos(Math::Vector3(2, 2, 5));
 }
 
 }

@@ -162,8 +162,8 @@ int GLRenderer::StartFrame()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 //	dumpmatrix(GL_PROJECTION_MATRIX);
-//	glOrtho(0, mWidth, 0, mHeight, 1.0f, 100.0f);
-	gluPerspective(45.0f,(GLfloat)(mWidth)/(GLfloat)(mHeight),1.0f,1000.0f);	// Calculate The Aspect Ratio Of The Window
+//	glOrtho(0, mWidth, 0, mHeight, 1.0f, 1000.0f);
+//	gluPerspective(45.0f,(GLfloat)(mWidth)/(GLfloat)(mHeight),1.0f,1000.0f);	// Calculate The Aspect Ratio Of The Window
 //	dumpmatrix(GL_PROJECTION_MATRIX);
 
 	glMatrixMode(GL_MODELVIEW);
@@ -218,6 +218,14 @@ int GLRenderer::EndFrame()
 
 	SDL_GL_SwapBuffers();
 	return 0;
+}
+
+void GLRenderer::SetProjMatrix(const Math::Matrix4x4 &mat)
+{
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(mat);
+	dumpmatrix(GL_PROJECTION_MATRIX);
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void GLRenderer::SetViewMatrix(const Math::Matrix4x4 &mat)

@@ -44,6 +44,7 @@ public:
 	float LengthSquared() const;
 	float Dot(const Vector4 &v) const;
 	friend float Dot(const Vector4 &v1, const Vector4 &v2);
+	void Normalize();
 
 private:
 	/* data */

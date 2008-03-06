@@ -20,6 +20,13 @@ private:
 	Math<T>();
 };
 
+#define F_PI 3.14159f
+
+inline float DegreeToRadians(float deg)
+{
+	return (deg * F_PI) / 180.0f;
+}
+
 }
 
 #endif

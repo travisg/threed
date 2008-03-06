@@ -14,6 +14,7 @@ public:
 	virtual int StartFrame();
 	virtual int EndFrame();
 
+	virtual void SetProjMatrix(const Math::Matrix4x4 &mat);
 	virtual void SetViewMatrix(const Math::Matrix4x4 &mat);
 	virtual void SetWorldMatrix(const Math::Matrix4x4 &mat);
 	virtual void UnsetWorldMatrix();
@@ -25,6 +26,8 @@ public:
 
 //	struct IDirect3DDevice9 *GetD3DDevice() { return mD3DDevice; }
 
+	virtual unsigned int GetWindowWidth() { return mWidth; };
+	virtual unsigned int GetWindowHeight() { return mHeight; } ;
 
 protected:
 	virtual int Initialize();

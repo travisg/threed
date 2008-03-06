@@ -7,17 +7,25 @@
 
 namespace Engine {
 
-class Camera : public Spatial {
+class Camera {
 public:
 	Camera();
 	virtual ~Camera();
 
-	virtual void Render(Renderer *r);
+	void Render(Renderer *r);
+
+	void SetPos(const Math::Vector3 &pos);
+	void Move(const Math::Vector3 &trans);
+	void PrintPosition();
+
+	void SetZoom(float zoom) { mZoom = zoom; }
+	void Zoom(float zoom) { mZoom += zoom; }
+	float GetZoom() const { return mZoom; }
 
 protected:
-
-
-
+	Math::Vector3 mPos;
+	Math::Vector3 mUp;
+	float mZoom;
 };
 
 }
