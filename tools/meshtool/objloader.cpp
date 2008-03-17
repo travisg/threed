@@ -33,34 +33,49 @@ retry:
 	return (int)read_len;
 }
 
-static int tokenize(char *str, const char token, char **tokens, int num_tokens)
+static int tokenize(char *str, const char sep, char **tokens, int num_tokens)
 {
 	int pos = 0;
 	int curr_token = -1;
 	enum {
-		IN_SPACE,
+		INITIAL,
+		SEEN_SEP,
+		IN_SEP,
 		IN_TOKEN
-	} state = IN_SPACE;
+	} state = INITIAL;
 
 	for(;;) {
 		if (str[pos] == 0)
 			break;
 
 		switch (state) {
-			case IN_SPACE:
-				if (str[pos] != token) {
+			case INITIAL:
+				if (str[pos] == sep) {
+					state = IN_SEP;
+				} else {
+					// start a token
+					tokens[++curr_token] = &str[pos];
+					state = IN_TOKEN;
+				}
+				break;
+			case SEEN_SEP:
+				str[pos] = 0;
+				pos++;
+				state = IN_SEP;
+				break;
+			case IN_SEP:
+				if (str[pos] == sep) {
+					tokens[++curr_token] = &str[pos];
+					str[pos++] = 0;
+				} else {
 					// transition out of space and start a new token
 					tokens[++curr_token] = &str[pos];
 					state = IN_TOKEN;
-				} else {
-					// null all spaces
-					str[pos] = 0;
-					pos++;
 				}
 				break;
 			case IN_TOKEN:
-				if (str[pos] == token) {
-					state = IN_SPACE;
+				if (str[pos] == sep) {
+					state = SEEN_SEP;
 				} else {
 					pos++;
 				}
@@ -77,6 +92,7 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 	Mesh *mesh = 0;
 	char line[1024];
 	bool addedSurfaces = true; // have we started adding surfaces in the current mesh?
+	bool seenUnsupp = false;
 	int surfacenum = 0;
 
 	g = new Geometry;
@@ -101,6 +117,10 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 				char tempname[512];
 				sprintf(tempname, "default%d", surfacenum);
 				nextname = tempname;
+			} else if (seenUnsupp) {
+				// 
+
+
 			}
 
 			Vertex v;
@@ -155,6 +175,10 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 			// eat these lines
 		} else if (strncmp(line, "l ", 2) == 0) {
 			// eat these lines
+			seenUnsupp = true;
+		} else if (strncmp(line, "p ", 2) == 0) {
+			// eat these lines
+			seenUnsupp = true;
 		} else if (strncmp(line, "#  ExternalName: ", 17) == 0) {
 			nextname = line + 17;
 		} else if (line[0] == '#') {
