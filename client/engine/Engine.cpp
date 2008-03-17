@@ -44,7 +44,7 @@ int Engine::InnerLoop()
 
 //	mNodeTree->Move(Math::Vector3(0, 0, 0.001f));
 //	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
-//	testSpatial->Rotate(Math::Vector3(0.00f, 0.01f, 0.00f));
+	testSpatial->Rotate(Math::Vector3(0.00f, 0.01f, 0.00f));
 
 	Math::Matrix4x4 proj;
 	proj.SetProjectionPerspective(Math::DegreeToRadians(45.0f * mMainCamera->GetZoom()), (float)(mRenderer->GetWindowWidth())/(float)(mRenderer->GetWindowHeight()), 1.0f, 1000.0f);
@@ -119,7 +119,7 @@ void Engine::SetupDefaultScene()
 	plane->Rotate(Math::Vector3(-1, 1, 0));
 	mNodeTree->AddChild(plane);
 
-	spatial = mResources->ConstructModel("garr");
+	spatial = mResources->ConstructModel("jess2");
 	assert(spatial);
 	spatial->Scale(5.0f);
 	mNodeTree->AddChild(spatial);
@@ -132,6 +132,13 @@ void Engine::SetupDefaultScene()
 	spatial->Move(Math::Vector3(-5, 3.0f, -20.0f));
 	spatial->Rotate(Math::Vector3(1, 0, -10));
 	mNodeTree->AddChild(spatial);
+
+	spatial = mResources->ConstructModel("map");
+	assert(spatial);
+//	spatial->Scale(.1f);
+	spatial->Rotate(Math::Vector3(Math::DegreeToRadians(-90), 0, 0));
+	mNodeTree->AddChild(spatial);
+
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 

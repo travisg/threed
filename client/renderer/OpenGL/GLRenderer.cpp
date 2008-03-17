@@ -16,8 +16,8 @@ const char testvshader[] =
 "{\n"
 "	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\n"
 "	pos = gl_Position;\n"
-"	color = gl_Color.xyz;\n"
-"	normal = gl_Normal;\n"
+"	color = vec3(.5,.5,.5);\n"
+"	normal = normalize(gl_NormalMatrix * gl_Normal);\n"
 "}\n";
 
 const char testfshader[] = 
@@ -124,6 +124,9 @@ int GLRenderer::Initialize()
 	GLsizei len;
 	glGetShaderInfoLog(vshader, sizeof(resultstr), &len, resultstr);
 
+	if (success != GL_TRUE) {
+		std::cout << "failed to compile vertex shader: " << resultstr << std::endl;
+	}
 	assert(success == GL_TRUE);
 
 	// fragment shader
@@ -133,6 +136,10 @@ int GLRenderer::Initialize()
 	glCompileShader(fshader);
 	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success);
 	glGetShaderInfoLog(fshader, sizeof(resultstr), &len, resultstr);
+
+	if (success != GL_TRUE) {
+		std::cout << "failed to compile fragment shader: " << resultstr << std::endl;
+	}
 
 	assert(success == GL_TRUE);
 
