@@ -4,6 +4,7 @@
 #include <assert.h>
 #include <string.h>
 #include <iostream>
+#include <sstream>
 
 #include "Mesh.h"
 #include "Geometry.h"
@@ -181,6 +182,28 @@ int obj_load(FILE *infp, Geometry **new_geometry)
 			seenUnsupp = true;
 		} else if (strncmp(line, "#  ExternalName: ", 17) == 0) {
 			nextname = line + 17;
+
+			std::string name = nextname;
+
+			// see if this name is already in the list
+			int n = 0;
+			bool done = false;
+			while (!done) {
+				done = true;
+				for (MeshListIteratorConst i = g->ListIterator(); i != g->ListEnd(); i++) {
+					if (name == (*i)->GetName()) {
+						// name collision
+						std::ostringstream o;
+						o << n;
+						name = nextname + o.str();
+						done = false;
+						n++;
+						break;
+					}
+				}
+			}
+
+			nextname = name;
 		} else if (line[0] == '#') {
 			// consume all other comment lines
 		} else {

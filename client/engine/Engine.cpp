@@ -113,16 +113,14 @@ void Engine::SetupDefaultScene()
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 
-	// create a camera to look through
-	mMainCamera = new Camera();
-	mMainCamera->SetPos(Math::Vector3(2, 2, 5));
-
 	r = mResources->GetResource("dude", RT_OBJECT);
 	spatial = Geometry::BuildFromResource(r);
-	spatial->Move(Math::Vector3(1,1,1));
+	spatial->Move(Math::Vector3(-1,-1,-1));
 	mNodeTree->AddChild(spatial);
 
-	mResources->DumpResources();
+	// create a camera to look through
+	mMainCamera = new Camera();
+	mMainCamera->SetPos(Math::Vector3(2, 2, 3.5));
 }
 
 }
