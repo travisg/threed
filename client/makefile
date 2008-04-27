@@ -64,9 +64,6 @@ OBJS := \
 	renderer/OpenGL/glext.o \
 	renderer/Renderer.o \
 	renderer/VertexBuffer.o \
-	resource/loader/Loader.o \
-	resource/loader/MeshLoader.o \
-	resource/loader/ObjectLoader.o \
 	resource/MeshResource.o \
 	resource/ObjectResource.o \
 	resource/Resource.o \
