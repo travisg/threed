@@ -2,6 +2,7 @@
 #define __RESOURCE_H
 
 #include <utils/IRefcounted.h>
+#include <string>
 #include <list>
 
 enum ResourceType {

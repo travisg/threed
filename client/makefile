@@ -55,8 +55,6 @@ OBJS := \
 	engine/Geometry.o \
 	engine/SceneNode.o \
 	engine/Spatial.o \
-	renderer/Renderer.o \
-	renderer/VertexBuffer.o \
 	renderer/IndexBuffer.o \
 	renderer/Mesh.o \
 	renderer/OpenGL/GLIndexBuffer.o \
@@ -64,12 +62,17 @@ OBJS := \
 	renderer/OpenGL/GLRenderer.o \
 	renderer/OpenGL/GLVertexBuffer.o \
 	renderer/OpenGL/glext.o \
-	resource/MeshResource.o \
-	resource/Resource.o \
-	resource/ResourceManager.o \
-	resource/loader/AC3DLoader.o \
+	renderer/Renderer.o \
+	renderer/VertexBuffer.o \
 	resource/loader/Loader.o \
 	resource/loader/MeshLoader.o \
+	resource/loader/ObjectLoader.o \
+	resource/MeshResource.o \
+	resource/ObjectResource.o \
+	resource/Resource.o \
+	resource/ResourceManager.o \
+	resource/ShaderResource.o \
+	resource/TextureResource.o \
 	utils/File.o \
 	utils/FileManager.o \
 	utils/HostFile.o
