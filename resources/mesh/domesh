@@ -1,0 +1,8 @@
+#!/bin/sh
+
+rm *.mesh
+for i in *.obj; do
+	i=`echo $i|cut -d'.' -f1`
+	echo $i
+	../../meshtool convert $i.obj $i
+done
