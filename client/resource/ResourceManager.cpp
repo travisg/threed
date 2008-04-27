@@ -1,5 +1,11 @@
+#include <assert.h>
 #include <resource/ResourceManager.h>
 #include <resource/loader/Loader.h>
+#include <resource/loader/MeshLoader.h>
+#include <resource/MeshResource.h>
+#include <resource/ShaderResource.h>
+#include <resource/TextureResource.h>
+#include <resource/ObjectResource.h>
 
 ResourceManager::ResourceManager()
 {
@@ -22,15 +28,30 @@ void ResourceManager::RemoveResource(Resource *r)
 	r->RemoveRef();
 }
 
-Engine::Spatial *ResourceManager::ConstructModel(const char *name)
+Resource *ResourceManager::GetResource(const char *name, ResourceType type)
 {
-	Loader *loader = Loader::CreateLoader(name, RT_MESH);
-	if (!loader) {
-		return 0;
+	// XXX make better
+	ResourceListIterator i;
+	for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
+		if ((*i)->mType == type && (*i)->mName.compare(name) == 0) {
+			(*i)->AddRef();
+			return (*i);
+		}
+	} 
+
+	// couldn't find it, build a new one
+	Loader *loader = Loader::CreateLoader(*this, name, type);
+	if (!loader)
+		return NULL;
+
+	Resource *r = loader->LoadResource(name);
+	if (r) {
+		AddResource(r);
 	}
-	Engine::Spatial *spatial = loader->ConstructSpatial();
+
 	delete loader;
 
-	return spatial;
-}
+	r->AddRef();
 
+	return r;
+}

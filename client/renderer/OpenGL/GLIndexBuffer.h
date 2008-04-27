@@ -13,7 +13,7 @@ public:
 	virtual void Bind(Renderer *r);
 
 	// load indexes
-	virtual int LoadIndexes(unsigned int *indexes, unsigned int count);
+	virtual int LoadIndexes(const unsigned int *indexes, unsigned int count);
 
 protected:
 	GLuint m_BufferHandle;

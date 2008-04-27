@@ -1,0 +1,4 @@
+<object name="dude">
+	<shader name="default"/>
+	<mesh name="dude_default0"/>
+</object>

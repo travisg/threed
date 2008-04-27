@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.11\include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
 				BasicRuntimeChecks="3"
@@ -119,7 +119,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.11\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
 				EnableEnhancedInstructionSet="2"
@@ -316,6 +316,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\resource\ObjectResource.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\resource\ObjectResource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource\Resource.cpp"
 				>
 			</File>
@@ -331,17 +339,25 @@
 				RelativePath=".\resource\ResourceManager.h"
 				>
 			</File>
+			<File
+				RelativePath=".\resource\ShaderResource.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\resource\ShaderResource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\resource\TextureResource.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\resource\TextureResource.h"
+				>
+			</File>
 			<Filter
 				Name="loader"
 				>
-				<File
-					RelativePath=".\resource\loader\AC3DLoader.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\resource\loader\AC3DLoader.h"
-					>
-				</File>
 				<File
 					RelativePath=".\resource\loader\Loader.cpp"
 					>
@@ -356,6 +372,14 @@
 				</File>
 				<File
 					RelativePath=".\resource\loader\MeshLoader.h"
+					>
+				</File>
+				<File
+					RelativePath=".\resource\loader\ObjectLoader.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\resource\loader\ObjectLoader.h"
 					>
 				</File>
 			</Filter>

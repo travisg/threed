@@ -1,0 +1,9 @@
+<object name="plane">
+	<shader name="default"/>
+	<mesh name="plane_default0"/>
+	<mesh name="plane_default1"/>
+	<mesh name="plane_default2"/>
+	<mesh name="plane_default3"/>
+	<mesh name="plane_default4"/>
+	<mesh name="plane_default5"/>
+</object>

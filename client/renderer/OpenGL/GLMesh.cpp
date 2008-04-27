@@ -1,3 +1,4 @@
+#include <resource/MeshResource.h>
 #include <renderer/OpenGL/GLMesh.h>
 #include <renderer/OpenGL/GLRenderer.h>
 #include <renderer/OpenGL/GLIndexBuffer.h>
@@ -22,6 +23,24 @@ static unsigned int indexes[] = {
 Mesh *Mesh::CreateMesh(Mesh_Type type)
 {
 	Mesh *m = new GLMesh(type);
+
+	return m;
+}
+
+Mesh *Mesh::CreateMeshFromResource(Resource *_r)
+{
+	MeshResource *r = dynamic_cast<MeshResource *>(_r);
+	assert(r);
+
+	Mesh *m = new GLMesh(r->getMeshType());
+
+	IndexBuffer *ib = IndexBuffer::CreateIndexBuffer();
+	ib->LoadIndexes(r->getIndexes(), r->getIndexCount());
+	m->SetIndexBuffer(ib);
+
+	VertexBuffer *vb = VertexBuffer::CreateVertexBuffer();
+	vb->LoadVertexes(r->getVertexes(), r->getVertexFormat(), r->getVertexCount());
+	m->SetVertexBuffer(vb);
 
 	return m;
 }

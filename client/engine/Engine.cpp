@@ -112,39 +112,58 @@ void Engine::SetupDefaultScene()
 
 #endif
 
+	Resource *r;
 	// plane
-	Spatial *plane = mResources->ConstructModel("plane");
+	r = mResources->GetResource("plane", RT_OBJECT);
+	Spatial *plane = Geometry::BuildFromResource(r);
 	assert(plane);
+	r->RemoveRef();
+
 	plane->Move(Math::Vector3(0, 0, -10.0f));
 	plane->Rotate(Math::Vector3(-1, 1, 0));
 	mNodeTree->AddChild(plane);
 
-	spatial = mResources->ConstructModel("jess2");
+	r = mResources->GetResource("jess2", RT_OBJECT);
+	spatial = Geometry::BuildFromResource(r);
+	assert(spatial);
+	r->RemoveRef();
+
 	assert(spatial);
 	spatial->Scale(5.0f);
 	mNodeTree->AddChild(spatial);
 
 	testSpatial = spatial;
 
-	spatial = mResources->ConstructModel("plane");
+	r = mResources->GetResource("plane", RT_OBJECT);
+	spatial = Geometry::BuildFromResource(r);
 	assert(spatial);
+	r->RemoveRef();
+
 	spatial->Scale(1.5f);
 	spatial->Move(Math::Vector3(-5, 3.0f, -20.0f));
 	spatial->Rotate(Math::Vector3(1, 0, -10));
 	mNodeTree->AddChild(spatial);
 
-	spatial = mResources->ConstructModel("map");
+	r = mResources->GetResource("map", RT_OBJECT);
+	spatial = Geometry::BuildFromResource(r);
+	assert(spatial);
+	r->RemoveRef();
+
 	assert(spatial);
 //	spatial->Scale(.1f);
 	spatial->Rotate(Math::Vector3(Math::DegreeToRadians(-90), 0, 0));
 	mNodeTree->AddChild(spatial);
-
 
 	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
 
 	// create a camera to look through
 	mMainCamera = new Camera();
 	mMainCamera->SetPos(Math::Vector3(2, 2, 5));
+
+	r = mResources->GetResource("dude", RT_OBJECT);
+	spatial = Geometry::BuildFromResource(r);
+	spatial->Move(Math::Vector3(1,1,1));
+	mNodeTree->AddChild(spatial);
 }
 
 }

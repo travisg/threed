@@ -1,9 +1,9 @@
-#define _CRT_SECURE_NO_DEPRECATE
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
 
 #include <resource/loader/MeshLoader.h>
+#include <resource/MeshResource.h>
 #include <renderer/VertexBuffer.h>
 #include <renderer/IndexBuffer.h>
 #include <engine/Geometry.h>
@@ -13,113 +13,58 @@
 
 #include <tinyxml/tinyxml.h>
 
-MeshLoader::MeshLoader()
-:	m_fp(0),
-	m_meshCount(0)
+MeshLoader::MeshLoader(ResourceManager &m)
+:	Loader(m)
 {
 
 }
 
 MeshLoader::~MeshLoader()
 {
-	if (m_fp)
-		fclose(m_fp);
 }
 
-int MeshLoader::OpenResource(const char *resource)
+Resource *MeshLoader::LoadResource(const char *resource)
 {
+	// open and validate the mesh is present
 	char path[4096];
 
-	sprintf(path, "resources/mesh/%s.xml", resource);
+	sprintf(path, "resources/mesh/%s.mesh", resource);
 
-	// try to open the xml document that describes the mesh
-	if (!m_xmlDoc.LoadFile(path))
-		return -1;
+	FILE *fp = fopen(path, "rb");
+	if (!fp)
+		return NULL;
 
-	const TiXmlElement *root = m_xmlDoc.FirstChildElement("mesh");
-	if (!root)
-		return -1;
+	mesh_header header;
+	fread(&header, sizeof(header), 1, fp);
 
-	// count the number of submeshes
-	const TiXmlElement *e = root->FirstChildElement("submesh");
-	while (e) {
-		m_meshCount++;
-		e = e->NextSiblingElement("submesh");
-	}
+	// verify it has a correct magic
+	if (memcmp(&header.magic, MESH_HEADER_MAGIC, 4) != 0)
+		return NULL;
 
-	m_resourceName = resource;
+	// we can only deal with one version
+	if (header.version != MESH_HEADER_CURRENT_VERSION)
+		return NULL;
 
-	return 0;
-}
+	// do the construct here
+	MeshResource *r = new MeshResource(resource);
 
+	r->mMeshType = (Mesh_Type)header.mesh_type;
 
-Engine::Spatial *MeshLoader::ConstructSpatial()
-{
-	Engine::Spatial *rootSpatial;
-	Engine::SceneNode *sceneNode;
+	// load in the indexes
+	r->mIndexCount = header.indexcount;
+	r->mIndexes = new unsigned int[r->mIndexCount];
+	fseek(fp, header.indexoffset, SEEK_SET);
+	fread(r->mIndexes, sizeof(unsigned int), header.indexcount, fp);
 
-	if (m_meshCount > 1) {
-		sceneNode = new Engine::SceneNode();
-		rootSpatial = sceneNode;
-	} else {
-		sceneNode = 0;
-		rootSpatial = 0;
-	}
+	// load in the vertexes
+	r->mVertexFormat = (Vertex_Format)header.vert_format;
+	r->mVertexCount = header.vertcount;
+	r->mVertexes = new float[header.vertlen / sizeof(float)];
+	fseek(fp, header.vertoffset, SEEK_SET);
+	fread(r->mVertexes, header.vertlen, 1, fp);
 
-	const TiXmlElement *root = m_xmlDoc.FirstChildElement("mesh");
-	const TiXmlElement *e = root->FirstChildElement("submesh");
+	fclose(fp);
 
-	while(e) {
-		Engine::Geometry *geom = new Engine::Geometry();
-
-		char path[4096];
-
-		sprintf(path, "resources/mesh/%s_%s.mesh", m_resourceName.c_str(), e->Attribute("name"));
-
-		m_fp = fopen(path, "rb");
-		if (!m_fp)
-			break;
-
-		fread(&m_header, sizeof(m_header), 1, m_fp);
-
-		// verify it has a correct magic
-		if (memcmp(&m_header.magic, MESH_HEADER_MAGIC, 4) != 0)
-			break;
-
-		// we can only deal with one version
-		if (m_header.version != MESH_HEADER_CURRENT_VERSION)
-			break;
-
-		geom->m_Mesh = Mesh::CreateMesh((Mesh_Type)m_header.mesh_type);
-
-		// load the index buffer
-		IndexBuffer *ib = IndexBuffer::CreateIndexBuffer();
-
-		unsigned int *indexes = new unsigned int[m_header.indexcount];
-		fseek(m_fp, m_header.indexoffset, SEEK_SET);
-		fread(indexes, sizeof(unsigned int), m_header.indexcount, m_fp);
-		ib->LoadIndexes(indexes, m_header.indexcount);
-		delete[] indexes;
-		geom->m_Mesh->SetIndexBuffer(ib);
-
-		// create and load the vertex buffer
-		VertexBuffer *vb = VertexBuffer::CreateVertexBuffer();
-		float *verts = new float[m_header.vertlen / sizeof(float)];
-		fseek(m_fp, m_header.vertoffset, SEEK_SET);
-		fread(verts, m_header.vertlen, 1, m_fp);
-		vb->LoadVertexes(verts, (Vertex_Format)m_header.vert_format, m_header.vertcount);
-		delete[] verts;
-		geom->m_Mesh->SetVertexBuffer(vb);
-
-		if (sceneNode)
-			sceneNode->AddChild(geom);
-
-		if (!rootSpatial)
-			rootSpatial = geom;
-
-		e = e->NextSiblingElement("submesh");
-	}
-
-	return rootSpatial;
+	return r;
 }
 

@@ -4,18 +4,20 @@
 #include <engine/Spatial.h>
 #include <resource/Resource.h>
 
+class ResourceManager;
+
 class Loader {
 public:
-	virtual ~Loader();
+	virtual ~Loader() = 0;
 
-	static Loader *CreateLoader(const char *resource, enum ResourceType type);
+	static Loader *CreateLoader(ResourceManager &m, const char *resource, enum ResourceType type);
 
-	virtual Engine::Spatial *ConstructSpatial() = 0;
-
-	virtual int OpenResource(const char *resource) = 0;
+	virtual Resource *LoadResource(const char *name) = 0;
 
 protected:
-	Loader();
+	Loader(ResourceManager &);
+
+	ResourceManager &mResourceManager;
 };
 
 #endif

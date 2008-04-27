@@ -1,0 +1,4 @@
+<object name="map">
+	<shader name="default"/>
+	<mesh name="map_default0"/>
+</object>

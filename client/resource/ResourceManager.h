@@ -10,8 +10,8 @@ public:
 	ResourceManager();
 	~ResourceManager();
 
-	// not quite the final api, but closer
-	Engine::Spatial *ConstructModel(const char *name);
+	// get a resource from the list
+	Resource *GetResource(const char *name, ResourceType type);
 
 private:
 	void AddResource(Resource *r);

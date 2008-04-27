@@ -1,10 +1,11 @@
 #include <resource/Resource.h>
 
-Resource::Resource(ResourceType type)
+Resource::Resource(ResourceType type, const char *name)
 :	mRefCount(0),
-	m_Type(type)
+	mType(type)
 {
-	AddRef();
+	mName = name;
+//	AddRef();
 }
 
 Resource::~Resource()

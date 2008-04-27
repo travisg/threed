@@ -3,7 +3,10 @@
 
 #include <engine/Spatial.h>
 #include <math/Vector3.h>
+#include <resource/Resource.h>
 #include <renderer/Mesh.h>
+#include <renderer/IndexBuffer.h>
+#include <renderer/VertexBuffer.h>
 
 namespace Engine {
 
@@ -12,12 +15,13 @@ public:
 	Geometry();
 	virtual ~Geometry();
 
+	static Spatial *BuildFromResource(Resource *r);
+
 	virtual void Render(Renderer *r);
 
 	// temporary hack
 	void SetDefaultGeometry();
 
-//protected:
 	Mesh *m_Mesh;
 };
 

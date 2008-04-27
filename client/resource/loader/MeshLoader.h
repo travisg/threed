@@ -8,19 +8,12 @@
 
 class MeshLoader : public Loader {
 public:
-	MeshLoader();
+	MeshLoader(ResourceManager &);
 	virtual ~MeshLoader();
 
-	virtual int OpenResource(const char *resource);
-
-	virtual Engine::Spatial *ConstructSpatial();
+	virtual Resource *LoadResource(const char *resource);
 
 private:
-	std::string m_resourceName;
-	FILE *m_fp;
-	mesh_header m_header;
-	TiXmlDocument m_xmlDoc;
-	int m_meshCount;
 };
 
 #endif

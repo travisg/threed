@@ -1,4 +1,3 @@
-#define _CRT_SECURE_NO_DEPRECATE
 #include <string>
 #include <utils/FileManager.h>
 #include <utils/HostFile.h>

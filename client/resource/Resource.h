@@ -5,8 +5,11 @@
 #include <list>
 
 enum ResourceType {
+	RT_NULL,
+	RT_OBJECT, // a complete object, with a list of all the resources needed
 	RT_MESH,
 	RT_TEXTURE,
+	RT_SHADER,
 
 	RT_MAX
 };
@@ -14,9 +17,9 @@ enum ResourceType {
 class Resource : public IRefcounted
 {
 public:
-	Resource(enum ResourceType type);
+	Resource(enum ResourceType type, const char *name);
 
-	ResourceType GetType() { return m_Type; }
+	ResourceType GetType() const { return mType; }
 
 	// from IRefcounted
 	virtual int AddRef();
@@ -24,10 +27,13 @@ public:
 
 private:
 	int mRefCount;
-	enum ResourceType m_Type;
+	enum ResourceType mType;
+	std::string mName;
 
 protected:
 	virtual ~Resource();
+
+	friend class ResourceManager;
 };
 
 // helpful typedefs

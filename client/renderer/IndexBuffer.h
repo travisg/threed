@@ -17,7 +17,7 @@ public:
 	unsigned int Count() { return m_Count; }
 
 	// load indexes
-	virtual int LoadIndexes(unsigned int *indexes, unsigned int count) = 0;
+	virtual int LoadIndexes(const unsigned int *indexes, unsigned int count) = 0;
 
 protected:
 	unsigned int m_Count;
