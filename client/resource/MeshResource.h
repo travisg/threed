@@ -4,12 +4,9 @@
 #include <resource/Resource.h>
 #include <shared/mesh.h>
 
-class MeshResource : public Resource {
-public:
-	MeshResource(const char *name);
-protected:
-	~MeshResource();
+class ResourceManager;
 
+class MeshResource : public Resource {
 public:
 	enum Mesh_Type getMeshType() const { return mMeshType; }
 	enum Vertex_Format getVertexFormat() const { return mVertexFormat; }
@@ -21,6 +18,11 @@ public:
 	const float *getVertexes() const { return mVertexes; }
 
 private:
+	MeshResource(ResourceManager &m, const char *name);
+	~MeshResource();
+
+	virtual int LoadFromStorage();
+
 	enum Mesh_Type mMeshType;
 	enum Vertex_Format mVertexFormat;
 
@@ -30,9 +32,8 @@ private:
 	unsigned int *mIndexes;
 	float *mVertexes;
 
-	// constructor classes, will punch data directly in
-	friend class MeshLoader;
-	friend class AC3DLoader;
+	// only Resource can construct us
+	friend class Resource;
 };
 
 #endif

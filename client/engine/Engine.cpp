@@ -164,6 +164,8 @@ void Engine::SetupDefaultScene()
 	spatial = Geometry::BuildFromResource(r);
 	spatial->Move(Math::Vector3(1,1,1));
 	mNodeTree->AddChild(spatial);
+
+	mResources->DumpResources();
 }
 
 }

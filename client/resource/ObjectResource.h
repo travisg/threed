@@ -13,10 +13,11 @@ typedef std::list<object_resource_set *> ObjectResourceList;
 typedef std::list<object_resource_set *>::const_iterator ObjectResourceListConstIterator;
 
 class ObjectResource : public Resource {
-public:
-	ObjectResource(const char *name);
 protected:
+	ObjectResource(ResourceManager &m, const char *name);
 	~ObjectResource();
+
+	virtual int LoadFromStorage();
 
 public:
 	const ObjectResourceList getObjectResourceList() const { return mResourceSets; }
@@ -24,7 +25,8 @@ public:
 private:
 	ObjectResourceList mResourceSets;
 
-	friend class ObjectLoader;
+	// only Resource can construct us
+	friend class Resource;
 };
 
 

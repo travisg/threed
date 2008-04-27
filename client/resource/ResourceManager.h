@@ -13,6 +13,9 @@ public:
 	// get a resource from the list
 	Resource *GetResource(const char *name, ResourceType type);
 
+	size_t GetResourceCount() const { return mResources.size(); }
+	void DumpResources();
+
 private:
 	void AddResource(Resource *r);
 	void RemoveResource(Resource *r);

@@ -1,8 +1,8 @@
 #include <resource/TextureResource.h>
 
 
-TextureResource::TextureResource(const char *name)
-:	Resource(RT_TEXTURE, name)
+TextureResource::TextureResource(ResourceManager &m, const char *name)
+:	Resource(m, name, RT_TEXTURE)
 {
 
 }
@@ -10,4 +10,9 @@ TextureResource::TextureResource(const char *name)
 TextureResource::~TextureResource()
 {
 
+}
+
+int TextureResource::LoadFromStorage()
+{
+	return -1;
 }

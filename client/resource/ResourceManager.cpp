@@ -1,7 +1,5 @@
 #include <assert.h>
 #include <resource/ResourceManager.h>
-#include <resource/loader/Loader.h>
-#include <resource/loader/MeshLoader.h>
 #include <resource/MeshResource.h>
 #include <resource/ShaderResource.h>
 #include <resource/TextureResource.h>
@@ -40,18 +38,22 @@ Resource *ResourceManager::GetResource(const char *name, ResourceType type)
 	} 
 
 	// couldn't find it, build a new one
-	Loader *loader = Loader::CreateLoader(*this, name, type);
-	if (!loader)
-		return NULL;
-
-	Resource *r = loader->LoadResource(name);
+	Resource *r = Resource::LoadResource(*this, name, type);
 	if (r) {
 		AddResource(r);
+		r->AddRef();
 	}
 
-	delete loader;
-
-	r->AddRef();
-
 	return r;
+
+}
+
+void ResourceManager::DumpResources()
+{
+	std::cout << "Resource List" << std::endl;
+	ResourceListIterator i;
+	for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
+		Resource *r = (*i);
+		std::cout << "'" << r->mName << "' type " << r->mType << " count " << r->mRefCount << std::endl;
+	} 
 }

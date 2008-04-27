@@ -4,16 +4,18 @@
 #include <resource/Resource.h>
 
 class TextureResource : public Resource {
-public:
-	TextureResource(const char *name);
-protected:
+private:
+	TextureResource(ResourceManager &m, const char *name);
 	~TextureResource();
+
+	virtual int LoadFromStorage();
 
 public:
 
 
 private:
 
+	friend class Resource;
 };
 
 #endif

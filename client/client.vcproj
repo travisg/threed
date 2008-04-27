@@ -355,34 +355,6 @@
 				RelativePath=".\resource\TextureResource.h"
 				>
 			</File>
-			<Filter
-				Name="loader"
-				>
-				<File
-					RelativePath=".\resource\loader\Loader.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\resource\loader\Loader.h"
-					>
-				</File>
-				<File
-					RelativePath=".\resource\loader\MeshLoader.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\resource\loader\MeshLoader.h"
-					>
-				</File>
-				<File
-					RelativePath=".\resource\loader\ObjectLoader.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\resource\loader\ObjectLoader.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="utils"

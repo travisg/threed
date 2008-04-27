@@ -4,16 +4,18 @@
 #include <resource/Resource.h>
 
 class ShaderResource : public Resource {
-public:
-	ShaderResource(const char *name);
-protected:
+private:
+	ShaderResource(ResourceManager &m, const char *name);
 	~ShaderResource();
+
+	virtual int LoadFromStorage();
 
 public:
 
 
 private:
 
+	friend class Resource;
 };
 
 #endif

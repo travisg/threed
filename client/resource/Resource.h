@@ -15,24 +15,31 @@ enum ResourceType {
 	RT_MAX
 };
 
+class ResourceManager;
+
 class Resource : public IRefcounted
 {
 public:
-	Resource(enum ResourceType type, const char *name);
-
 	ResourceType GetType() const { return mType; }
+
+	// load a resource from backing storage
+	static Resource *LoadResource(ResourceManager &m, const char *name, enum ResourceType type);
 
 	// from IRefcounted
 	virtual int AddRef();
 	virtual int RemoveRef();
 
-private:
+protected:
 	int mRefCount;
 	enum ResourceType mType;
 	std::string mName;
+	ResourceManager &mResourceManager;
 
-protected:
+	Resource(ResourceManager &m, const char *name, enum ResourceType type);
 	virtual ~Resource();
+
+	// each type has to implement this to restore from backing store
+	virtual int LoadFromStorage() = 0;
 
 	friend class ResourceManager;
 };

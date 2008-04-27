@@ -1,8 +1,8 @@
 #include <resource/ShaderResource.h>
 
 
-ShaderResource::ShaderResource(const char *name)
-:	Resource(RT_SHADER, name)
+ShaderResource::ShaderResource(ResourceManager &m, const char *name)
+:	Resource(m, name, RT_SHADER)
 {
 
 }
@@ -10,4 +10,9 @@ ShaderResource::ShaderResource(const char *name)
 ShaderResource::~ShaderResource()
 {
 
+}
+
+int ShaderResource::LoadFromStorage()
+{
+	return -1;
 }
