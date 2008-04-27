@@ -19,9 +19,6 @@ public:
 
 	virtual void Render(Renderer *r);
 
-	// temporary hack
-	void SetDefaultGeometry();
-
 	Mesh *m_Mesh;
 };
 

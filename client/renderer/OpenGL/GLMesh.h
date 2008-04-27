@@ -14,9 +14,6 @@ public:
 
 	virtual void Draw(Renderer *r);
 
-	virtual void SetDefault();
-
-
 protected:
 	GLenum m_Type;
 };

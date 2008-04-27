@@ -7,19 +7,6 @@
 
 #include "glinc.h"
 
-struct Vertex {
-	float x, y, z;
-};
-static struct Vertex aTriangle[] = {
-                         { 0.0f, 1.0f, 0.0f }, // top
-                         { 1.0f, 0.0f, 0.0f }, // right
-						 {-1.0f, 0.0f, 0.0f }, // left
-                         { 0.0f,-1.0f, 0.0f }, // bottom
-};
-static unsigned int indexes[] = {
-	0, 1, 2, 3, 
-};
-
 Mesh *Mesh::CreateMesh(Mesh_Type type)
 {
 	Mesh *m = new GLMesh(type);
@@ -67,15 +54,6 @@ GLMesh::~GLMesh()
 {
 	delete m_VB;
 	delete m_IB;
-}
-
-void GLMesh::SetDefault()
-{
-	m_VB = VertexBuffer::CreateVertexBuffer();
-	m_IB = IndexBuffer::CreateIndexBuffer();
-
-	m_VB->LoadSimpleVertexes((float *)aTriangle, 4);
-	m_IB->LoadIndexes(indexes, 6);
 }
 
 void GLMesh::Draw(Renderer *r)

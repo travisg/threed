@@ -22,7 +22,6 @@ public:
 	void SetVertexBuffer(VertexBuffer *vb);
 
 	virtual void Draw(Renderer *r) = 0;
-	virtual void SetDefault() = 0;
 
 protected:
 	IndexBuffer *m_IB;

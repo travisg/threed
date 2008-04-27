@@ -66,51 +66,8 @@ int Engine::InnerLoop()
 
 void Engine::SetupDefaultScene()
 {
-#if 0
-	geom = new Geometry();
-	geom->SetDefaultGeometry();
-
-	mNodeTree->SetChild(geom);
-#endif
-
 	SceneNode *node;
 	Spatial *spatial;
-
-#if 0
-	// the balls get to be a high level construct
-	spatial = mResources->ConstructModel("balls");
-	assert(spatial);
-	spatial->Move(Math::Vector3(.5f, .5f, 15.0f));
-	mNodeTree->AddChild(spatial);
-
-	// create a scene node for the next bits
-	node = new SceneNode();
-	node->Move(Math::Vector3(.5f, .5f, 5.0f));
-	mNodeTree->AddChild(node);
-
-	spatial = mResources->ConstructModel("meh");
-	assert(spatial);
-	spatial->Move(Math::Vector3(-2.0f, 0, 0));
-	node->AddChild(spatial);
-
-	spatial = mResources->ConstructModel("dude");
-	assert(spatial);
-	spatial->Move(Math::Vector3(2.0f, 0, 0));
-	node->AddChild(spatial);
-
-	spatial = mResources->ConstructModel("plane");
-	assert(spatial);
-	spatial->Move(Math::Vector3(-1.0f, -3.0f, 2.0f));
-	spatial->Rotate(Math::Vector3(0.0f, 0.1f, -0.3f));
-	spatial->Scale(0.5f);
-	node->AddChild(spatial);
-
-	spatial = mResources->ConstructModel("meh-greeble-tri");
-	assert(spatial);
-	spatial->Move(Math::Vector3(0.0f, 1.0f, 0));
-	node->AddChild(spatial);
-
-#endif
 
 	Resource *r;
 	// plane

@@ -28,12 +28,6 @@ void Geometry::Render(Renderer *r)
 	r->UnsetWorldMatrix();
 }
 
-void Geometry::SetDefaultGeometry()
-{
-	m_Mesh = Mesh::CreateMesh(MESH_TYPE_TRIANGLE_MESH);
-	m_Mesh->SetDefault();
-}
-
 Spatial *Geometry::BuildFromResource(Resource *_r)
 {
 	ObjectResource *r;
