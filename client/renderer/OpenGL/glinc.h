@@ -58,13 +58,22 @@ extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv;
 extern PFNGLGETUNIFORMFVPROC glGetUniformfv;
 extern PFNGLGETUNIFORMIVPROC glGetUniformiv;
 
-#else
+#elif __DARWIN
 
 // OS X
 #include <OpenGL/gl.h>
 #include <OpenGL/glu.h>
 #include <OpenGL/glext.h>
 
+#elif __LINUX
+
+#define GL_GLEXT_PROTOTYPES 1
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glext.h>
+
+#else
+#error I dont know what platform I am!
 #endif
 
 void InitGLExt();

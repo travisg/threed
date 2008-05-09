@@ -24,7 +24,7 @@ endif
 
 # Darwin (Mac OS X) too
 ifeq ($(UNAME),Darwin)
-CFLAGS += -DASM_LEADING_UNDERSCORES=1 -mdynamic-no-pic -I/sw/include
+CFLAGS += -DASM_LEADING_UNDERSCORES=1 -D__DARWIN=1 -mdynamic-no-pic -I/sw/include
 LDLIBS += -framework Cocoa -framework OpenGL -L/sw/lib -lSDLmain -lstdc++
 endif
 
@@ -44,6 +44,9 @@ CFLAGS += -DASM_LEADING_DOTS=1
 CFLAGS += -mregnames -fno-pic
 CFLAGS += -mcpu=970
 endif
+
+CFLAGS += -D__LINUX=1
+LDLIBS += -lGL
 endif
 
 all:: $(BUILDDIR)/$(TARGET)$(BINEXT) $(BUILDDIR)/$(TARGET).lst
