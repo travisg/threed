@@ -2,7 +2,7 @@
 #define __FILE_H
 
 #include <sys/types.h>
-#include <utils/IRefCounted.h>
+#include <utils/IRefcounted.h>
 
 class File : public IRefcounted {
 public:

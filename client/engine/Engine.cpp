@@ -2,7 +2,7 @@
 #include <engine/SceneNode.h>
 #include <engine/Geometry.h>
 #include <engine/Camera.h>
-#include <Math/Math.h>
+#include <math/Math.h>
 #include <renderer/Renderer.h>
 #include <resource/ResourceManager.h>
 #include <assert.h>
