@@ -14,6 +14,8 @@ public:
 
 
 private:
+	std::string m_VertexSource;
+	std::string m_FragmentSource;
 
 	friend class Resource;
 };

@@ -1,0 +1,28 @@
+<vertexshader>
+	<body>
+varying vec3 color;
+varying vec3 normal;
+varying vec4 pos;
+void main()
+{
+	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+	pos = gl_Position;
+	color = vec3(.5,.5,.5);
+	normal = normalize(gl_NormalMatrix * gl_Normal);
+}		
+	</body>
+
+</vertexshader>
+<fragmentshader>
+	<body>
+uniform vec3 sunvec;
+varying vec3 color;
+varying vec3 normal;
+varying vec4 pos;
+void main()
+{
+	vec3 c = color * dot(normal, sunvec);
+	gl_FragColor =  vec4(c, 1.0);
+}
+	</body>
+</fragmentshader>
