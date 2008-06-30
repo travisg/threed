@@ -24,8 +24,6 @@ public:
 	/* our stuff */
 	static GLRenderer *GetGLRenderer();
 
-//	struct IDirect3DDevice9 *GetD3DDevice() { return mD3DDevice; }
-
 	virtual unsigned int GetWindowWidth() { return mWidth; };
 	virtual unsigned int GetWindowHeight() { return mHeight; } ;
 
@@ -38,9 +36,6 @@ private:
 	unsigned int mHeight;
 	unsigned int mDepth;
 	unsigned int mSize;
-
-//	struct IDirect3D9 *mD3DObject;
-//	struct IDirect3DDevice9 *mD3DDevice;
 };
 
 #endif

@@ -5,6 +5,7 @@ namespace Engine {
 
 	Camera::Camera()
 		:	mPos(0,0,0),
+		mUp(0,1,0),
 		mZoom(1.0f)
 	{
 	}
@@ -15,12 +16,18 @@ namespace Engine {
 
 	void Camera::Render(Renderer *r)
 	{	
-		Math::Matrix4x4 mTransform;
-
 		// move the Camera
 		mTransform.SetTranslation(-mPos);
 
-		r->SetViewMatrix(mTransform);
+		Math::Matrix4x4 rotx;
+		Math::Matrix4x4 roty;
+		Math::Matrix4x4 rotz;
+
+		rotx.SetRotationX(mUp.getx());
+		roty.SetRotationY(mUp.gety());
+		rotz.SetRotationZ(mUp.getz());
+
+		r->SetViewMatrix(mTransform * rotx * roty * rotz);
 	}
 
 	void Camera::SetPos(const Math::Vector3 &pos)
@@ -33,9 +40,14 @@ namespace Engine {
 		mPos += trans;
 	}
 
+	void Camera::Rotate(const Math::Vector3 &rot)
+	{
+		mUp += rot;
+	}
+
 	void Camera::PrintPosition()
 	{
-		std::cout << mPos << std::endl;
+		std::cout << "Camera pos: " << mPos << " up " << mUp << std::endl;
 	}
 
 }

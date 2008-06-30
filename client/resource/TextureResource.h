@@ -3,6 +3,8 @@
 
 #include <resource/Resource.h>
 
+struct SDL_Surface;
+
 class TextureResource : public Resource {
 private:
 	TextureResource(ResourceManager &m, const char *name);
@@ -14,6 +16,7 @@ public:
 
 
 private:
+	SDL_Surface *m_Surface;
 
 	friend class Resource;
 };

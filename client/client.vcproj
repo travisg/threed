@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.11\include&quot;"
+				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.13\include&quot;;&quot;C:\programming\SDL_image-1.2.6\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;C:\programming\SDL-1.2.11\lib\SDLmain.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot; opengl32.lib glu32.lib"
+				AdditionalDependencies="&quot;C:\programming\SDL-1.2.11\lib\SDLmain.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot; opengl32.lib glu32.lib C:\programming\SDL_image-1.2.6\lib\SDL_image.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -118,7 +118,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.11\include&quot;"
+				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.13\include&quot;;&quot;C:\programming\SDL_image-1.2.6\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="&quot;C:\programming\SDL-1.2.11\lib\SDLmain.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot; opengl32.lib glu32.lib"
+				AdditionalDependencies="&quot;C:\programming\SDL-1.2.11\lib\SDLmain.lib&quot; &quot;C:\programming\SDL-1.2.11\lib\SDL.lib&quot; opengl32.lib glu32.lib C:\programming\SDL_image-1.2.6\lib\SDL_image.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -436,6 +436,182 @@
 				</File>
 				<File
 					RelativePath="..\lib\math\Vector4.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="SDL"
+				>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\begin_code.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\close_code.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_active.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_audio.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_byteorder.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_cdrom.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_amiga.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_dreamcast.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_macos.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_macosx.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_minimal.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_nds.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_os2.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_symbian.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_config_win32.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_copying.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_cpuinfo.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_endian.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_error.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_events.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_getenv.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL_image-1.2.6\include\SDL_image.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_joystick.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_keyboard.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_keysym.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_loadso.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_main.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_mouse.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_mutex.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_name.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_opengl.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_platform.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_quit.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_rwops.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_stdinc.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_syswm.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_thread.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_timer.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_types.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_version.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\..\..\..\SDL-1.2.13\include\SDL_video.h"
 					>
 				</File>
 			</Filter>

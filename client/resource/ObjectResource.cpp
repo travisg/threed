@@ -44,7 +44,8 @@ int ObjectResource::LoadFromStorage()
 			// set new shader
 			shader = mResourceManager.GetResource(name, RT_SHADER);
 		} else if (value.compare("texture") == 0) {
-			//			Resource *t = mResourceManager.GetResource(name, RT_TEXTURE);
+			Resource *t = mResourceManager.GetResource(name, RT_TEXTURE);
+			textures.push_back(t);
 		} else if (value.compare("mesh") == 0) {
 			// get new mesh
 			mesh = mResourceManager.GetResource(name, RT_MESH);

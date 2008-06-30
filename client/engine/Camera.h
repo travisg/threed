@@ -16,6 +16,7 @@ public:
 
 	void SetPos(const Math::Vector3 &pos);
 	void Move(const Math::Vector3 &trans);
+	void Rotate(const Math::Vector3 &rot);
 	void PrintPosition();
 
 	void SetZoom(float zoom) { mZoom = zoom; }
@@ -25,6 +26,7 @@ public:
 protected:
 	Math::Vector3 mPos;
 	Math::Vector3 mUp;
+	Math::Matrix4x4 mTransform;
 	float mZoom;
 };
 

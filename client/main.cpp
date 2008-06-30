@@ -7,7 +7,6 @@
 #include <engine/Camera.h>
 #include <renderer/Renderer.h>
 #include <SDL.h>
-#include <SDL_image.h>
 
 #if 0
 class Window : public Surface {
@@ -181,7 +180,7 @@ int main(int argc, char **argv)
 						e->GetCamera()->PrintPosition();
 					}
 					if (mouseDown & SDL_BUTTON_RMASK) {
-//						e->GetCamera()->Rotate(Math::Vector3(event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
+						e->GetCamera()->Rotate(Math::Vector3(event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
 						e->GetCamera()->PrintPosition();
 					}
 				}
@@ -199,11 +198,11 @@ int main(int argc, char **argv)
 
 					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELDOWN) {
 						e->GetCamera()->Zoom(0.1f);
-//						e->GetCamera()->Rotate(Math::Vector3(0, 0, 0.1f));
+						e->GetCamera()->Rotate(Math::Vector3(0, 0, 0.1f));
 					}
 					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELUP) {
 						e->GetCamera()->Zoom(-0.1f);
-//						e->GetCamera()->Rotate(Math::Vector3(0, 0, -0.1f));
+						e->GetCamera()->Rotate(Math::Vector3(0, 0, -0.1f));
 					}
 				}
 				break;
