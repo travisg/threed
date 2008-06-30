@@ -8,7 +8,7 @@ include ../macros.mk
 OBJDUMP := objdump
 CFLAGS := -O2 -g -I. -Wall -W -Wno-unused-parameter -Wno-multichar -fno-exceptions -finline $(PROFILE)
 LDFLAGS := -g $(PROFILE)
-LDLIBS := -lSDL -lstdc++
+LDLIBS := -lSDL -lSDL_image -lstdc++
 
 UNAME := $(shell uname -s)
 ARCH := $(shell uname -m)
@@ -62,9 +62,11 @@ OBJS := \
 	renderer/Mesh.o \
 	renderer/OpenGL/GLIndexBuffer.o \
 	renderer/OpenGL/GLMesh.o \
+	renderer/OpenGL/GLProgram.o \
 	renderer/OpenGL/GLRenderer.o \
 	renderer/OpenGL/GLVertexBuffer.o \
 	renderer/OpenGL/glext.o \
+	renderer/Program.o \
 	renderer/Renderer.o \
 	renderer/VertexBuffer.o \
 	resource/MeshResource.o \
