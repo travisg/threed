@@ -9,7 +9,8 @@
 namespace Engine {
 
 Geometry::Geometry()
-:	m_Mesh(0)
+:	m_Mesh(0),
+	m_Program(0)
 {
 }
 
@@ -23,8 +24,9 @@ void Geometry::Render(Renderer *r)
 
 	r->SetWorldMatrix(mWorldTransform);
 
+	m_Program->Bind(r);
 	m_Mesh->Draw(r);
-
+	
 	r->UnsetWorldMatrix();
 }
 
@@ -54,6 +56,7 @@ Spatial *Geometry::BuildFromResource(Resource *_r)
 		object_resource_set *set = (*i);
 
 		geom->m_Mesh = Mesh::CreateMeshFromResource(set->mesh);
+		geom->m_Program = Program::CreateProgramFromResource(set->shader);
 
 		if (sceneNode)
 			sceneNode->AddChild(geom);

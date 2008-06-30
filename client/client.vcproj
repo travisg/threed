@@ -240,6 +240,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\renderer\Program.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\renderer\Program.h"
+				>
+			</File>
+			<File
 				RelativePath=".\renderer\Renderer.cpp"
 				>
 			</File>
@@ -284,6 +292,14 @@
 				</File>
 				<File
 					RelativePath=".\renderer\OpenGL\GLMesh.h"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLProgram.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLProgram.h"
 					>
 				</File>
 				<File

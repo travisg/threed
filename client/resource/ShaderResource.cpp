@@ -40,12 +40,12 @@ int ShaderResource::LoadFromStorage()
 
 	// load the fragment shader
 	const TiXmlElement *fragmentroot = doc.FirstChildElement("fragmentshader");
-	if (!vertexroot)
+	if (!fragmentroot)
 		return -1;
 
 	// load the body
-	const TiXmlElement *fragmentbody = vertexroot->FirstChildElement("body");
-	if (!vertexbody)
+	const TiXmlElement *fragmentbody = fragmentroot->FirstChildElement("body");
+	if (!fragmentbody)
 		return -1;
 
 	body = fragmentbody->GetText();

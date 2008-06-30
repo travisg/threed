@@ -11,7 +11,8 @@ private:
 	virtual int LoadFromStorage();
 
 public:
-
+	const std::string &GetVertexSource() const { return m_VertexSource; }
+	const std::string &GetFragmentSource() const { return m_FragmentSource; }
 
 private:
 	std::string m_VertexSource;

@@ -8,30 +8,6 @@
 
 static GLRenderer *sRenderer;
 
-const char testvshader[] = 
-"varying vec3 color;\n"
-"varying vec3 normal;\n"
-"varying vec4 pos;\n"
-"void main()\n"
-"{\n"
-"	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;\n"
-"	pos = gl_Position;\n"
-"	color = vec3(.5,.5,.5);\n"
-"	normal = normalize(gl_NormalMatrix * gl_Normal);\n"
-"}\n";
-
-const char testfshader[] = 
-"uniform vec3 sunvec;\n"
-"varying vec3 color;\n"
-"varying vec3 normal;\n"
-"varying vec4 pos;\n"
-"void main()\n"
-"{\n"
-"	vec3 c = color * dot(normal, sunvec);"
-"	gl_FragColor =  vec4(c, 1.0);\n"
-"}\n";
-
-
 Renderer *Renderer::CreateRenderer()
 {
 	Renderer *r;
@@ -112,66 +88,6 @@ int GLRenderer::Initialize()
 	glEnable(GL_DEPTH_TEST);									// Enable Depth Testing
 	glShadeModel(GL_SMOOTH);									// Select Smooth Shading
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Set Perspective Calculations To Most Accurate
-
-	// vertex shader
-	GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
-	const GLchar *shaderptr = (const GLchar *)testvshader;
-	glShaderSource(vshader, 1, &shaderptr, NULL);
-	glCompileShader(vshader);
-	GLint success;
-	glGetShaderiv(vshader, GL_COMPILE_STATUS, &success);
-	char resultstr[1024];
-	GLsizei len;
-	glGetShaderInfoLog(vshader, sizeof(resultstr), &len, resultstr);
-
-	if (success != GL_TRUE) {
-		std::cout << "failed to compile vertex shader: " << resultstr << std::endl;
-	}
-	assert(success == GL_TRUE);
-
-	// fragment shader
-	GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
-	shaderptr = (const GLchar *)testfshader;
-	glShaderSource(fshader, 1, &shaderptr, NULL);
-	glCompileShader(fshader);
-	glGetShaderiv(fshader, GL_COMPILE_STATUS, &success);
-	glGetShaderInfoLog(fshader, sizeof(resultstr), &len, resultstr);
-
-	if (success != GL_TRUE) {
-		std::cout << "failed to compile fragment shader: " << resultstr << std::endl;
-	}
-
-	assert(success == GL_TRUE);
-
-	// program
-	GLuint program = glCreateProgram();
-	glAttachShader(program, vshader);
-	glAttachShader(program, fshader);
-	glLinkProgram(program);
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	glGetProgramInfoLog(program, sizeof(resultstr), &len, resultstr);
-
-	assert(success == GL_TRUE);
-
-	GLint uniforms;
-	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &uniforms);
-
-	glUseProgram(program);
-
-	for (int i = 0; i < uniforms; i++) {
-		char uname[1024];
-		GLsizei len;
-		GLint size;
-		GLenum type;
-		glGetActiveUniform(program, i, sizeof(uname), &len, &size, &type, uname);
-
-		if (strcmp(uname, "sunvec") == 0) {
-			GLint location = glGetUniformLocation(program, uname);
-			glUniform3f(location, 1.0, 1.0, 1.0);
-		}
-
-		std::cout << uname << std::endl;
-	}
 
 	return 0;
 }

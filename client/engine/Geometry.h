@@ -5,8 +5,7 @@
 #include <math/Vector3.h>
 #include <resource/Resource.h>
 #include <renderer/Mesh.h>
-#include <renderer/IndexBuffer.h>
-#include <renderer/VertexBuffer.h>
+#include <renderer/Program.h>
 
 namespace Engine {
 
@@ -20,6 +19,7 @@ public:
 	virtual void Render(Renderer *r);
 
 	Mesh *m_Mesh;
+	Program *m_Program;
 };
 
 }
