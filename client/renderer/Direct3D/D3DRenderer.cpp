@@ -1,7 +1,7 @@
 #include <iostream>
 #include <renderer/Direct3D/D3DRenderer.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_thread.h>
+#include <SDL.h>
+#include <SDL_thread.h>
 
 #include <windows.h>
 #include <d3d9.h>

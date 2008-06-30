@@ -6,7 +6,8 @@
 #include <engine/SceneNode.h>
 #include <engine/Camera.h>
 #include <renderer/Renderer.h>
-#include <SDL/SDL.h>
+#include <SDL.h>
+#include <SDL_image.h>
 
 #if 0
 class Window : public Surface {

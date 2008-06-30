@@ -24,7 +24,7 @@ endif
 
 # Darwin (Mac OS X) too
 ifeq ($(UNAME),Darwin)
-CFLAGS += -DASM_LEADING_UNDERSCORES=1 -D__DARWIN=1 -mdynamic-no-pic -I/sw/include
+CFLAGS += -DASM_LEADING_UNDERSCORES=1 -D__DARWIN=1 -mdynamic-no-pic -I/sw/include -I/sw/include/SDL
 LDLIBS += -framework Cocoa -framework OpenGL -L/sw/lib -lSDLmain -lstdc++
 endif
 
@@ -36,7 +36,7 @@ endif
 
 ifeq ($(UNAME),Linux)
 ifeq ($(ARCH),ppc)
-CFLAGS += -fno-pic -mregnames
+CFLAGS += -fno-pic -mregnames -I/usr/include/SDL
 CFLAGS += -mcpu=7450
 endif
 ifeq ($(ARCH),ppc64)
