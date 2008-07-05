@@ -20,7 +20,7 @@ int ShaderResource::LoadFromStorage()
 	char path[4096];
 	sprintf(path, "resources/shader/%s.xml", mName.c_str());
 	if (!doc.LoadFile(path))
-		return NULL;
+		return -1;
 	
 	// load the vertex shader
 	const TiXmlElement *vertexroot = doc.FirstChildElement("vertexshader");
