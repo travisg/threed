@@ -58,8 +58,6 @@ GLMesh::~GLMesh()
 
 void GLMesh::Draw(Renderer *r)
 {
-	GLRenderer *dr = (GLRenderer *)r;
-
 	assert(m_IB);
 	assert(m_VB);
 

@@ -8,9 +8,9 @@
 
 Resource::Resource(ResourceManager &m, const char *name, enum ResourceType type)
 :	mRefCount(0),
-	mResourceManager(m),
-	mName(name),
 	mType(type),
+	mName(name),
+	mResourceManager(m),
 	m_RenderResource(0)
 {
 }

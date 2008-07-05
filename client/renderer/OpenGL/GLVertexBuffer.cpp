@@ -12,9 +12,9 @@ VertexBuffer *VertexBuffer::CreateVertexBuffer()
 
 GLVertexBuffer::GLVertexBuffer()
 :	VertexBuffer(),
-	m_BufferHandle(0),
+	m_vertexStride(0),
 	m_Format(0),
-	m_vertexStride(0)
+	m_BufferHandle(0)
 {
 }
 
