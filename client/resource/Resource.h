@@ -16,6 +16,7 @@ enum ResourceType {
 };
 
 class ResourceManager;
+class RenderResource;
 
 class Resource : public IRefcounted
 {
@@ -29,11 +30,16 @@ public:
 	virtual int AddRef();
 	virtual int RemoveRef();
 
+	RenderResource *GetRenderResource() { return m_RenderResource; }
+
 protected:
 	int mRefCount;
 	enum ResourceType mType;
 	std::string mName;
 	ResourceManager &mResourceManager;
+
+	// reference to render resource
+	RenderResource *m_RenderResource;
 
 	Resource(ResourceManager &m, const char *name, enum ResourceType type);
 	virtual ~Resource();

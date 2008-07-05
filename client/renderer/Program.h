@@ -1,10 +1,12 @@
 #ifndef __PROGRAM_H
 #define __PROGRAM_H
 
+#include <renderer/RenderResource.h>
+
 class Resource;
 class Renderer;
 
-class Program
+class Program : public RenderResource
 {
 public:
 	Program();

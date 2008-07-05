@@ -1,6 +1,7 @@
 #include <renderer/Program.h>
 
 Program::Program()
+:	RenderResource()
 {
 }
 

@@ -256,6 +256,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\renderer\RenderResource.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\renderer\RenderResource.h"
+				>
+			</File>
+			<File
 				RelativePath=".\renderer\VertexBuffer.cpp"
 				>
 			</File>

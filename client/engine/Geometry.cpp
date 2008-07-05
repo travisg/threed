@@ -55,8 +55,10 @@ Spatial *Geometry::BuildFromResource(Resource *_r)
 		
 		object_resource_set *set = (*i);
 
-		geom->m_Mesh = Mesh::CreateMeshFromResource(set->mesh);
-		geom->m_Program = Program::CreateProgramFromResource(set->shader);
+		geom->m_Mesh = dynamic_cast<Mesh *>(set->mesh->GetRenderResource());
+		assert(geom->m_Mesh);
+		geom->m_Program = dynamic_cast<Program *>(set->shader->GetRenderResource());
+		assert(geom->m_Program);
 
 		if (sceneNode)
 			sceneNode->AddChild(geom);

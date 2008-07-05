@@ -2,7 +2,8 @@
 #include <assert.h>
 
 Mesh::Mesh(Mesh_Type type)
-:	m_IB(0),
+:	RenderResource(),	
+	m_IB(0),
 	m_VB(0),
 	m_Type(type)
 {

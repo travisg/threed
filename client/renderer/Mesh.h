@@ -1,6 +1,7 @@
 #ifndef __MESH_H
 #define __MESH_H
 
+#include <renderer/RenderResource.h>
 #include <shared/mesh.h>
 
 class Renderer;
@@ -9,7 +10,7 @@ class IndexBuffer;
 class VertexBuffer;
 class Resource;
 
-class Mesh
+class Mesh : public RenderResource
 {
 public:
 	Mesh(Mesh_Type type);

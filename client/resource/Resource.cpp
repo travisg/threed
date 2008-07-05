@@ -4,12 +4,14 @@
 #include <resource/MeshResource.h>
 #include <resource/ShaderResource.h>
 #include <resource/TextureResource.h>
+#include <renderer/RenderResource.h>
 
 Resource::Resource(ResourceManager &m, const char *name, enum ResourceType type)
 :	mRefCount(0),
 	mResourceManager(m),
 	mName(name),
-	mType(type)
+	mType(type),
+	m_RenderResource(0)
 {
 }
 
@@ -58,6 +60,9 @@ Resource *Resource::LoadResource(ResourceManager &m, const char *name, enum Reso
 		assert(0); // for now crash
 		return NULL;
 	}
+
+	// construct the render resource
+	r->m_RenderResource = RenderResource::CreateRenderResource(r);
 
 	return r;
 }
