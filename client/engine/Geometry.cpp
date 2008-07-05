@@ -3,6 +3,9 @@
 #include <engine/Geometry.h>
 #include <engine/SceneNode.h>
 #include <renderer/Renderer.h>
+#include <renderer/Mesh.h>
+#include <renderer/Program.h>
+#include <renderer/Texture.h>
 #include <resource/ObjectResource.h>
 #include <resource/MeshResource.h>
 
@@ -10,7 +13,8 @@ namespace Engine {
 
 Geometry::Geometry()
 :	m_Mesh(0),
-	m_Program(0)
+	m_Program(0),
+	m_Texture(0)
 {
 }
 
@@ -25,8 +29,10 @@ void Geometry::Render(Renderer *r)
 	r->SetWorldMatrix(mWorldTransform);
 
 	m_Program->Bind(r);
+	if (m_Texture)
+		m_Texture->Bind(r, 0);
 	m_Mesh->Draw(r);
-	
+
 	r->UnsetWorldMatrix();
 }
 
@@ -59,6 +65,12 @@ Spatial *Geometry::BuildFromResource(Resource *_r)
 		assert(geom->m_Mesh);
 		geom->m_Program = dynamic_cast<Program *>(set->shader->GetRenderResource());
 		assert(geom->m_Program);
+
+		for	(ResourceListConstIterator i2 = set->textures.begin(); i2 != set->textures.end(); i2++) {
+			// xxx
+			Resource *r = (*i2);
+			geom->m_Texture = dynamic_cast<Texture *>(r->GetRenderResource());
+		}
 
 		if (sceneNode)
 			sceneNode->AddChild(geom);

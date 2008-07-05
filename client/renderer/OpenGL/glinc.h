@@ -58,6 +58,9 @@ extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv;
 extern PFNGLGETUNIFORMFVPROC glGetUniformfv;
 extern PFNGLGETUNIFORMIVPROC glGetUniformiv;
 
+extern PFNGLACTIVETEXTUREPROC glActiveTexture;
+extern PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture;
+
 #elif __DARWIN
 
 // OS X

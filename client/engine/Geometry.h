@@ -2,10 +2,12 @@
 #define __GEOMETRY_H
 
 #include <engine/Spatial.h>
-#include <math/Vector3.h>
-#include <resource/Resource.h>
-#include <renderer/Mesh.h>
-#include <renderer/Program.h>
+
+class Resource;
+
+class Mesh;
+class Program;
+class Texture;
 
 namespace Engine {
 
@@ -20,6 +22,7 @@ public:
 
 	Mesh *m_Mesh;
 	Program *m_Program;
+	Texture *m_Texture;
 };
 
 }

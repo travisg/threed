@@ -264,6 +264,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\renderer\Texture.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\renderer\Texture.h"
+				>
+			</File>
+			<File
 				RelativePath=".\renderer\VertexBuffer.cpp"
 				>
 			</File>
@@ -316,6 +324,14 @@
 				</File>
 				<File
 					RelativePath=".\renderer\OpenGL\GLRenderer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLTexture.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\renderer\OpenGL\GLTexture.h"
 					>
 				</File>
 				<File

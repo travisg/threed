@@ -9,13 +9,16 @@ class Renderer;
 class GLMesh : public Mesh
 {
 public:
-	GLMesh(Mesh_Type type);
 	virtual ~GLMesh();
 
 	virtual void Draw(Renderer *r);
 
-protected:
+private:
+	friend class Mesh;
+	GLMesh(Mesh_Type type);
+
 	GLenum m_Type;
+
 };
 
 #endif

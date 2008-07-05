@@ -13,7 +13,7 @@ private:
 	virtual int LoadFromStorage();
 
 public:
-
+	SDL_Surface *GetSurface() { return m_Surface; }
 
 private:
 	SDL_Surface *m_Surface;

@@ -60,7 +60,8 @@ int ObjectResource::LoadFromStorage()
 
 			mResourceSets.push_back(set);
 
-			textures.clear();
+			// XXX
+//			textures.clear();
 		}
 	}
 

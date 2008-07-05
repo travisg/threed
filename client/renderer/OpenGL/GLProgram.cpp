@@ -84,7 +84,7 @@ int GLProgram::_CreateFromResource(ShaderResource *r)
 	return 0;
 }
 
-Program *Program::CreateProgramFromResource(Resource *_r)
+Program *Program::CreateFromResource(Resource *_r)
 {
 	ShaderResource *r = dynamic_cast<ShaderResource *>(_r);
 	assert(r);

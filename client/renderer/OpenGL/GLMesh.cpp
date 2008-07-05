@@ -7,14 +7,14 @@
 
 #include "glinc.h"
 
-Mesh *Mesh::CreateMesh(Mesh_Type type)
+Mesh *Mesh::Create(Mesh_Type type)
 {
 	Mesh *m = new GLMesh(type);
 
 	return m;
 }
 
-Mesh *Mesh::CreateMeshFromResource(Resource *_r)
+Mesh *Mesh::CreateFromResource(Resource *_r)
 {
 	MeshResource *r = dynamic_cast<MeshResource *>(_r);
 	assert(r);

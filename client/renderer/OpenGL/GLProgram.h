@@ -9,18 +9,17 @@ class ShaderResource;
 class GLProgram : public Program
 {
 public:
-	GLProgram();
 	virtual ~GLProgram();
 
 	virtual void Bind(Renderer *r);
 
-protected:
+private:
+	friend class Program;
+	GLProgram();
+
 	// private constructor used by Program::CreateProgramFromResource
 	int _CreateFromResource(ShaderResource *r);
 
-	friend class Program;
-
-private:
 	// gl resources
 	GLuint m_GLvshader;
 	GLuint m_GLfshader;

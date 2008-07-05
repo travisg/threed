@@ -50,6 +50,8 @@ PFNGLUNIFORMMATRIX3FVPROC glUniformMatrix3fv = NULL;
 PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv = NULL;
 PFNGLGETUNIFORMFVPROC glGetUniformfv = NULL;
 PFNGLGETUNIFORMIVPROC glGetUniformiv = NULL;
+PFNGLACTIVETEXTUREPROC glActiveTexture = NULL;
+PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture = NULL;
 
 #endif
 
@@ -102,6 +104,7 @@ void InitGLExt()
 	glUniformMatrix4fv = (PFNGLUNIFORMMATRIX4FVPROC) wglGetProcAddress("glUniformMatrix4fvARB");
 	glGetUniformfv = (PFNGLGETUNIFORMFVARBPROC) wglGetProcAddress("glGetUniformfvARB");
 	glGetUniformiv = (PFNGLGETUNIFORMIVARBPROC) wglGetProcAddress("glGetUniformivARB");
-
+	glActiveTexture = (PFNGLACTIVETEXTUREPROC) wglGetProcAddress("glActiveTextureARB");
+	glClientActiveTexture = (PFNGLCLIENTACTIVETEXTUREPROC) wglGetProcAddress("glClientActiveTextureARB");
 #endif
 }

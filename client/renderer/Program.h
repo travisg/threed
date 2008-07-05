@@ -12,7 +12,7 @@ public:
 	Program();
 	virtual ~Program();
 
-	static Program *CreateProgramFromResource(Resource *r);
+	static Program *CreateFromResource(Resource *r);
 
 	virtual void Bind(Renderer *r) = 0;
 

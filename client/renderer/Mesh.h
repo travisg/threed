@@ -16,8 +16,8 @@ public:
 	Mesh(Mesh_Type type);
 	virtual ~Mesh();
 
-	static Mesh *CreateMesh(Mesh_Type type);
-	static Mesh *CreateMeshFromResource(Resource *r);
+	static Mesh *Create(Mesh_Type type);
+	static Mesh *CreateFromResource(Resource *r);
 
 	void SetIndexBuffer(IndexBuffer *ib);
 	void SetVertexBuffer(VertexBuffer *vb);

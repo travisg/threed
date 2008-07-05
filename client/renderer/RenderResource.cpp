@@ -3,6 +3,7 @@
 #include <renderer/RenderResource.h>
 #include <renderer/Mesh.h>
 #include <renderer/Program.h>
+#include <renderer/Texture.h>
 
 RenderResource *RenderResource::CreateRenderResource(Resource *r)
 {
@@ -10,12 +11,13 @@ RenderResource *RenderResource::CreateRenderResource(Resource *r)
 
 	switch (r->GetType()) {
 		case RT_MESH:
-			resource = Mesh::CreateMeshFromResource(r);
+			resource = Mesh::CreateFromResource(r);
 			break;
 		case RT_TEXTURE:
+			resource = Texture::CreateFromResource(r);
 			break;
 		case RT_SHADER:
-			resource = Program::CreateProgramFromResource(r);
+			resource = Program::CreateFromResource(r);
 			break;
 		case RT_OBJECT:
 			// do nothing here

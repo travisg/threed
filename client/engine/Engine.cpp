@@ -107,7 +107,7 @@ void Engine::SetupDefaultScene()
 	r->RemoveRef();
 
 	assert(spatial);
-//	spatial->Scale(.1f);
+	spatial->Scale(.001f);
 	spatial->Rotate(Math::Vector3(Math::DegreeToRadians(-90), 0, 0));
 	mNodeTree->AddChild(spatial);
 
