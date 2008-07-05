@@ -60,14 +60,17 @@ OBJS := \
 	engine/Spatial.o \
 	renderer/IndexBuffer.o \
 	renderer/Mesh.o \
+	renderer/OpenGL/glext.o \
 	renderer/OpenGL/GLIndexBuffer.o \
 	renderer/OpenGL/GLMesh.o \
 	renderer/OpenGL/GLProgram.o \
 	renderer/OpenGL/GLRenderer.o \
+	renderer/OpenGL/GLTexture.o \
 	renderer/OpenGL/GLVertexBuffer.o \
-	renderer/OpenGL/glext.o \
 	renderer/Program.o \
 	renderer/Renderer.o \
+	renderer/RenderResource.o \
+	renderer/Texture.o \
 	renderer/VertexBuffer.o \
 	resource/MeshResource.o \
 	resource/ObjectResource.o \
