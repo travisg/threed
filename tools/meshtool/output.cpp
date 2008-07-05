@@ -35,7 +35,7 @@ int dump_geometry_tree(Geometry *geometry, std::string outfile_root)
 		header.endian = 0;
 		header.index_width = 4;
 		header.mesh_type = MESH_TYPE_TRIANGLE_LIST;
-		header.vert_format = VERT_FORMAT_POS_NORM; // VERT_FORMAT_POS_NORM_UV;
+		header.vert_format = VERT_FORMAT_POS_NORM_UV;
 		header.vertcount = (uint32_t)umesh.VertCount();
 		header.indexcount = (uint32_t)umesh.IndexCount();
 		

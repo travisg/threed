@@ -73,12 +73,12 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 			m_vertexStride = 3*4;
 			break;
 		case VERT_FORMAT_POS_NORM:
-			m_Format = GL_C4F_N3F_V3F; // add a color
-			m_vertexStride = 6*4 + 4 * 4;
+			m_Format = GL_N3F_V3F;
+			m_vertexStride = 6*4;
 			break;
 		case VERT_FORMAT_POS_NORM_UV:
 			m_Format = GL_T2F_N3F_V3F;
-			m_vertexStride = 8*4;
+			m_vertexStride = 2*4 + 6*4;
 			break;
 		default:
 			assert(0);
@@ -93,10 +93,10 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 	void *buffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 	assert(buffer);
 
+	// convert format (XXX total hack)
 	switch (format) {
 		case VERT_FORMAT_POS_NORM: {
 			struct target {
-				float color0, color1, color2, color3;
 				float normx, normy, normz;
 				float posx, posy, posz;
 			};
@@ -114,10 +114,34 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 				t->normx = s->normx;
 				t->normy = s->normy;
 				t->normz = s->normz;
-				t->color0 = (rand() & 0xff) / 256.0f;
-				t->color1 = (rand() & 0xff) / 256.0f;
-				t->color2 = (rand() & 0xff) / 256.0f;
-				t->color3 = 1.0f;
+				s++;
+				t++;
+			}
+			break;
+		}
+		case VERT_FORMAT_POS_NORM_UV: {
+			struct target {
+				float u, v;
+				float normx, normy, normz;
+				float posx, posy, posz;
+			};
+			struct src {
+				float posx, posy, posz;
+				float normx, normy, normz;
+				float u, v;
+			};
+
+			struct target *t = (struct target *)buffer;
+			const struct src *s = (const struct src *)vertexes;
+			for (unsigned int i = 0; i < m_vertexCount; i++) {
+				t->posx = s->posx;
+				t->posy = s->posy;
+				t->posz = s->posz;
+				t->normx = s->normx;
+				t->normy = s->normy;
+				t->normz = s->normz;
+				t->u = s->u;
+				t->v = s->v;
 				s++;
 				t++;
 			}
