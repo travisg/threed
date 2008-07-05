@@ -2,7 +2,7 @@
 	<body>
 varying vec3 color;
 varying vec3 normal;
-varying vec4 pos;
+
 void main()
 {
 	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
@@ -16,9 +16,10 @@ void main()
 <fragmentshader>
 	<body>
 uniform vec3 sunvec;
+
 varying vec3 color;
 varying vec3 normal;
-varying vec4 pos;
+
 void main()
 {
 	vec3 c = color * dot(normal, sunvec);
