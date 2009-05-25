@@ -7,8 +7,8 @@ Spatial::Spatial()
 :	mParent(0),
 	mDirty(false)
 {
-	SetPos(Math::Vector3(0, 0, 0));
-	SetRotation(Math::Vector3(0, 0, 0));
+	SetPos(Math::Vector3f(0, 0, 0));
+	SetRotation(Math::Vector3f(0, 0, 0));
 	SetScale(1.0f);
 }
 
@@ -16,13 +16,13 @@ Spatial::~Spatial()
 {
 }
 
-void Spatial::SetPos(const Math::Vector3 &pos)
+void Spatial::SetPos(const Math::Vector3f &pos)
 {
 	mLocalTranslate = pos;
 	mDirty = true;
 }
 
-void Spatial::SetRotation(const Math::Vector3 &rot)
+void Spatial::SetRotation(const Math::Vector3f &rot)
 {
 	// XXX make faster
 	Math::Matrix4x4 rotx;
@@ -44,7 +44,7 @@ void Spatial::SetScale(float scale)
 	mDirty = true;
 }
 
-Math::Vector3 Spatial::GetGlobalPos()
+Math::Vector3f Spatial::GetGlobalPos()
 {
 	if (mParent)
 		return mLocalTranslate + mParent->GetGlobalPos();
@@ -52,13 +52,13 @@ Math::Vector3 Spatial::GetGlobalPos()
 		return mLocalTranslate;
 }
 
-void Spatial::Move(const Math::Vector3 &trans)
+void Spatial::Move(const Math::Vector3f &trans)
 {
 	mLocalTranslate += trans;
 	mDirty = true;
 }
 
-void Spatial::Rotate(const Math::Vector3 &rot)
+void Spatial::Rotate(const Math::Vector3f &rot)
 {
 	SetRotation(mLocalRotationAngles + rot);
 	mDirty = true;
@@ -85,7 +85,7 @@ void Spatial::UpdateWorldMatrix()
 	Math::Matrix4x4 localTranslate;
 	Math::Matrix4x4 localScaling;
 	localTranslate.SetTranslation(mLocalTranslate);
-	localScaling.SetScaling(Math::Vector3(mLocalScale, mLocalScale, mLocalScale));
+	localScaling.SetScaling(Math::Vector3f(mLocalScale, mLocalScale, mLocalScale));
 
 	localTransform = localTranslate * mLocalRotation * localScaling;
 

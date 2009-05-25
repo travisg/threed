@@ -40,19 +40,19 @@ namespace Engine {
 		r->SetViewMatrix(mTransform);
 	}
 
-	void Camera::SetPos(const Math::Vector3 &pos)
+	void Camera::SetPos(const Math::Vector3f &pos)
 	{
 		mPos = pos;
 		dirty = true;
 	}
 
-	void Camera::Move(const Math::Vector3 &trans)
+	void Camera::Move(const Math::Vector3f &trans)
 	{
 		mPos += trans;
 		dirty = true;
 	}
 
-	void Camera::Rotate(const Math::Vector3 &rot)
+	void Camera::Rotate(const Math::Vector3f &rot)
 	{
 		mUp += rot;
 		dirty = true;
@@ -63,14 +63,14 @@ namespace Engine {
 //		std::cout << __FUNCTION__ << " object at " << obj.GetGlobalPos() << " cam " << mPos << std::endl;
 
 		// essentially gluLookAt
-		Math::Vector3 f = obj.GetGlobalPos() - mPos;
+		Math::Vector3f f = obj.GetGlobalPos() - mPos;
 		f.Normalize();
 
-		Math::Vector3 up = mUp;
+		Math::Vector3f up = mUp;
 		up.Normalize();
 
-		Math::Vector3 s = Cross(f, up);
-		Math::Vector3 u = Cross(s, f);
+		Math::Vector3f s = Cross(f, up);
+		Math::Vector3f u = Cross(s, f);
 
 		Math::Matrix4x4 M;
 		M.SetIdentity();

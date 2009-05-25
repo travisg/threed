@@ -43,9 +43,9 @@ int Engine::InnerLoop()
 {
 	mRenderer->StartFrame();
 
-//	mNodeTree->Move(Math::Vector3(0, 0, 0.001f));
-//	mNodeTree->Rotate(Math::Vector3(0.01f, 0.01f, 0.01f));
-	testSpatial->Rotate(Math::Vector3(0.00f, 0.01f, 0.00f));
+//	mNodeTree->Move(Math::Vector3f(0, 0, 0.001f));
+//	mNodeTree->Rotate(Math::Vector3f(0.01f, 0.01f, 0.01f));
+	testSpatial->Rotate(Math::Vector3f(0.00f, 0.01f, 0.00f));
 
 	Math::Matrix4x4 proj;
 	proj.SetProjectionPerspective(Math::DegreeToRadians(45.0f * mMainCamera->GetZoom()), (float)(mRenderer->GetWindowWidth())/(float)(mRenderer->GetWindowHeight()), 1.0f, 1000.0f);
@@ -81,8 +81,8 @@ void Engine::SetupDefaultScene()
 	assert(plane);
 	r->RemoveRef();
 
-	plane->Move(Math::Vector3(0, 0, -10.0f));
-	plane->Rotate(Math::Vector3(-1, 1, 0));
+	plane->Move(Math::Vector3f(0, 0, -10.0f));
+	plane->Rotate(Math::Vector3f(-1, 1, 0));
 	mNodeTree->AddChild(plane);
 
 	r = mResources->GetResource("jess2", RT_OBJECT);
@@ -103,8 +103,8 @@ void Engine::SetupDefaultScene()
 	r->RemoveRef();
 
 	spatial->Scale(1.5f);
-	spatial->Move(Math::Vector3(-5, 3.0f, -20.0f));
-	spatial->Rotate(Math::Vector3(1, 0, -10));
+	spatial->Move(Math::Vector3f(-5, 3.0f, -20.0f));
+	spatial->Rotate(Math::Vector3f(1, 0, -10));
 	mNodeTree->AddChild(spatial);
 
 	r = mResources->GetResource("map", RT_OBJECT);
@@ -114,19 +114,19 @@ void Engine::SetupDefaultScene()
 
 	assert(spatial);
 	spatial->Scale(.001f);
-	spatial->Rotate(Math::Vector3(Math::DegreeToRadians(-90), 0, 0));
+	spatial->Rotate(Math::Vector3f(Math::DegreeToRadians(-90.0), 0, 0));
 	mNodeTree->AddChild(spatial);
 
-	mNodeTree->Move(Math::Vector3(0, 0, 1.0f));
+	mNodeTree->Move(Math::Vector3f(0, 0, 1.0f));
 
 	r = mResources->GetResource("dude", RT_OBJECT);
 	spatial = Geometry::BuildFromResource(r);
-	spatial->Move(Math::Vector3(-1,-1,-1));
+	spatial->Move(Math::Vector3f(-1,-1,-1));
 	mNodeTree->AddChild(spatial);
 
 	// create a camera to look through
 	mMainCamera = new Camera();
-	mMainCamera->SetPos(Math::Vector3(2, 2, 3.5));
+	mMainCamera->SetPos(Math::Vector3f(2, 2, 3.5));
 }
 
 }

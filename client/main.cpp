@@ -74,7 +74,7 @@ static int display_thread_entry(Window *win)
 
 void MathTest()
 {
-	Math::Vector3 point(0, 1.0, -2.0);
+	Math::Vector3f point(0, 1.0, -2.0);
 
 	Math::Matrix4x4 mS;
 	Math::Matrix4x4 mX;
@@ -82,11 +82,11 @@ void MathTest()
 	Math::Matrix4x4 mZ;
 	Math::Matrix4x4 mT;
 
-	mS.SetScaling(Math::Vector3(1.0, 1.0, 1.0));
+	mS.SetScaling(Math::Vector3f(1.0, 1.0, 1.0));
 	mX.SetRotationX(1.0f);
 	mY.SetRotationY(0);
 	mZ.SetRotationZ(0);
-	mT.SetTranslation(Math::Vector3(0, 0, 0));
+	mT.SetTranslation(Math::Vector3f(0, 0, 0));
 
 	std::cout << "scaling matrix: \n";
 	std::cout << mS << std::endl;
@@ -108,7 +108,7 @@ void MathTest()
 	std::cout << "point: \n";
 	std::cout << point << std::endl;
 
-	Math::Vector3 translatedPoint;
+	Math::Vector3f translatedPoint;
 	translatedPoint = mTransform.Transform(point);
 
 	std::cout << "translated point: \n";
@@ -176,11 +176,11 @@ int main(int argc, char **argv)
 //				std::cout << "mouse move " << event.motion.xrel << " " << event.motion.yrel << std::endl;
 				if (mouseControl == MOUSE_CONTROL_CAMERA) {
 					if (mouseDown & SDL_BUTTON_LMASK) {
-						e->GetCamera()->Move(Math::Vector3(-event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
+						e->GetCamera()->Move(Math::Vector3f(-event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
 						e->GetCamera()->PrintPosition();
 					}
 					if (mouseDown & SDL_BUTTON_RMASK) {
-						e->GetCamera()->Rotate(Math::Vector3(event.motion.yrel / 256.0, event.motion.xrel / 256.0, 0));
+						e->GetCamera()->Rotate(Math::Vector3f(event.motion.yrel / 256.0, event.motion.xrel / 256.0, 0));
 						e->GetCamera()->PrintPosition();
 					}
 				}
@@ -188,21 +188,21 @@ int main(int argc, char **argv)
 			case SDL_MOUSEBUTTONDOWN:
 				if (mouseControl == MOUSE_CONTROL_CAMERA) {
 					if (mouseDown & SDL_BUTTON_LMASK && event.button.button == SDL_BUTTON_WHEELDOWN) {
-						e->GetCamera()->Move(Math::Vector3(0, 0, 1.0f));
+						e->GetCamera()->Move(Math::Vector3f(0, 0, 1.0f));
 						e->GetCamera()->PrintPosition();
 					}
 					if (mouseDown & SDL_BUTTON_LMASK && event.button.button == SDL_BUTTON_WHEELUP) {
-						e->GetCamera()->Move(Math::Vector3(0, 0, -1.0f));
+						e->GetCamera()->Move(Math::Vector3f(0, 0, -1.0f));
 						e->GetCamera()->PrintPosition();
 					}
 
 					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELDOWN) {
 						e->GetCamera()->Zoom(0.1f);
-						e->GetCamera()->Rotate(Math::Vector3(0, 0, 0.1f));
+						e->GetCamera()->Rotate(Math::Vector3f(0, 0, 0.1f));
 					}
 					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELUP) {
 						e->GetCamera()->Zoom(-0.1f);
-						e->GetCamera()->Rotate(Math::Vector3(0, 0, -0.1f));
+						e->GetCamera()->Rotate(Math::Vector3f(0, 0, -0.1f));
 					}
 				}
 				break;
