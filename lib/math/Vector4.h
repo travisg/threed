@@ -1,8 +1,8 @@
 #ifndef __VECTOR4_H
 #define __VECTOR4_H
 
-#include <shared/defines.h>
 #include <ostream>
+#include "Math.h"
 
 namespace Math {
 
@@ -45,6 +45,7 @@ public:
 	float Dot(const Vector4 &v) const;
 	friend float Dot(const Vector4 &v1, const Vector4 &v2);
 	void Normalize();
+	void Normalize(float n);
 
 	operator const float*() const { return &x; }
 
@@ -89,6 +90,102 @@ inline float Vector4::getx() const { return x; }
 inline float Vector4::gety() const { return y; }
 inline float Vector4::getz() const { return z; }
 inline float Vector4::getw() const { return w; }
+
+inline Vector4 Vector4::operator+(const Vector4 &v) const
+{
+	return Vector4(x + v.x, y + v.y, z + v.z, w + v.w);
+}
+
+inline Vector4 &Vector4::operator+=(const Vector4 &v)
+{
+	x += v.x;
+	y += v.y;
+	z += v.z;
+	w += v.w;
+	return *this;
+}
+
+inline Vector4 Vector4::operator-(const Vector4 &f) const
+{
+	return Vector4(x - f.x, y - f.y, z - f.z, w - f.w);
+}
+
+
+inline Vector4 &Vector4::operator-=(const Vector4 &f)
+{
+	x -= f.x;
+	y -= f.y;
+	z -= f.z;
+	w -= f.w;
+	return *this;
+}
+
+inline Vector4 Vector4::operator*(const Vector4 &f) const
+{
+	return Vector4(x * f.x, y * f.y, z * f.z, w * f.w);
+}
+
+inline Vector4 &Vector4::operator*=(const Vector4 &f)
+{ 
+	x *= f.x;
+	y *= f.y;
+	z *= f.z;
+	w *= f.w;
+	return *this;
+}
+
+inline Vector4 Vector4::operator*(float scalar) const
+{
+	return Vector4(x * scalar, y * scalar, z * scalar, w * scalar);
+}
+
+inline Vector4 operator*(float scalar, const Vector4 &v)
+{
+	return Vector4(v.x * scalar, v.y * scalar, v.z * scalar, v.w * scalar);
+}
+
+inline Vector4 &Vector4::operator*=(float scalar)
+{
+	x *= scalar;
+	y *= scalar;
+	z *= scalar;
+	w *= scalar;
+	return *this;
+}
+
+inline Vector4 Vector4::operator/(float scalar) const
+{
+	return Vector4(x / scalar, y / scalar, z / scalar, w / scalar);
+}
+
+inline Vector4 &Vector4::operator/=(float scalar)
+{
+	x /= scalar;
+	y /= scalar;
+	z /= scalar;
+	w /= scalar;
+	return *this;
+}
+
+inline float Vector4::LengthSquared() const
+{
+	return (x*x + y*y + z*z + w*w);
+}
+
+inline float Vector4::Length() const
+{
+	return Math<float>::sqrt(x*x + y*y + z*z + w*w);
+}
+
+inline float Vector4::Dot(const Vector4 &v) const
+{
+	return (x*v.x + y*v.y + z*v.z + w*v.w);	
+}
+
+inline float Dot(const Vector4 &v1, const Vector4 &v2)
+{
+	return (v1.x*v2.x + v1.y*v2.y + v1.z*v2.z + v1.w*v2.w);	
+}
 
 }
 

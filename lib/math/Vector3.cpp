@@ -1,118 +1,25 @@
 #include <iostream>
-#include <math/Math.h>
-#include <math/Vector3.h>
+#include "Math.h"
+#include "Vector3.h"
 
 namespace Math {
 
-std::ostream &operator<<(std::ostream &os, const Vector3 &v)
+template<class T>
+std::ostream &operator<<(std::ostream &os, const Vector3<T> &v)
 {
 	os << "[ " << v.getx() << " " << v.gety() << " " << v.getz() << " ]";
 	return os;
 }
 
-Vector3 Vector3::operator+(const Vector3 &v) const
-{
-	return Vector3(x + v.x, y + v.y, z + v.z);
-}
-
-Vector3 &Vector3::operator+=(const Vector3 &v)
-{
-	x += v.x;
-	y += v.y;
-	z += v.z;
-	return *this;
-}
-
-Vector3 Vector3::operator-(const Vector3 &f) const
-{
-	return Vector3(x - f.x, y - f.y, z - f.z);
-}
-
-Vector3 Vector3::operator-() const
-{
-	return Vector3(-x, -y, -z);
-}
-
-Vector3 &Vector3::operator-=(const Vector3 &f)
-{
-	x -= f.x;
-	y -= f.y;
-	z -= f.z;
-	return *this;
-}
-
-Vector3 Vector3::operator*(const Vector3 &f) const
-{
-	return Vector3(x * f.x, y * f.y, z * f.z);
-}
-
-Vector3 &Vector3::operator*=(const Vector3 &f)
-{ 
-	x *= f.x;
-	y *= f.y;
-	z *= f.z;
-	return *this;
-}
-
-Vector3 Vector3::operator*(float scalar) const
-{
-	return Vector3(x * scalar, y * scalar, z * scalar);
-}
-
-Vector3 operator*(float scalar, const Vector3 &v)
-{
-	return Vector3(v.x * scalar, v.y * scalar, v.z * scalar);
-}
-
-Vector3 &Vector3::operator*=(float scalar)
-{
-	x *= scalar;
-	y *= scalar;
-	z *= scalar;
-	return *this;
-}
-
-Vector3 Vector3::operator/(float scalar) const
-{
-	return Vector3(x / scalar, y / scalar, z / scalar);
-}
-
-Vector3 &Vector3::operator/=(float scalar)
-{
-	x /= scalar;
-	y /= scalar;
-	z /= scalar;
-	return *this;
-}
-
-float Vector3::Length() const
-{
-	return Math<float>::sqrt(x*x + y*y + z*z);
-}
-
-float Vector3::LengthSquared() const
-{
-	return (x*x + y*y + z*z);
-}
-
-float Vector3::Dot(const Vector3 &v) const
-{
-	return (x*v.x + y*v.y + z*v.z);	
-}
-
-float Dot(const Vector3 &v1, const Vector3 &v2)
-{
-	return (v1.x*v2.x + v1.y*v2.y + v1.z*v2.z);	
-}
-
-void Vector3::Normalize()
+template<class T>
+void Vector3<T>::Normalize()
 {
 	float lenSquared = LengthSquared();
 
 	if (lenSquared == 0.0f) {
 		x = y = z = 0;
 	} else {
-		float invsqrt = 1.0f / Math<float>::sqrt(lenSquared);
+		T invsqrt = 1.0f / Math<T>::sqrt(lenSquared);
 
 		x *= invsqrt;
 		y *= invsqrt;
@@ -120,13 +27,43 @@ void Vector3::Normalize()
 	}
 }
 
-Vector3 Cross(const Vector3 &v1, const Vector3 &v2)
+template<class T>
+void Vector3<T>::Normalize(T n)
 {
-	return Vector3(
+	float lenSquared = LengthSquared();
+
+	if (lenSquared == 0.0f) {
+		x = y = z = 0;
+	} else {
+		T invsqrt = n / Math<T>::sqrt(lenSquared);
+
+		x *= invsqrt;
+		y *= invsqrt;
+		z *= invsqrt;
+	}
+}
+
+template<class T2>
+Vector3<T2> Cross(const Vector3<T2> &v1, const Vector3<T2> &v2)
+{
+	return Vector3<T2>(
 		v1.y * v2.z - v1.z * v2.y,
 		v1.z * v2.x - v1.x * v2.z,
 		v1.x * v2.y - v1.y * v2.x);
 }
+
+/* template instantiation */
+template void Vector3<float>::Normalize();
+template void Vector3<double>::Normalize();
+
+template void Vector3<float>::Normalize(float n);
+template void Vector3<double>::Normalize(double n);
+
+template std::ostream &operator<<(std::ostream &os, const Vector3<float> &v);
+template std::ostream &operator<<(std::ostream &os, const Vector3<double> &v);
+
+template Vector3<float> Cross(const Vector3<float> &v1, const Vector3<float> &v2);
+template Vector3<double> Cross(const Vector3<double> &v1, const Vector3<double> &v2);
 
 }
 

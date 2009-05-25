@@ -1,5 +1,7 @@
-#include <math/Math.h>
-#include <math/Matrix4x4.h>
+#include "Math.h"
+#include "Vector3.h"
+#include "Vector4.h"
+#include "Matrix4x4.h"
 #include <assert.h>
 
 namespace Math {
@@ -18,6 +20,9 @@ std::ostream &operator<<(std::ostream &os, const Matrix4x4 &m)
 
 Matrix4x4::Matrix4x4(const float in[16])
 {
+	if ((void *)in == (void *)this)
+		return;
+
 	val[0] = in[0];
 	val[1] = in[1];
 	val[2] = in[2];
@@ -61,7 +66,7 @@ Matrix4x4 &Matrix4x4::SetIdentity()
 	return *this;
 }
 
-Matrix4x4 &Matrix4x4::SetScaling(const Vector3 &scale)
+Matrix4x4 &Matrix4x4::SetScaling(const Vector3f &scale)
 {
 	val[0] = scale.getx();
 	val[1] = 0;
@@ -82,7 +87,7 @@ Matrix4x4 &Matrix4x4::SetScaling(const Vector3 &scale)
 	return *this;
 }
 
-Matrix4x4 &Matrix4x4::SetTranslation(const Vector3 &xlate)
+Matrix4x4 &Matrix4x4::SetTranslation(const Vector3f &xlate)
 {
 	val[0] = 1;
 	val[1] = 0;
@@ -443,15 +448,15 @@ Vector4 Matrix4x4::operator*(const Vector4 &v) const
 		val[12] * v.getx() + val[13] * v.gety() + val[14] * v.getz() + val[15] * v.getw());
 }
 
-Vector3 Matrix4x4::Transform(const Vector3 &point) const
+Vector3f Matrix4x4::Transform(const Vector3f &point) const
 {
-	return Vector3(
+	return Vector3f(
 		val[0] * point.getx() + val[4] * point.gety() + val[8] * point.getz() + val[12],
 		val[1] * point.getx() + val[5] * point.gety() + val[9] * point.getz() + val[13],
 		val[2] * point.getx() + val[6] * point.gety() + val[10] * point.getz() + val[14]);
 }
 
-void Matrix4x4::SetRow(int row, const Vector3 &v)
+void Matrix4x4::SetRow(int row, const Vector3f &v)
 {
 	val[row * 4] = v.getx();
 	val[row * 4 + 1] = v.gety();
@@ -466,7 +471,7 @@ void Matrix4x4::SetRow(int row, const Vector4 &v)
 	val[row * 4 + 3] = v.getw();
 }
 
-void Matrix4x4::SetCol(int col, const Vector3 &v)
+void Matrix4x4::SetCol(int col, const Vector3f &v)
 {
 	val[0 + col] = v.getx();
 	val[4 + col] = v.gety();

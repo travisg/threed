@@ -1,14 +1,14 @@
 #ifndef __MATRIX4X4_H
 #define __MATRIX4X4_H
 
-#include <shared/defines.h>
 #include <iostream>
+
+#include "Vector3.h"
 
 namespace Math {
 
-class Vector3;
 class Vector4;
-	
+
 class Matrix4x4
 {
 public:
@@ -26,17 +26,17 @@ public:
 
 	/* set the matrix to various ops */
 	Matrix4x4 &SetIdentity();
-	Matrix4x4 &SetScaling(const Vector3 &scale);
-	Matrix4x4 &SetTranslation(const Vector3 &xlate);
+	Matrix4x4 &SetScaling(const Vector3f &scale);
+	Matrix4x4 &SetTranslation(const Vector3f &xlate);
 	Matrix4x4 &SetRotationX(float angle);
 	Matrix4x4 &SetRotationY(float angle);
 	Matrix4x4 &SetRotationZ(float angle);
 	Matrix4x4 &SetProjectionPerspective(float fovy, float aspect, float nearz, float farz);
 	Matrix4x4 &SetProjectionOrtho(float left, float right, float bottom, float top, float nearz, float farz);
 
-	void SetRow(int row, const Vector3 &v);
+	void SetRow(int row, const Vector3f &v);
 	void SetRow(int row, const Vector4 &v);
-	void SetCol(int col, const Vector3 &v);
+	void SetCol(int col, const Vector3f &v);
 	void SetCol(int col, const Vector4 &v);
 
 	/* operators */
@@ -46,7 +46,7 @@ public:
 
 	Matrix4x4 Inverse() const;
 
-	Vector3 Transform(const Vector3 &point) const;
+	Vector3f Transform(const Vector3f &point) const;
 
 	operator const float*() const { return val; }
 
