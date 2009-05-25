@@ -1,6 +1,7 @@
 #include <renderer/OpenGL/GLRenderer.h>
 #include <renderer/OpenGL/GLIndexBuffer.h>
 #include <assert.h>
+#include <cstring>
 
 #include "glinc.h"
 

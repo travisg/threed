@@ -1,4 +1,5 @@
 #include <resource/MeshResource.h>
+#include <cstring>
 
 MeshResource::MeshResource(ResourceManager &m, const char *name)
 :	Resource(m, name, RT_MESH),
