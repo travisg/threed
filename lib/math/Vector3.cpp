@@ -14,7 +14,7 @@ std::ostream &operator<<(std::ostream &os, const Vector3<T> &v)
 template<class T>
 void Vector3<T>::Normalize()
 {
-	float lenSquared = LengthSquared();
+	T lenSquared = LengthSquared();
 
 	if (lenSquared == 0.0f) {
 		x = y = z = 0;
@@ -30,7 +30,7 @@ void Vector3<T>::Normalize()
 template<class T>
 void Vector3<T>::Normalize(T n)
 {
-	float lenSquared = LengthSquared();
+	T lenSquared = LengthSquared();
 
 	if (lenSquared == 0.0f) {
 		x = y = z = 0;
