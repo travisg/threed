@@ -95,6 +95,7 @@ int GLRenderer::Initialize()
 void GLRenderer::ResizeWindow(int width, int height)
 {
 //	assert(0);
+	std::cout << __FUNCTION__ << " " << width << " " << height << std::endl;
 	mWidth = width;
 	mHeight = height;
 }
