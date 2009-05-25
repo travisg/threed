@@ -25,6 +25,12 @@ public:
 	void Rotate(const Math::Vector3 &rot);
 	void Scale(float scale);
 
+	Math::Vector3 GetLocalPos() const { return mLocalTranslate; }
+	Math::Vector3 GetLocalRotation() const { return mLocalRotationAngles; }
+	float GetLocalScale() const { return mLocalScale; }
+
+	Math::Vector3 GetGlobalPos();
+
 	Spatial *mParent;
 
 	// debug

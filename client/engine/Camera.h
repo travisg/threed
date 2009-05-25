@@ -12,6 +12,7 @@ public:
 	Camera();
 	virtual ~Camera();
 
+	void Update();
 	void Render(Renderer *r);
 
 	void SetPos(const Math::Vector3 &pos);
@@ -23,11 +24,14 @@ public:
 	void Zoom(float zoom) { mZoom += zoom; }
 	float GetZoom() const { return mZoom; }
 
+	void LookAt(Spatial &obj);
+
 protected:
 	Math::Vector3 mPos;
 	Math::Vector3 mUp;
 	Math::Matrix4x4 mTransform;
 	float mZoom;
+	bool dirty;
 };
 
 }

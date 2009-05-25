@@ -44,6 +44,14 @@ void Spatial::SetScale(float scale)
 	mDirty = true;
 }
 
+Math::Vector3 Spatial::GetGlobalPos()
+{
+	if (mParent)
+		return mLocalTranslate + mParent->GetGlobalPos();
+	else
+		return mLocalTranslate;
+}
+
 void Spatial::Move(const Math::Vector3 &trans)
 {
 	mLocalTranslate += trans;

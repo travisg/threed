@@ -451,5 +451,35 @@ Vector3 Matrix4x4::Transform(const Vector3 &point) const
 		val[2] * point.getx() + val[6] * point.gety() + val[10] * point.getz() + val[14]);
 }
 
+void Matrix4x4::SetRow(int row, const Vector3 &v)
+{
+	val[row * 4] = v.getx();
+	val[row * 4 + 1] = v.gety();
+	val[row * 4 + 2] = v.getz();
+}
+
+void Matrix4x4::SetRow(int row, const Vector4 &v)
+{
+	val[row * 4] = v.getx();
+	val[row * 4 + 1] = v.gety();
+	val[row * 4 + 2] = v.getz();
+	val[row * 4 + 3] = v.getw();
+}
+
+void Matrix4x4::SetCol(int col, const Vector3 &v)
+{
+	val[0 + col] = v.getx();
+	val[4 + col] = v.gety();
+	val[8 + col] = v.getz();
+}
+
+void Matrix4x4::SetCol(int col, const Vector4 &v)
+{
+	val[0 + col] = v.getx();
+	val[4 + col] = v.gety();
+	val[8 + col] = v.getz();
+	val[12 + col] = v.getw();
+}
+
 }
 

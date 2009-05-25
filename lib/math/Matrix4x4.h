@@ -34,6 +34,11 @@ public:
 	Matrix4x4 &SetProjectionPerspective(float fovy, float aspect, float nearz, float farz);
 	Matrix4x4 &SetProjectionOrtho(float left, float right, float bottom, float top, float nearz, float farz);
 
+	void SetRow(int row, const Vector3 &v);
+	void SetRow(int row, const Vector4 &v);
+	void SetCol(int col, const Vector3 &v);
+	void SetCol(int col, const Vector4 &v);
+
 	/* operators */
 	Matrix4x4 operator*(const Matrix4x4 &v) const;
 	Matrix4x4 &operator*=(const Matrix4x4 &v);

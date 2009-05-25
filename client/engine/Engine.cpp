@@ -15,7 +15,8 @@ Engine *gEngine;
 Engine::Engine()
 :	mRenderer(0),
 	mResources(0),
-	mMainCamera(0)
+	mMainCamera(0),
+	mCameraTarget(0)
 {
 	mNodeTree = new SceneNode;
 	mResources = new ResourceManager;
@@ -53,6 +54,10 @@ int Engine::InnerLoop()
 	mRenderer->SetProjMatrix(proj);
 
 	// set up the main camera
+	if (mCameraTarget) {
+		mMainCamera->LookAt(*mCameraTarget);
+	}
+	mMainCamera->Update();
 	mMainCamera->Render(mRenderer);
 
 	// update the scene graph
@@ -90,6 +95,7 @@ void Engine::SetupDefaultScene()
 	mNodeTree->AddChild(spatial);
 
 	testSpatial = spatial;
+	mCameraTarget = spatial;
 
 	r = mResources->GetResource("plane", RT_OBJECT);
 	spatial = Geometry::BuildFromResource(r);

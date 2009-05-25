@@ -8,6 +8,7 @@ namespace Engine {
 
 class SceneNode;
 class Camera;
+class Spatial;
 
 class Engine {
 public:
@@ -32,6 +33,7 @@ private:
 	ResourceManager *mResources;
 	SceneNode *mNodeTree;
 	Camera *mMainCamera;
+	Spatial *mCameraTarget;
 };
 
 extern Engine *gEngine;

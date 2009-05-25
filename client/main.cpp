@@ -173,7 +173,7 @@ int main(int argc, char **argv)
 			case SDL_KEYUP:
 				break;
 			case SDL_MOUSEMOTION:
-				std::cout << "mouse move " << event.motion.xrel << " " << event.motion.yrel << std::endl;
+//				std::cout << "mouse move " << event.motion.xrel << " " << event.motion.yrel << std::endl;
 				if (mouseControl == MOUSE_CONTROL_CAMERA) {
 					if (mouseDown & SDL_BUTTON_LMASK) {
 						e->GetCamera()->Move(Math::Vector3(-event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
