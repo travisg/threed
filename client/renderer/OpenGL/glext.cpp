@@ -1,6 +1,6 @@
 #include "glinc.h"
 
-#ifdef _WIN32
+#ifdef GL_EXT_POINTERS
 
 /* OGL 1.5 */
 PFNGLBINDBUFFERARBPROC glBindBuffer = NULL;
@@ -57,7 +57,7 @@ PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture = NULL;
 
 void InitGLExt()
 {
-#if defined(_WIN32)
+#ifdef GL_EXT_POINTERS
 	glBindBuffer = (PFNGLBINDBUFFERARBPROC) wglGetProcAddress("glBindBufferARB");
 	glGenBuffers = (PFNGLGENBUFFERSARBPROC) wglGetProcAddress("glGenBuffersARB");
 	glBufferData = (PFNGLBUFFERDATAARBPROC) wglGetProcAddress("glBufferDataARB");

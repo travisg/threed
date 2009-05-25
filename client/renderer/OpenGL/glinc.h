@@ -8,6 +8,32 @@
 #include <gl/GLU.h>
 #include <gl/glext.h>
 
+#define GL_EXT_POINTERS 1
+
+#elif DARWIN // XXX not sure if this is correct
+
+// OS X
+//#include <OpenGL/gl.h>
+//#include <OpenGL/glu.h>
+//#include <OpenGL/glext.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glext.h>
+#define GL_EXT_POINTERS 1
+
+#elif __LINUX
+
+#define GL_GLEXT_PROTOTYPES 1
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glext.h>
+
+#else
+#error I dont know what platform I am!
+#endif
+
+#if defined(GL_EXT_POINTERS)
+
 /* buffer objects (GL 1.5) */
 extern PFNGLBINDBUFFERPROC glBindBuffer;
 extern PFNGLGENBUFFERSPROC glGenBuffers;
@@ -61,22 +87,6 @@ extern PFNGLGETUNIFORMIVPROC glGetUniformiv;
 extern PFNGLACTIVETEXTUREPROC glActiveTexture;
 extern PFNGLCLIENTACTIVETEXTUREPROC glClientActiveTexture;
 
-#elif __DARWIN
-
-// OS X
-#include <OpenGL/gl.h>
-#include <OpenGL/glu.h>
-#include <OpenGL/glext.h>
-
-#elif __LINUX
-
-#define GL_GLEXT_PROTOTYPES 1
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glext.h>
-
-#else
-#error I dont know what platform I am!
 #endif
 
 void InitGLExt();
