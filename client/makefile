@@ -13,6 +13,9 @@ LDLIBS := -lSDL -lSDL_image -lstdc++
 UNAME := $(shell uname -s)
 ARCH := $(shell uname -m)
 
+#$(warning UNAME = ${UNAME})
+#$(warning ARCH = ${ARCH})
+
 BINEXT := 
 
 # cygwin has some special needs
@@ -35,6 +38,9 @@ LDLIBS += -L/usr/local/lib -lpthread
 endif
 
 ifeq ($(UNAME),Linux)
+ifeq ($(ARCH),x86_64)
+CFLAGS += -I/usr/include/SDL
+endif
 ifeq ($(ARCH),ppc)
 CFLAGS += -fno-pic -mregnames -I/usr/include/SDL
 CFLAGS += -mcpu=7450
