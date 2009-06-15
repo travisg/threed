@@ -55,7 +55,7 @@ OBJS := \
 include ../../lib/math/rules.mk
 include ../../lib/tinyxml/rules.mk
 
-OBJS := $(addprefix $(BUILDDIR)/,$(OBJS))
+OBJS := $(subst ..,dotdot,$(addprefix $(BUILDDIR)/,$(OBJS)))
 
 DEPS := $(OBJS:.o=.d)
 
@@ -92,6 +92,21 @@ $(BUILDDIR)/%.o: %.cpp
 	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
 
 $(BUILDDIR)/%.o: %.S
+	@$(MKDIR)
+	@echo compiling $<
+	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
+
+$(BUILDDIR)/dotdot/dotdot/%.o: ../../%.c
+	@$(MKDIR)
+	@echo compiling $<
+	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
+
+$(BUILDDIR)/dotdot/dotdot/%.o: ../../%.cpp
+	@$(MKDIR)
+	@echo compiling $<
+	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
+
+$(BUILDDIR)/dotdot/dotdot/%.o: ../../%.S
 	@$(MKDIR)
 	@echo compiling $<
 	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
