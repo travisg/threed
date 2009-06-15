@@ -92,7 +92,7 @@ OBJS := \
 include ../lib/math/rules.mk
 include ../lib/tinyxml/rules.mk
 
-OBJS := $(addprefix $(BUILDDIR)/,$(OBJS))
+OBJS := $(subst ..,dotdot,$(addprefix $(BUILDDIR)/,$(OBJS)))
 
 DEPS := $(OBJS:.o=.d)
 
@@ -132,6 +132,24 @@ $(BUILDDIR)/%.o: %.S
 	@$(MKDIR)
 	@echo compiling $<
 	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
+
+# hack to build paths that are .. relative to the current one
+# there has to be a better way
+$(BUILDDIR)/dotdot/%.o: ../%.c
+	@$(MKDIR)
+	@echo compiling $<
+	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
+
+$(BUILDDIR)/dotdot/%.o: ../%.cpp
+	@$(MKDIR)
+	@echo compiling $<
+	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
+
+$(BUILDDIR)/dotdot/%.o: ../%.S
+	@$(MKDIR)
+	@echo compiling $<
+	@$(CC) $(CFLAGS) -c $< -MD -MT $@ -MF $(@:%o=%d) -o $@
+
 
 # Empty rule for the .d files. The above rules will build .d files as a side
 # effect. Only works on gcc 3.x and above, however.
