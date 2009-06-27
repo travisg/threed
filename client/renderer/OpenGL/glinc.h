@@ -10,16 +10,12 @@
 
 #define GL_EXT_POINTERS 1
 
-#elif DARWIN // XXX not sure if this is correct
+#elif __DARWIN
 
 // OS X
-//#include <OpenGL/gl.h>
-//#include <OpenGL/glu.h>
-//#include <OpenGL/glext.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <GL/glext.h>
-#define GL_EXT_POINTERS 1
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <OpenGL/glext.h>
 
 #elif __LINUX
 
