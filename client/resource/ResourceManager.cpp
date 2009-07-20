@@ -57,3 +57,15 @@ void ResourceManager::DumpResources()
 		std::cout << "'" << r->mName << "' type " << r->mType << " count " << r->mRefCount << std::endl;
 	} 
 }
+
+void ResourceManager::ReloadShaders()
+{
+	ResourceListIterator i;
+	for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
+		Resource *r = (*i);
+	
+		if (r->GetType() == RT_SHADER) {
+			r->LoadFromStorage();
+		}
+	}
+}

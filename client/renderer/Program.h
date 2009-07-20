@@ -16,6 +16,8 @@ public:
 
 	virtual void Bind(Renderer *r) = 0;
 
+	virtual int Reload() = 0;
+
 protected:
 };
 

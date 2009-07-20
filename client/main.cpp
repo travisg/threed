@@ -5,6 +5,7 @@
 #include <engine/Engine.h>
 #include <engine/SceneNode.h>
 #include <engine/Camera.h>
+#include <resource/ResourceManager.h>
 #include <renderer/Renderer.h>
 #include <SDL.h>
 
@@ -165,6 +166,14 @@ int main(int argc, char **argv)
 					case SDLK_c:
 						mouseControl = MOUSE_CONTROL_CAMERA;
 						printf("camera mouse control\n");
+						break;
+
+					case SDLK_d:
+						e->GetResources().DumpResources();
+						break;
+
+					case SDLK_r:
+						e->GetResources().ReloadShaders();
 						break;
 					default:
 						;

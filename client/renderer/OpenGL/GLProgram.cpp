@@ -13,12 +13,14 @@ GLProgram::~GLProgram()
 {
 }
 
-int GLProgram::_CreateFromResource(ShaderResource *r)
+int GLProgram::_CreateFromResource()
 {
 	const GLchar *shaderptr;
 	GLint success;
 	char resultstr[1024];
 	GLsizei len;
+	ShaderResource *r = GetShaderResource();
+	assert(r);
 
 	// compile the vertex shader
 	m_GLvshader = glCreateShader(GL_VERTEX_SHADER);
@@ -91,7 +93,10 @@ Program *Program::CreateFromResource(Resource *_r)
 
 	GLProgram *p = new GLProgram();
 
-	if (p->_CreateFromResource(r) < 0) {
+	p->SetResource(r);
+	r->SetProgram(p);
+
+	if (p->_CreateFromResource() < 0) {
 		delete p;
 		return NULL;
 	}
@@ -108,4 +113,12 @@ void GLProgram::Bind(Renderer *r)
 	glUniform3f(location, 1.0, 1.0, 1.0);
 }
 
+int GLProgram::Reload()
+{
+	// free all the old shader resources
+	glDeleteProgram(m_GLprogram);
+	glDeleteShader(m_GLvshader);
+	glDeleteShader(m_GLfshader);
 
+	return _CreateFromResource();
+}

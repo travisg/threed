@@ -5,6 +5,25 @@
 #include <renderer/Program.h>
 #include <renderer/Texture.h>
 
+RenderResource::RenderResource()
+:	m_Resource(NULL)
+{
+}
+
+RenderResource::~RenderResource()
+{
+	if (m_Resource)
+		m_Resource->RemoveRef();
+}
+
+void RenderResource::SetResource(Resource *r)
+{
+	assert(!m_Resource);
+
+	r->AddRef();
+	m_Resource = r;
+}
+
 RenderResource *RenderResource::CreateRenderResource(Resource *r)
 {
 	RenderResource *resource = NULL;

@@ -1,9 +1,11 @@
 #include <resource/ShaderResource.h>
 #include <tinyxml/tinyxml.h>
+#include <renderer/Program.h>
 
 
 ShaderResource::ShaderResource(ResourceManager &m, const char *name)
-:	Resource(m, name, RT_SHADER)
+:	Resource(m, name, RT_SHADER),
+	m_Program(NULL)
 {
 
 }
@@ -53,6 +55,9 @@ int ShaderResource::LoadFromStorage()
 		return -1;
 
 	m_FragmentSource = body;
+
+	if (m_Program)
+		m_Program->Reload();
 
 	return 0;
 }

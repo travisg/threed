@@ -56,6 +56,7 @@ Texture *Texture::CreateFromResource(Resource *_r)
 	SDL_UnlockSurface(s);
 
 	GLTexture *p = new GLTexture();
+	p->SetResource(r);
 
 	p->m_GLtex = tex;
 

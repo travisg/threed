@@ -20,6 +20,7 @@ Mesh *Mesh::CreateFromResource(Resource *_r)
 	assert(r);
 
 	Mesh *m = new GLMesh(r->getMeshType());
+	m->SetResource(r);
 
 	IndexBuffer *ib = IndexBuffer::CreateIndexBuffer();
 	ib->LoadIndexes(r->getIndexes(), r->getIndexCount());

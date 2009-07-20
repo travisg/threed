@@ -12,13 +12,16 @@ public:
 	virtual ~GLProgram();
 
 	virtual void Bind(Renderer *r);
+	virtual int Reload();
 
 private:
 	friend class Program;
 	GLProgram();
 
 	// private constructor used by Program::CreateProgramFromResource
-	int _CreateFromResource(ShaderResource *r);
+	int _CreateFromResource();
+
+	ShaderResource *GetShaderResource() const { return (ShaderResource *)m_Resource; }
 
 	// gl resources
 	GLuint m_GLvshader;

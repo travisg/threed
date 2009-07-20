@@ -16,6 +16,9 @@ public:
 	size_t GetResourceCount() const { return mResources.size(); }
 	void DumpResources();
 
+	// reload shaders
+	void ReloadShaders();
+
 private:
 	void AddResource(Resource *r);
 	void RemoveResource(Resource *r);
