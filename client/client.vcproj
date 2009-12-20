@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.13\include&quot;;&quot;C:\programming\SDL_image-1.2.6\include&quot;"
+				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.14\include&quot;;&quot;C:\programming\SDL_image-1.2.10\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -91,6 +91,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy c:\programming\sdl-1.2.14\lib\*.dll $(TargetDir)&#x0D;&#x0A;copy c:\programming\sdl_image-1.2.10\lib\*.dll $(TargetDir)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -118,7 +119,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.13\include&quot;;&quot;C:\programming\SDL_image-1.2.6\include&quot;"
+				AdditionalIncludeDirectories=".;..\lib;..\lib\GL\windows;&quot;C:\programming\SDL-1.2.14\include&quot;;&quot;C:\programming\SDL_image-1.2.10\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE"
 				ExceptionHandling="1"
 				RuntimeLibrary="2"
@@ -170,6 +171,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="copy c:\programming\sdl-1.2.14\lib\*.dll $(TargetDir)&#x0D;&#x0A;copy c:\programming\sdl_image-1.2.10\lib\*.dll $(TargetDir)&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
