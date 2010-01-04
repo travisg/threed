@@ -83,11 +83,11 @@ int GLRenderer::Initialize()
 	std::cout << "GL Shader Version String: " << str << std::endl;
 
 	glClearColor(0.0f,0.0f,0.0f,0.5f);							// Black Background
-	glClearDepth(1.0f);											// Depth Buffer Setup
+//	glClearDepth(1.0f);											// Depth Buffer Setup
 	glDepthFunc(GL_LEQUAL);										// The Type Of Depth Testing (Less Or Equal)
 	glEnable(GL_DEPTH_TEST);									// Enable Depth Testing
-	glShadeModel(GL_SMOOTH);									// Select Smooth Shading
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Set Perspective Calculations To Most Accurate
+//	glShadeModel(GL_SMOOTH);									// Select Smooth Shading
+//	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);			// Set Perspective Calculations To Most Accurate
 
 	return 0;
 }

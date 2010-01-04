@@ -5,6 +5,14 @@
 #include "glinc.h"
 
 
+#define VERTEX_POS_INDX			0
+#define VERTEX_NORMAL_INDX		1
+#define VERTEX_TEXCOORD0_INDX	2
+
+#define VERTEX_POS_SIZE			3
+#define VERTEX_NORMAL_SIZE		3
+#define VERTEX_TEXCOORD0_SIZE	2
+
 VertexBuffer *VertexBuffer::CreateVertexBuffer()
 {
 	return new GLVertexBuffer();
@@ -12,9 +20,10 @@ VertexBuffer *VertexBuffer::CreateVertexBuffer()
 
 GLVertexBuffer::GLVertexBuffer()
 :	VertexBuffer(),
-	m_vertexStride(0),
-	m_Format(0),
-	m_BufferHandle(0)
+	m_VertexStride(0),
+	m_Format(VERT_FORMAT_NULL),
+	m_BufferHandle(0),
+	m_Buffer(0)
 {
 }
 
@@ -22,6 +31,8 @@ GLVertexBuffer::~GLVertexBuffer()
 {
 	glDeleteBuffers(1, &m_BufferHandle);
 	m_BufferHandle = 0;
+	if (m_Buffer)
+		delete[] m_Buffer;
 }
 
 // simple xyz vertexes
@@ -69,29 +80,24 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 {
 	switch (format) {
 		case VERT_FORMAT_POS:
-			m_Format = GL_V3F;
-			m_vertexStride = 3*4;
+			m_VertexStride = VERTEX_POS_SIZE * 4;
 			break;
 		case VERT_FORMAT_POS_NORM:
-			m_Format = GL_N3F_V3F;
-			m_vertexStride = 6*4;
+			m_VertexStride = (VERTEX_POS_SIZE + VERTEX_NORMAL_SIZE) * 4;
 			break;
 		case VERT_FORMAT_POS_NORM_UV:
-			m_Format = GL_T2F_N3F_V3F;
-			m_vertexStride = 2*4 + 6*4;
+			m_VertexStride = (VERTEX_POS_SIZE + VERTEX_NORMAL_SIZE + VERTEX_TEXCOORD0_SIZE) * 4;
 			break;
 		default:
 			assert(0);
 	}
 
 	m_vertexCount = count;
-	m_bufferSize = m_vertexStride * m_vertexCount;
+	m_bufferSize = m_VertexStride * m_vertexCount;
+	m_Format = format;
 
-	glGenBuffers(1, &m_BufferHandle);
-	glBindBuffer(GL_ARRAY_BUFFER, m_BufferHandle);
-	glBufferData(GL_ARRAY_BUFFER, m_bufferSize, NULL, GL_STATIC_DRAW);
-	void *buffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
-	assert(buffer);
+	m_Buffer = new char[m_bufferSize];
+	assert(m_Buffer);
 
 	// convert format (XXX total hack)
 	switch (format) {
@@ -105,7 +111,7 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 				float normx, normy, normz;
 			};
 			
-			struct target *t = (struct target *)buffer;
+			struct target *t = (struct target *)m_Buffer;
 			const struct src *s = (const struct src *)vertexes;
 			for (unsigned int i = 0; i < m_vertexCount; i++) {
 				t->posx = s->posx;
@@ -131,7 +137,7 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 				float u, v;
 			};
 
-			struct target *t = (struct target *)buffer;
+			struct target *t = (struct target *)m_Buffer;
 			const struct src *s = (const struct src *)vertexes;
 			for (unsigned int i = 0; i < m_vertexCount; i++) {
 				t->posx = s->posx;
@@ -151,14 +157,60 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 			assert(0);
 	}
 
-	glUnmapBuffer(GL_ARRAY_BUFFER);
+	glGenBuffers(1, &m_BufferHandle);
+	glBindBuffer(GL_ARRAY_BUFFER, m_BufferHandle);
+	glBufferData(GL_ARRAY_BUFFER, m_bufferSize, m_Buffer, GL_STATIC_DRAW);
 
 	return 0;
 }
 
 void GLVertexBuffer::Bind(Renderer *r)
 {
-	glBindBuffer(GL_ARRAY_BUFFER, m_BufferHandle);	
-	glInterleavedArrays(m_Format, 0, 0);
+	GLchar *offset = 0;
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_BufferHandle);
+
+	switch (m_Format) {
+		case VERT_FORMAT_POS:
+			glEnableVertexAttribArray(VERTEX_POS_INDX);
+			glVertexAttribPointer(VERTEX_POS_INDX, VERTEX_POS_SIZE, GL_FLOAT, GL_FALSE, m_VertexStride, (const void *)offset);
+			break;
+		case VERT_FORMAT_POS_NORM:
+			glEnableVertexAttribArray(VERTEX_POS_INDX);
+			glEnableVertexAttribArray(VERTEX_NORMAL_INDX);
+			glVertexAttribPointer(VERTEX_POS_INDX, VERTEX_POS_SIZE, GL_FLOAT, GL_FALSE, m_VertexStride, (const void *)offset);
+			offset += VERTEX_POS_SIZE * sizeof(GLfloat);
+			glVertexAttribPointer(VERTEX_NORMAL_INDX, VERTEX_NORMAL_SIZE, GL_FLOAT, GL_FALSE, m_VertexStride, (const void *)offset);
+			break;
+		case VERT_FORMAT_POS_NORM_UV:
+			glEnableVertexAttribArray(VERTEX_POS_INDX);
+			glEnableVertexAttribArray(VERTEX_NORMAL_INDX);
+			glEnableVertexAttribArray(VERTEX_TEXCOORD0_INDX);
+			glVertexAttribPointer(VERTEX_POS_INDX, VERTEX_POS_SIZE, GL_FLOAT, GL_FALSE, m_VertexStride, (const void *)offset);
+			offset += VERTEX_POS_SIZE * sizeof(GLfloat);
+			glVertexAttribPointer(VERTEX_NORMAL_INDX, VERTEX_NORMAL_SIZE, GL_FLOAT, GL_FALSE, m_VertexStride, (const void *)offset);
+			offset += VERTEX_NORMAL_SIZE * sizeof(GLfloat);
+			glVertexAttribPointer(VERTEX_TEXCOORD0_INDX, VERTEX_TEXCOORD0_SIZE, GL_FLOAT, GL_FALSE, m_VertexStride, (const void *)offset);
+			break;
+	}
 }
 
+int GLVertexBuffer::BindAttribLocations(GLuint program, Vertex_Format format)
+{
+	switch (format) {
+		case VERT_FORMAT_POS:
+			glBindAttribLocation(program, VERTEX_POS_INDX, "v_position");
+			break;
+		case VERT_FORMAT_POS_NORM:
+			glBindAttribLocation(program, VERTEX_POS_INDX, "v_position");
+			glBindAttribLocation(program, VERTEX_NORMAL_INDX, "v_normal");
+			break;
+		case VERT_FORMAT_POS_NORM_UV:
+			glBindAttribLocation(program, VERTEX_POS_INDX, "v_position");
+			glBindAttribLocation(program, VERTEX_NORMAL_INDX, "v_normal");
+			glBindAttribLocation(program, VERTEX_TEXCOORD0_INDX, "v_texcoord0");
+			break;
+	}
+
+	return 0;
+}

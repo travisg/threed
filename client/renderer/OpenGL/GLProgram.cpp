@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <iostream>
 #include <renderer/OpenGL/GLProgram.h>
+#include <renderer/OpenGL/GLVertexBuffer.h>
 #include <resource/ShaderResource.h>
 
 #include "glinc.h"
@@ -50,10 +51,16 @@ int GLProgram::_CreateFromResource()
 
 	assert(success == GL_TRUE);
 
+
 	// assemble the program
 	m_GLprogram = glCreateProgram();
 	glAttachShader(m_GLprogram, m_GLvshader);
 	glAttachShader(m_GLprogram, m_GLfshader);
+
+	// set the attribute locations based on our vertex format
+	GLVertexBuffer::BindAttribLocations(m_GLprogram, r->GetVertexFormat());
+
+	// link it
 	glLinkProgram(m_GLprogram);
 	glGetProgramiv(m_GLprogram, GL_LINK_STATUS, &success);
 	glGetProgramInfoLog(m_GLprogram, sizeof(resultstr), &len, resultstr);

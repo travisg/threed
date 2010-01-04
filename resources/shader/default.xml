@@ -1,4 +1,5 @@
 <vertexshader>
+	<vertexformat type="VERT_FORMAT_POS_NORM"/>
 	<body>
 varying vec3 color;
 varying vec3 normal;

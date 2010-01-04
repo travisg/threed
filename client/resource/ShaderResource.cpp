@@ -5,7 +5,8 @@
 
 ShaderResource::ShaderResource(ResourceManager &m, const char *name)
 :	Resource(m, name, RT_SHADER),
-	m_Program(NULL)
+	m_Program(NULL),
+	m_VertexFormat(VERT_FORMAT_NULL)
 {
 
 }
@@ -29,6 +30,14 @@ int ShaderResource::LoadFromStorage()
 	if (!vertexroot)
 		return -1;
 
+	// load the vertex format
+	const TiXmlElement *vertexformat = vertexroot->FirstChildElement("vertexformat");
+	if (!vertexformat)
+		return -1;
+
+	// XXX
+	m_VertexFormat = VERT_FORMAT_POS_NORM;
+		
 	// load the body
 	const TiXmlElement *vertexbody = vertexroot->FirstChildElement("body");
 	if (!vertexbody)
