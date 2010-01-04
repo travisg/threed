@@ -192,7 +192,10 @@ void GLVertexBuffer::Bind(Renderer *r)
 			offset += VERTEX_NORMAL_SIZE * sizeof(GLfloat);
 			glVertexAttribPointer(VERTEX_TEXCOORD0_INDX, VERTEX_TEXCOORD0_SIZE, GL_FLOAT, GL_FALSE, m_VertexStride, (const void *)offset);
 			break;
+		default:
+			assert(0);
 	}
+			
 }
 
 int GLVertexBuffer::BindAttribLocations(GLuint program, Vertex_Format format)
@@ -210,6 +213,8 @@ int GLVertexBuffer::BindAttribLocations(GLuint program, Vertex_Format format)
 			glBindAttribLocation(program, VERTEX_NORMAL_INDX, "v_normal");
 			glBindAttribLocation(program, VERTEX_TEXCOORD0_INDX, "v_texcoord0");
 			break;
+		default:
+			assert(0);
 	}
 
 	return 0;

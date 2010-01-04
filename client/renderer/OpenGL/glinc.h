@@ -23,10 +23,13 @@ typedef char GLchar;
 
 #elif __LINUX
 
-#define GL_GLEXT_PROTOTYPES 1
-#include <GL/gl.h>
+//#define GL_GLEXT_PROTOTYPES 1
+
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+//#include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/glext.h>
+//#include <GL/glext.h>
 
 #else
 #error I dont know what platform I am!

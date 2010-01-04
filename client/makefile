@@ -39,7 +39,7 @@ endif
 
 ifeq ($(UNAME),Linux)
 ifeq ($(ARCH),x86_64)
-CFLAGS += -I/usr/include/SDL
+CFLAGS += -I/usr/include/SDL -I../lib/GL
 endif
 ifeq ($(ARCH),ppc)
 CFLAGS += -fno-pic -mregnames -I/usr/include/SDL

@@ -23,7 +23,7 @@ protected:
 	unsigned int m_VertexStride;
 	Vertex_Format m_Format;
 	GLuint m_BufferHandle;
-	void *m_Buffer;
+	char *m_Buffer;
 };
 
 #endif
