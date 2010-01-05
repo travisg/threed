@@ -52,7 +52,7 @@ CFLAGS += -mcpu=970
 endif
 
 CFLAGS += -D__LINUX=1
-LDLIBS += -lGL -lGLU
+LDLIBS += -lGL -lGLU -lGLEW
 endif
 
 all:: $(BUILDDIR)/$(TARGET)$(BINEXT) $(BUILDDIR)/$(TARGET).lst
