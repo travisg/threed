@@ -4,15 +4,11 @@
 // common gl includes
 #ifdef _WIN32
 #include <windows.h>
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
+
+#include <GL/glew.h>
 #include <GL/glu.h>
 
-//#define GL_EXT_POINTERS 0
-
-#define glBindBuffer glBindBufferARB
-
-typedef char GLchar;
+#define WITH_GLEW 1
 
 #elif __DARWIN
 
