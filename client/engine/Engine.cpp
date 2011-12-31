@@ -85,18 +85,6 @@ void Engine::SetupDefaultScene()
 	plane->Rotate(Math::Vector3f(-1, 1, 0));
 	mNodeTree->AddChild(plane);
 
-	r = mResources->GetResource("jess2", RT_OBJECT);
-	spatial = Geometry::BuildFromResource(r);
-	assert(spatial);
-	r->RemoveRef();
-
-	assert(spatial);
-	spatial->Scale(5.0f);
-	mNodeTree->AddChild(spatial);
-
-	testSpatial = spatial;
-	mCameraTarget = spatial;
-
 	r = mResources->GetResource("plane", RT_OBJECT);
 	spatial = Geometry::BuildFromResource(r);
 	assert(spatial);
@@ -106,6 +94,9 @@ void Engine::SetupDefaultScene()
 	spatial->Move(Math::Vector3f(-5, 3.0f, -20.0f));
 	spatial->Rotate(Math::Vector3f(1, 0, -10));
 	mNodeTree->AddChild(spatial);
+
+	testSpatial = spatial;
+	mCameraTarget = spatial;
 
 	r = mResources->GetResource("map", RT_OBJECT);
 	spatial = Geometry::BuildFromResource(r);
