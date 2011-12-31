@@ -8,7 +8,7 @@ public:
 	Vertex() {}
 	~Vertex() {}
 	Vertex(float inx, float iny, float inz, float inw) : x(inx), y(iny), z(inz), w(inw) {}
-	Vertex(float inu, float inv) : z(0), w(0), u(inu), v(inv) {}
+	Vertex(float inu, float inv) : x(inu), y(inv), z(0), w(0) {}
 
 	union {
 		struct {
