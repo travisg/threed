@@ -27,8 +27,8 @@ endif
 
 # Darwin (Mac OS X) too
 ifeq ($(UNAME),Darwin)
-CFLAGS += -DASM_LEADING_UNDERSCORES=1 -D__DARWIN=1 -mdynamic-no-pic -I/sw/include -I/sw/include/SDL
-LDLIBS += -framework Cocoa -framework OpenGL -L/sw/lib -lSDLmain -lstdc++
+CFLAGS += -DASM_LEADING_UNDERSCORES=1 -D__DARWIN=1 -mdynamic-no-pic -I/opt/local/include -I/opt/local/include/SDL
+LDLIBS += -framework Cocoa -framework OpenGL -L/opt/local/lib -lSDLmain -lstdc++
 endif
 
 # FreeBSD
