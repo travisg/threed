@@ -50,8 +50,8 @@ int GLRenderer::Initialize()
 	SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER);
 
 	// create a window
-	mWidth = 1600;
-	mHeight = 1200;
+	mWidth = 800;
+	mHeight = 600;
 	mDepth = 32;
 	mSize = mWidth * mHeight * (mDepth / 8);
 
