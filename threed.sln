@@ -1,12 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "client\client.vcproj", "{3AA88D60-E0BD-4A95-B290-03C340D106D7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E818B487-9BEB-4A2E-BB8A-5822DD65CBF9} = {E818B487-9BEB-4A2E-BB8A-5822DD65CBF9}
-	EndProjectSection
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Windows Desktop
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "client", "client\client.vcxproj", "{3AA88D60-E0BD-4A95-B290-03C340D106D7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxml", "lib\tinyxml\tinyxml.vcproj", "{E818B487-9BEB-4A2E-BB8A-5822DD65CBF9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyxml", "lib\tinyxml\tinyxml.vcxproj", "{E818B487-9BEB-4A2E-BB8A-5822DD65CBF9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "meshtool", "tools\meshtool\meshtool.vcxproj", "{4021C7FE-E17B-4F9F-A144-F8D144547A95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +21,10 @@ Global
 		{E818B487-9BEB-4A2E-BB8A-5822DD65CBF9}.Debug|Win32.Build.0 = Debug|Win32
 		{E818B487-9BEB-4A2E-BB8A-5822DD65CBF9}.Release|Win32.ActiveCfg = Release|Win32
 		{E818B487-9BEB-4A2E-BB8A-5822DD65CBF9}.Release|Win32.Build.0 = Release|Win32
+		{4021C7FE-E17B-4F9F-A144-F8D144547A95}.Debug|Win32.ActiveCfg = Debug|Win32
+		{4021C7FE-E17B-4F9F-A144-F8D144547A95}.Debug|Win32.Build.0 = Debug|Win32
+		{4021C7FE-E17B-4F9F-A144-F8D144547A95}.Release|Win32.ActiveCfg = Release|Win32
+		{4021C7FE-E17B-4F9F-A144-F8D144547A95}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

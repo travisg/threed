@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3AA88D60-E0BD-4A95-B290-03C340D106D7}</ProjectGuid>
+    <RootNamespace>client</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>11.0.51106.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>.;..\lib;$(SolutionDir)\..\..\SDL-1.2.15\include;$(SolutionDir)\..\..\SDL_image-1.2.10\include;$(SolutionDir)\..\..\glew-1.5.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>C:\programming\SDL-1.2.14\lib\SDLmain.lib;C:\programming\SDL-1.2.14\lib\SDL.lib;opengl32.lib;glu32.lib;C:\programming\SDL_image-1.2.10\lib\SDL_image.lib;C:\programming\glew-1.5.2\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy c:\programming\sdl-1.2.14\lib\*.dll $(TargetDir)
+copy c:\programming\sdl_image-1.2.10\lib\*.dll $(TargetDir)
+copy C:\programming\glew-1.5.2\bin\*.dll $(TargetDir)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;..\lib;$(SolutionDir)\..\..\SDL-1.2.15\include;$(SolutionDir)\..\..\SDL_image-1.2.10\include;$(SolutionDir)\..\..\glew-1.5.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <PrecompiledHeader />
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>C:\programming\SDL-1.2.14\lib\SDLmain.lib;C:\programming\SDL-1.2.14\lib\SDL.lib;opengl32.lib;glu32.lib;C:\programming\SDL_image-1.2.10\lib\SDL_image.lib;C:\programming\glew-1.5.2\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy c:\programming\sdl-1.2.14\lib\*.dll $(TargetDir)
+copy c:\programming\sdl_image-1.2.10\lib\*.dll $(TargetDir)
+copy C:\programming\glew-1.5.2\bin\*.dll $(TargetDir)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="engine\Camera.cpp" />
+    <ClCompile Include="engine\Engine.cpp" />
+    <ClCompile Include="engine\Geometry.cpp" />
+    <ClCompile Include="engine\SceneNode.cpp" />
+    <ClCompile Include="engine\Spatial.cpp" />
+    <ClCompile Include="renderer\IndexBuffer.cpp" />
+    <ClCompile Include="renderer\Mesh.cpp" />
+    <ClCompile Include="renderer\Program.cpp" />
+    <ClCompile Include="renderer\Renderer.cpp" />
+    <ClCompile Include="renderer\RenderResource.cpp" />
+    <ClCompile Include="renderer\Texture.cpp" />
+    <ClCompile Include="renderer\VertexBuffer.cpp" />
+    <ClCompile Include="renderer\OpenGL\glext.cpp" />
+    <ClCompile Include="renderer\OpenGL\GLIndexBuffer.cpp" />
+    <ClCompile Include="renderer\OpenGL\GLMesh.cpp" />
+    <ClCompile Include="renderer\OpenGL\GLProgram.cpp" />
+    <ClCompile Include="renderer\OpenGL\GLRenderer.cpp" />
+    <ClCompile Include="renderer\OpenGL\GLTexture.cpp" />
+    <ClCompile Include="renderer\OpenGL\GLVertexBuffer.cpp" />
+    <ClCompile Include="resource\MeshResource.cpp" />
+    <ClCompile Include="resource\ObjectResource.cpp" />
+    <ClCompile Include="resource\Resource.cpp" />
+    <ClCompile Include="resource\ResourceManager.cpp" />
+    <ClCompile Include="resource\ShaderResource.cpp" />
+    <ClCompile Include="resource\TextureResource.cpp" />
+    <ClCompile Include="utils\File.cpp" />
+    <ClCompile Include="utils\FileManager.cpp" />
+    <ClCompile Include="utils\HostFile.cpp" />
+    <ClCompile Include="..\lib\math\Math.cpp" />
+    <ClCompile Include="..\lib\math\Matrix4x4.cpp" />
+    <ClCompile Include="..\lib\math\Vector3.cpp" />
+    <ClCompile Include="..\lib\math\Vector4.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="engine\Camera.h" />
+    <ClInclude Include="engine\Engine.h" />
+    <ClInclude Include="engine\Geometry.h" />
+    <ClInclude Include="engine\SceneNode.h" />
+    <ClInclude Include="engine\Spatial.h" />
+    <ClInclude Include="renderer\IndexBuffer.h" />
+    <ClInclude Include="renderer\Mesh.h" />
+    <ClInclude Include="renderer\Program.h" />
+    <ClInclude Include="renderer\Renderer.h" />
+    <ClInclude Include="renderer\RenderResource.h" />
+    <ClInclude Include="renderer\Texture.h" />
+    <ClInclude Include="renderer\VertexBuffer.h" />
+    <ClInclude Include="renderer\OpenGL\glinc.h" />
+    <ClInclude Include="renderer\OpenGL\GLIndexBuffer.h" />
+    <ClInclude Include="renderer\OpenGL\GLMesh.h" />
+    <ClInclude Include="renderer\OpenGL\GLProgram.h" />
+    <ClInclude Include="renderer\OpenGL\GLRenderer.h" />
+    <ClInclude Include="renderer\OpenGL\GLTexture.h" />
+    <ClInclude Include="renderer\OpenGL\GLVertexBuffer.h" />
+    <ClInclude Include="resource\MeshResource.h" />
+    <ClInclude Include="resource\ObjectResource.h" />
+    <ClInclude Include="resource\Resource.h" />
+    <ClInclude Include="resource\ResourceManager.h" />
+    <ClInclude Include="resource\ShaderResource.h" />
+    <ClInclude Include="resource\TextureResource.h" />
+    <ClInclude Include="utils\File.h" />
+    <ClInclude Include="utils\FileManager.h" />
+    <ClInclude Include="utils\HostFile.h" />
+    <ClInclude Include="utils\IRefcounted.h" />
+    <ClInclude Include="..\lib\shared\defines.h" />
+    <ClInclude Include="..\lib\shared\mesh.h" />
+    <ClInclude Include="..\lib\math\Math.h" />
+    <ClInclude Include="..\lib\math\Matrix4x4.h" />
+    <ClInclude Include="..\lib\math\Vector3.h" />
+    <ClInclude Include="..\lib\math\Vector4.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\begin_code.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\close_code.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_active.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_audio.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_byteorder.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_cdrom.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_amiga.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_dreamcast.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_macos.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_macosx.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_minimal.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_nds.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_os2.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_symbian.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_config_win32.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_copying.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_cpuinfo.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_endian.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_error.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_events.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_getenv.h" />
+    <ClInclude Include="..\..\..\..\SDL_image-1.2.6\include\SDL_image.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_joystick.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_keyboard.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_keysym.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_loadso.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_main.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_mouse.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_mutex.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_name.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_opengl.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_platform.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_quit.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_rwops.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_stdinc.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_syswm.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_thread.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_timer.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_types.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_version.h" />
+    <ClInclude Include="..\..\..\..\SDL-1.2.13\include\SDL_video.h" />
+    <ClInclude Include="..\lib\GL\windows\gl\glext.h" />
+    <ClInclude Include="defines.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\lib\tinyxml\tinyxml.vcxproj">
+      <Project>{e818b487-9beb-4a2e-bb8a-5822dd65cbf9}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
