@@ -45,7 +45,7 @@ int Engine::InnerLoop()
 
 //	mNodeTree->Move(Math::Vector3f(0, 0, 0.001f));
 //	mNodeTree->Rotate(Math::Vector3f(0.01f, 0.01f, 0.01f));
-	testSpatial->Rotate(Math::Vector3f(0.001f, 0.001f, 0.001f));
+	testSpatial->Rotate(Math::Vector3f(0.0001f, 0.0001f, 0.0001f));
 
 	Math::Matrix4x4 proj;
 	proj.SetProjectionPerspective(Math::DegreeToRadians(45.0f * mMainCamera->GetZoom()), (float)(mRenderer->GetWindowWidth())/(float)(mRenderer->GetWindowHeight()), 1.0f, 1000.0f);
@@ -88,6 +88,19 @@ void Engine::SetupDefaultScene()
 		mNodeTree->AddChild(plane);
 	}
 
+
+	if (1) {
+		r = mResources->GetResource("map", RT_OBJECT);
+		spatial = Geometry::BuildFromResource(r);
+		assert(spatial);
+		r->RemoveRef();
+
+		assert(spatial);
+		spatial->Scale(.001f);
+		spatial->Rotate(Math::Vector3f(Math::DegreeToRadians(-90.0), 0, 0));
+		mNodeTree->AddChild(spatial);
+	}
+
 	if (1) {
 		r = mResources->GetResource("plane", RT_OBJECT);
 		spatial = Geometry::BuildFromResource(r);
@@ -100,17 +113,6 @@ void Engine::SetupDefaultScene()
 		mNodeTree->AddChild(spatial);
 	}
 
-	if (0) {
-		r = mResources->GetResource("map", RT_OBJECT);
-		spatial = Geometry::BuildFromResource(r);
-		assert(spatial);
-		r->RemoveRef();
-
-		assert(spatial);
-		spatial->Scale(.001f);
-		spatial->Rotate(Math::Vector3f(Math::DegreeToRadians(-90.0), 0, 0));
-		mNodeTree->AddChild(spatial);
-	}
 
 //	mNodeTree->Move(Math::Vector3f(0, 0, 1.0f));
 

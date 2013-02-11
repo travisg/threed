@@ -127,9 +127,9 @@ int GLVertexBuffer::LoadVertexes(const float *vertexes, Vertex_Format format, un
 		}
 		case VERT_FORMAT_POS_NORM_UV: {
 			struct target {
-				float u, v;
-				float normx, normy, normz;
 				float posx, posy, posz;
+				float normx, normy, normz;
+				float u, v;
 			};
 			struct src {
 				float posx, posy, posz;

@@ -1,3 +1,4 @@
 <object>
+    <shader name="default"/>
     <mesh name="cbox_default0" />
 </object>
