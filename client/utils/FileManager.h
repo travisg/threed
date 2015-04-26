@@ -7,10 +7,10 @@ class File;
 
 class FileManager {
 public:
-	FileManager();
-	virtual ~FileManager();
+    FileManager();
+    virtual ~FileManager();
 
-	File *OpenFile(const char *name);
+    File *OpenFile(const char *name);
 
 private:
     std::string mLeadingPath;

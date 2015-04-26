@@ -7,17 +7,17 @@ namespace Engine {
 
 class SceneNode : public Spatial {
 public:
-	SceneNode();
-	virtual ~SceneNode();
+    SceneNode();
+    virtual ~SceneNode();
 
-	virtual void UpdateTransform(bool force);
-	virtual void Render(Renderer *r);
+    virtual void UpdateTransform(bool force);
+    virtual void Render(Renderer *r);
 
-	void AddChild(Spatial *node);
-	size_t NumChildren();
+    void AddChild(Spatial *node);
+    size_t NumChildren();
 
 protected:
-	SpatialList mChildren;
+    SpatialList mChildren;
 };
 
 }

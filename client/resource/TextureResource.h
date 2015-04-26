@@ -7,18 +7,18 @@ struct SDL_Surface;
 
 class TextureResource : public Resource {
 private:
-	TextureResource(ResourceManager &m, const char *name);
-	~TextureResource();
+    TextureResource(ResourceManager &m, const char *name);
+    ~TextureResource();
 
-	virtual int LoadFromStorage();
+    virtual int LoadFromStorage();
 
 public:
-	SDL_Surface *GetSurface() { return m_Surface; }
+    SDL_Surface *GetSurface() { return m_Surface; }
 
 private:
-	SDL_Surface *m_Surface;
+    SDL_Surface *m_Surface;
 
-	friend class Resource;
+    friend class Resource;
 };
 
 #endif

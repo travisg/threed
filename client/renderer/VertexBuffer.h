@@ -5,27 +5,26 @@
 
 class Renderer;
 
-class VertexBuffer
-{
+class VertexBuffer {
 public:
-	VertexBuffer();
-	virtual ~VertexBuffer();
+    VertexBuffer();
+    virtual ~VertexBuffer();
 
-	static VertexBuffer *CreateVertexBuffer();
+    static VertexBuffer *CreateVertexBuffer();
 
-	virtual void Bind(Renderer *r) = 0;
+    virtual void Bind(Renderer *r) = 0;
 
-	// accessors
-	unsigned int Size() { return m_bufferSize; }
-	unsigned int Count() { return m_vertexCount; }
+    // accessors
+    unsigned int Size() { return m_bufferSize; }
+    unsigned int Count() { return m_vertexCount; }
 
-	// load external vertex data
-	virtual int LoadSimpleVertexes(const float *vertexes, unsigned int count) = 0; // xyz
-	virtual int LoadVertexes(const float *vertexes, Vertex_Format format, unsigned int count) = 0;
+    // load external vertex data
+    virtual int LoadSimpleVertexes(const float *vertexes, unsigned int count) = 0; // xyz
+    virtual int LoadVertexes(const float *vertexes, Vertex_Format format, unsigned int count) = 0;
 
 protected:
-	unsigned int m_bufferSize;
-	unsigned int m_vertexCount;
+    unsigned int m_bufferSize;
+    unsigned int m_vertexCount;
 };
 
 #endif

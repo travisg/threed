@@ -3,24 +3,23 @@
 
 class Renderer;
 
-class IndexBuffer
-{
+class IndexBuffer {
 public:
-	IndexBuffer();
-	virtual ~IndexBuffer();
+    IndexBuffer();
+    virtual ~IndexBuffer();
 
-	static IndexBuffer *CreateIndexBuffer();
+    static IndexBuffer *CreateIndexBuffer();
 
-	virtual void Bind(Renderer *r) = 0;
+    virtual void Bind(Renderer *r) = 0;
 
-	// accessors
-	unsigned int Count() { return m_Count; }
+    // accessors
+    unsigned int Count() { return m_Count; }
 
-	// load indexes
-	virtual int LoadIndexes(const unsigned int *indexes, unsigned int count) = 0;
+    // load indexes
+    virtual int LoadIndexes(const unsigned int *indexes, unsigned int count) = 0;
 
 protected:
-	unsigned int m_Count;
+    unsigned int m_Count;
 };
 
 #endif

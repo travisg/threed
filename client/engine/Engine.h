@@ -12,28 +12,28 @@ class Spatial;
 
 class Engine {
 public:
-	Engine();
-	virtual ~Engine();
+    Engine();
+    virtual ~Engine();
 
-	void SetRenderer(Renderer &r);
-	void SetupDefaultScene();
+    void SetRenderer(Renderer &r);
+    void SetupDefaultScene();
 
-	// accessors
-	Renderer &GetRenderer() { return *mRenderer; }
-	ResourceManager &GetResources() { return *mResources; }
+    // accessors
+    Renderer &GetRenderer() { return *mRenderer; }
+    ResourceManager &GetResources() { return *mResources; }
 
-	int InnerLoop();
+    int InnerLoop();
 
-	// debug stuff
-	SceneNode *GetRootNode() { return mNodeTree; }
-	Camera *GetCamera() { return mMainCamera; }
+    // debug stuff
+    SceneNode *GetRootNode() { return mNodeTree; }
+    Camera *GetCamera() { return mMainCamera; }
 
 private:
-	Renderer *mRenderer;
-	ResourceManager *mResources;
-	SceneNode *mNodeTree;
-	Camera *mMainCamera;
-	Spatial *mCameraTarget;
+    Renderer *mRenderer;
+    ResourceManager *mResources;
+    SceneNode *mNodeTree;
+    Camera *mMainCamera;
+    Spatial *mCameraTarget;
 };
 
 extern Engine *gEngine;

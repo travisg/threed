@@ -6,17 +6,16 @@
 class Resource;
 class Renderer;
 
-class Program : public RenderResource
-{
+class Program : public RenderResource {
 public:
-	Program();
-	virtual ~Program();
+    Program();
+    virtual ~Program();
 
-	static Program *CreateFromResource(Resource *r);
+    static Program *CreateFromResource(Resource *r);
 
-	virtual void Bind(Renderer *r) = 0;
+    virtual void Bind(Renderer *r) = 0;
 
-	virtual int Reload() = 0;
+    virtual int Reload() = 0;
 
 protected:
 };

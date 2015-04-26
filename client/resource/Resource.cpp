@@ -7,11 +7,11 @@
 #include <renderer/RenderResource.h>
 
 Resource::Resource(ResourceManager &m, const char *name, enum ResourceType type)
-:	mRefCount(0),
-	mType(type),
-	mName(name),
-	mResourceManager(m),
-	m_RenderResource(0)
+:   mRefCount(0),
+mType(type),
+mName(name),
+mResourceManager(m),
+m_RenderResource(0)
 {
 }
 
@@ -21,48 +21,48 @@ Resource::~Resource()
 
 int Resource::AddRef()
 {
-	return mRefCount++;
+    return mRefCount++;
 }
 
 int Resource::RemoveRef()
 {
-	if (--mRefCount == 0) {
-		delete this;
-		return 0;
-	}
-	return mRefCount;
+    if (--mRefCount == 0) {
+        delete this;
+        return 0;
+    }
+    return mRefCount;
 }
 
 Resource *Resource::LoadResource(ResourceManager &m, const char *name, enum ResourceType type)
 {
-	Resource *r;
+    Resource *r;
 
-	switch (type) {
-		case RT_OBJECT:
-			r = new ObjectResource(m, name);
-			break;
-		case RT_MESH:
-			r = new MeshResource(m, name);
-			break;
-		case RT_SHADER:
-			r = new ShaderResource(m, name);
-			break;
-		case RT_TEXTURE:
-			r = new TextureResource(m, name);
-			break;
-		default:
-			assert(0);
-	}
+    switch (type) {
+        case RT_OBJECT:
+            r = new ObjectResource(m, name);
+            break;
+        case RT_MESH:
+            r = new MeshResource(m, name);
+            break;
+        case RT_SHADER:
+            r = new ShaderResource(m, name);
+            break;
+        case RT_TEXTURE:
+            r = new TextureResource(m, name);
+            break;
+        default:
+            assert(0);
+    }
 
-	// pull it from file/network/whatever
-	if (r->LoadFromStorage() < 0) {
-		delete r;
-		assert(0); // for now crash
-		return NULL;
-	}
+    // pull it from file/network/whatever
+    if (r->LoadFromStorage() < 0) {
+        delete r;
+        assert(0); // for now crash
+        return NULL;
+    }
 
-	// construct the render resource
-	r->m_RenderResource = RenderResource::CreateRenderResource(r);
+    // construct the render resource
+    r->m_RenderResource = RenderResource::CreateRenderResource(r);
 
-	return r;
+    return r;
 }

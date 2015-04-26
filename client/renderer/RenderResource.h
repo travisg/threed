@@ -3,18 +3,17 @@
 
 #include <resource/Resource.h>
 
-class RenderResource
-{
+class RenderResource {
 public:
-	RenderResource();
-	virtual ~RenderResource();
+    RenderResource();
+    virtual ~RenderResource();
 
-	void SetResource(Resource *r);
+    void SetResource(Resource *r);
 
-	static RenderResource *CreateRenderResource(Resource *r);
+    static RenderResource *CreateRenderResource(Resource *r);
 
 protected:
-	Resource *m_Resource;
+    Resource *m_Resource;
 };
 
 #endif

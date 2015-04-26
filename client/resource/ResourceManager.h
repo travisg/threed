@@ -7,24 +7,24 @@
 
 class ResourceManager {
 public:
-	ResourceManager();
-	~ResourceManager();
+    ResourceManager();
+    ~ResourceManager();
 
-	// get a resource from the list
-	Resource *GetResource(const char *name, ResourceType type);
+    // get a resource from the list
+    Resource *GetResource(const char *name, ResourceType type);
 
-	size_t GetResourceCount() const { return mResources.size(); }
-	void DumpResources();
+    size_t GetResourceCount() const { return mResources.size(); }
+    void DumpResources();
 
-	// reload shaders
-	void ReloadShaders();
+    // reload shaders
+    void ReloadShaders();
 
 private:
-	void AddResource(Resource *r);
-	void RemoveResource(Resource *r);
+    void AddResource(Resource *r);
+    void RemoveResource(Resource *r);
 
-	ResourceList mResources;
-	FileManager mFileManager;
+    ResourceList mResources;
+    FileManager mFileManager;
 };
 
 #endif

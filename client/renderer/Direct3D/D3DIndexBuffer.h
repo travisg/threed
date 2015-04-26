@@ -3,19 +3,18 @@
 
 #include <renderer/IndexBuffer.h>
 
-class D3DIndexBuffer : public IndexBuffer
-{
+class D3DIndexBuffer : public IndexBuffer {
 public:
-	D3DIndexBuffer();
-	virtual ~D3DIndexBuffer();
+    D3DIndexBuffer();
+    virtual ~D3DIndexBuffer();
 
-	virtual void Bind(Renderer *r);
+    virtual void Bind(Renderer *r);
 
-	// load indexes
-	virtual int LoadIndexes(unsigned int *indexes, unsigned int count);
+    // load indexes
+    virtual int LoadIndexes(unsigned int *indexes, unsigned int count);
 
 protected:
-	struct IDirect3DIndexBuffer9 *m_buffer;
+    struct IDirect3DIndexBuffer9 *m_buffer;
 };
 
 #endif

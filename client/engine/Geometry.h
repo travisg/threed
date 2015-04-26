@@ -13,16 +13,16 @@ namespace Engine {
 
 class Geometry : public Spatial {
 public:
-	Geometry();
-	virtual ~Geometry();
+    Geometry();
+    virtual ~Geometry();
 
-	static Spatial *BuildFromResource(Resource *r);
+    static Spatial *BuildFromResource(Resource *r);
 
-	virtual void Render(Renderer *r);
+    virtual void Render(Renderer *r);
 
-	Mesh *m_Mesh;
-	Program *m_Program;
-	Texture *m_Texture;
+    Mesh *m_Mesh;
+    Program *m_Program;
+    Texture *m_Texture;
 };
 
 }

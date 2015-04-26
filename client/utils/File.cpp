@@ -1,9 +1,9 @@
 #include <utils/File.h>
 
 File::File()
-:	mRefCount()
+    :   mRefCount()
 {
-	AddRef();
+    AddRef();
 }
 
 File::~File()
@@ -12,14 +12,14 @@ File::~File()
 
 int File::AddRef()
 {
-	return mRefCount++;
+    return mRefCount++;
 }
 
 int File::RemoveRef()
 {
-	if (--mRefCount == 0) {
-		delete this;
-		return 0;
-	}
-	return mRefCount;
+    if (--mRefCount == 0) {
+        delete this;
+        return 0;
+    }
+    return mRefCount;
 }

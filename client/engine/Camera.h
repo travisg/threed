@@ -9,30 +9,30 @@ namespace Engine {
 
 class Camera {
 public:
-	Camera();
-	virtual ~Camera();
+    Camera();
+    virtual ~Camera();
 
-	void Update();
-	void Render(Renderer *r);
+    void Update();
+    void Render(Renderer *r);
 
-	void SetPos(const Math::Vector3f &pos);
-	void Move(const Math::Vector3f &trans);
-	void Rotate(const Math::Vector3f &rot);
-	void PrintPosition();
+    void SetPos(const Math::Vector3f &pos);
+    void Move(const Math::Vector3f &trans);
+    void Rotate(const Math::Vector3f &rot);
+    void PrintPosition();
 
-	void SetZoom(float zoom) { mZoom = zoom; }
-	void Zoom(float zoom) { mZoom += zoom; }
-	float GetZoom() const { return mZoom; }
+    void SetZoom(float zoom) { mZoom = zoom; }
+    void Zoom(float zoom) { mZoom += zoom; }
+    float GetZoom() const { return mZoom; }
 
-	void LookAt(Spatial &obj);
-	void LookAt(const Math::Vector3f &pos);
+    void LookAt(Spatial &obj);
+    void LookAt(const Math::Vector3f &pos);
 
 protected:
-	Math::Vector3f mPos;
-	Math::Vector3f mUp;
-	Math::Matrix4x4 mTransform;
-	float mZoom;
-	bool dirty;
+    Math::Vector3f mPos;
+    Math::Vector3f mUp;
+    Math::Matrix4x4 mTransform;
+    float mZoom;
+    bool dirty;
 };
 
 }

@@ -9,11 +9,11 @@
 
 class UnifiedVertex {
 public:
-	Vertex m_Pos;
-	Vertex m_Normal;
-	Vertex m_UV;
+    Vertex m_Pos;
+    Vertex m_Normal;
+    Vertex m_UV;
 
-	void Write(FILE *outfp, Vertex_Format f) const;
+    void Write(FILE *outfp, Vertex_Format f) const;
 };
 
 typedef std::vector<UnifiedVertex> UnifiedVertexList;

@@ -1,7 +1,7 @@
 #include <renderer/Texture.h>
 
 Texture::Texture()
-:	RenderResource()
+    :   RenderResource()
 {
 }
 

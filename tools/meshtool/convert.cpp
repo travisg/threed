@@ -14,44 +14,44 @@ extern int dump_geometry_xml(Geometry *geometry, std::string outfile_root);
 
 int convertfile(const char *infile, const char *outfile)
 {
-	FILE *infp;
-	Geometry *new_geometry;
+    FILE *infp;
+    Geometry *new_geometry;
 
-	infp = fopen(infile, "rb");
-	if (!infp) {
-		fprintf(stderr, "error opening input file '%s'\n", infile);
-		return -1;
-	}
+    infp = fopen(infile, "rb");
+    if (!infp) {
+        fprintf(stderr, "error opening input file '%s'\n", infile);
+        return -1;
+    }
 
-	// try to guess the file type based on input name
-	const char *c = strrchr(infile, '.');
-	if (c) {
-		if (!strcmp(c, ".ac")) {
-			std::cout << "loading meshes from AC3d file '" << infile << "'" << std::endl;
-			ac3d_load(infp);
-		} else if (!strcmp(c, ".obj")) {
-			std::cout << "loading meshes from object file '" << infile << "'" << std::endl;
-			obj_load(infp, &new_geometry);
-		} else {
-			std::cerr << "unrecognized input mesh" << std::endl;
-			fclose(infp);
-			return -1;
-		}
-	} else {
-		std::cerr << "unrecognized input mesh" << std::endl;
-		fclose(infp);
-		return -1;
-	}
+    // try to guess the file type based on input name
+    const char *c = strrchr(infile, '.');
+    if (c) {
+        if (!strcmp(c, ".ac")) {
+            std::cout << "loading meshes from AC3d file '" << infile << "'" << std::endl;
+            ac3d_load(infp);
+        } else if (!strcmp(c, ".obj")) {
+            std::cout << "loading meshes from object file '" << infile << "'" << std::endl;
+            obj_load(infp, &new_geometry);
+        } else {
+            std::cerr << "unrecognized input mesh" << std::endl;
+            fclose(infp);
+            return -1;
+        }
+    } else {
+        std::cerr << "unrecognized input mesh" << std::endl;
+        fclose(infp);
+        return -1;
+    }
 
-	fclose(infp);
+    fclose(infp);
 
-	// do some processing
+    // do some processing
 
-	// dump the output
-	dump_geometry_tree(new_geometry, outfile);
+    // dump the output
+    dump_geometry_tree(new_geometry, outfile);
 
-	// dump an xml file describing it
-	dump_geometry_xml(new_geometry, outfile);
+    // dump an xml file describing it
+    dump_geometry_xml(new_geometry, outfile);
 
-	return 0;
+    return 0;
 }

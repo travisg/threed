@@ -7,20 +7,19 @@ class Renderer;
 #include <d3d9.h>
 #include <d3dx9.h>
 
-class D3DMesh : public Mesh
-{
+class D3DMesh : public Mesh {
 public:
-	D3DMesh(Mesh_Type type);
-	virtual ~D3DMesh();
+    D3DMesh(Mesh_Type type);
+    virtual ~D3DMesh();
 
-	virtual void Draw(Renderer *r);
+    virtual void Draw(Renderer *r);
 
-	virtual void SetDefault();
+    virtual void SetDefault();
 
 
 protected:
-	D3DPRIMITIVETYPE m_D3DType;
-	D3DMATERIAL9 m_D3DMaterial;
+    D3DPRIMITIVETYPE m_D3DType;
+    D3DMATERIAL9 m_D3DMaterial;
 };
 
 #endif

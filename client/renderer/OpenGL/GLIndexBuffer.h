@@ -4,19 +4,18 @@
 #include <renderer/IndexBuffer.h>
 #include "glinc.h"
 
-class GLIndexBuffer : public IndexBuffer
-{
+class GLIndexBuffer : public IndexBuffer {
 public:
-	GLIndexBuffer();
-	virtual ~GLIndexBuffer();
+    GLIndexBuffer();
+    virtual ~GLIndexBuffer();
 
-	virtual void Bind(Renderer *r);
+    virtual void Bind(Renderer *r);
 
-	// load indexes
-	virtual int LoadIndexes(const unsigned int *indexes, unsigned int count);
+    // load indexes
+    virtual int LoadIndexes(const unsigned int *indexes, unsigned int count);
 
 protected:
-	GLuint m_BufferHandle;
+    GLuint m_BufferHandle;
 };
 
 #endif

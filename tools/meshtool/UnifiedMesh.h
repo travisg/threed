@@ -11,22 +11,22 @@ class Mesh;
 
 class UnifiedMesh {
 public:
-	UnifiedMesh();
-	~UnifiedMesh();
+    UnifiedMesh();
+    ~UnifiedMesh();
 
-	// build a unified mesh from a non-unified one (separate vertexes and indexes)
-	void CreateFromMesh(const Mesh &);
-	void Optimize();
+    // build a unified mesh from a non-unified one (separate vertexes and indexes)
+    void CreateFromMesh(const Mesh &);
+    void Optimize();
 
-	size_t VertCount() const { return m_Verts.size(); }
-	size_t IndexCount() const;
+    size_t VertCount() const { return m_Verts.size(); }
+    size_t IndexCount() const;
 
-	void WriteVerts(FILE *outfp, Vertex_Format) const;
-	void WriteIndexes(FILE *outfp, unsigned int indexWidth) const;
+    void WriteVerts(FILE *outfp, Vertex_Format) const;
+    void WriteIndexes(FILE *outfp, unsigned int indexWidth) const;
 
 protected:
-	UnifiedVertexList m_Verts;
-	UnifiedSurfaceList m_Surfaces;
+    UnifiedVertexList m_Verts;
+    UnifiedSurfaceList m_Surfaces;
 };
 
 #endif

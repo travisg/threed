@@ -6,22 +6,21 @@
 
 class ShaderResource;
 
-class GLTexture : public Texture
-{
+class GLTexture : public Texture {
 public:
-	virtual ~GLTexture();
+    virtual ~GLTexture();
 
-	virtual void Bind(Renderer *r, int slot);
+    virtual void Bind(Renderer *r, int slot);
 
 protected:
 
 private:
-	friend class Texture;
+    friend class Texture;
 
-	GLTexture();
+    GLTexture();
 
-	// gl resources
-	GLuint m_GLtex;
+    // gl resources
+    GLuint m_GLtex;
 };
 
 #endif

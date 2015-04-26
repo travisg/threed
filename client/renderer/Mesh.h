@@ -10,26 +10,25 @@ class IndexBuffer;
 class VertexBuffer;
 class Resource;
 
-class Mesh : public RenderResource
-{
+class Mesh : public RenderResource {
 public:
-	Mesh(Mesh_Type type);
-	virtual ~Mesh();
+    Mesh(Mesh_Type type);
+    virtual ~Mesh();
 
-	static Mesh *Create(Mesh_Type type);
-	static Mesh *CreateFromResource(Resource *r);
+    static Mesh *Create(Mesh_Type type);
+    static Mesh *CreateFromResource(Resource *r);
 
-	void SetIndexBuffer(IndexBuffer *ib);
-	void SetVertexBuffer(VertexBuffer *vb);
+    void SetIndexBuffer(IndexBuffer *ib);
+    void SetVertexBuffer(VertexBuffer *vb);
 
-	virtual void Draw(Renderer *r) = 0;
+    virtual void Draw(Renderer *r) = 0;
 
 protected:
-	IndexBuffer *m_IB;
-	VertexBuffer *m_VB;
-	Mesh_Type m_Type;
+    IndexBuffer *m_IB;
+    VertexBuffer *m_VB;
+    Mesh_Type m_Type;
 
-	friend class Loader;
+    friend class Loader;
 };
 
 #endif

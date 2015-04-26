@@ -6,48 +6,47 @@
 #include <list>
 
 enum ResourceType {
-	RT_NULL,
-	RT_OBJECT, // a complete object, with a list of all the resources needed
-	RT_MESH,
-	RT_TEXTURE,
-	RT_SHADER,
+    RT_NULL,
+    RT_OBJECT, // a complete object, with a list of all the resources needed
+    RT_MESH,
+    RT_TEXTURE,
+    RT_SHADER,
 
-	RT_MAX
+    RT_MAX
 };
 
 class ResourceManager;
 class RenderResource;
 
-class Resource : public IRefcounted
-{
+class Resource : public IRefcounted {
 public:
-	ResourceType GetType() const { return mType; }
+    ResourceType GetType() const { return mType; }
 
-	// load a resource from backing storage
-	static Resource *LoadResource(ResourceManager &m, const char *name, enum ResourceType type);
+    // load a resource from backing storage
+    static Resource *LoadResource(ResourceManager &m, const char *name, enum ResourceType type);
 
-	// from IRefcounted
-	virtual int AddRef();
-	virtual int RemoveRef();
+    // from IRefcounted
+    virtual int AddRef();
+    virtual int RemoveRef();
 
-	RenderResource *GetRenderResource() { return m_RenderResource; }
+    RenderResource *GetRenderResource() { return m_RenderResource; }
 
 protected:
-	int mRefCount;
-	enum ResourceType mType;
-	std::string mName;
-	ResourceManager &mResourceManager;
+    int mRefCount;
+    enum ResourceType mType;
+    std::string mName;
+    ResourceManager &mResourceManager;
 
-	// reference to render resource
-	RenderResource *m_RenderResource;
+    // reference to render resource
+    RenderResource *m_RenderResource;
 
-	Resource(ResourceManager &m, const char *name, enum ResourceType type);
-	virtual ~Resource();
+    Resource(ResourceManager &m, const char *name, enum ResourceType type);
+    virtual ~Resource();
 
-	// each type has to implement this to restore from backing store
-	virtual int LoadFromStorage() = 0;
+    // each type has to implement this to restore from backing store
+    virtual int LoadFromStorage() = 0;
 
-	friend class ResourceManager;
+    friend class ResourceManager;
 };
 
 // helpful typedefs

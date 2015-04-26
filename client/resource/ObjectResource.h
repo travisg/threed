@@ -4,9 +4,9 @@
 #include <resource/Resource.h>
 
 struct object_resource_set {
-	Resource *shader;
-	Resource *mesh;
-	ResourceList textures;
+    Resource *shader;
+    Resource *mesh;
+    ResourceList textures;
 };
 
 typedef std::list<object_resource_set *> ObjectResourceList;
@@ -14,19 +14,19 @@ typedef std::list<object_resource_set *>::const_iterator ObjectResourceListConst
 
 class ObjectResource : public Resource {
 protected:
-	ObjectResource(ResourceManager &m, const char *name);
-	~ObjectResource();
+    ObjectResource(ResourceManager &m, const char *name);
+    ~ObjectResource();
 
-	virtual int LoadFromStorage();
+    virtual int LoadFromStorage();
 
 public:
-	const ObjectResourceList getObjectResourceList() const { return mResourceSets; }
+    const ObjectResourceList getObjectResourceList() const { return mResourceSets; }
 
 private:
-	ObjectResourceList mResourceSets;
+    ObjectResourceList mResourceSets;
 
-	// only Resource can construct us
-	friend class Resource;
+    // only Resource can construct us
+    friend class Resource;
 };
 
 

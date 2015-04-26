@@ -12,9 +12,9 @@
 namespace Engine {
 
 Geometry::Geometry()
-:	m_Mesh(0),
-	m_Program(0),
-	m_Texture(0)
+    :   m_Mesh(0),
+        m_Program(0),
+        m_Texture(0)
 {
 }
 
@@ -24,62 +24,62 @@ Geometry::~Geometry()
 
 void Geometry::Render(Renderer *r)
 {
-//	std::cout << "Geometry::Render\n";
+//  std::cout << "Geometry::Render\n";
 
-	r->SetWorldMatrix(mWorldTransform);
+    r->SetWorldMatrix(mWorldTransform);
 
-	m_Program->Bind(r);
-	if (m_Texture)
-		m_Texture->Bind(r, 0);
-	m_Mesh->Draw(r);
+    m_Program->Bind(r);
+    if (m_Texture)
+        m_Texture->Bind(r, 0);
+    m_Mesh->Draw(r);
 
-	r->UnsetWorldMatrix();
+    r->UnsetWorldMatrix();
 }
 
 Spatial *Geometry::BuildFromResource(Resource *_r)
 {
-	ObjectResource *r;
+    ObjectResource *r;
 
-	r = dynamic_cast<ObjectResource *>(_r);
-	assert(r);
+    r = dynamic_cast<ObjectResource *>(_r);
+    assert(r);
 
-	ObjectResourceList list = r->getObjectResourceList();
+    ObjectResourceList list = r->getObjectResourceList();
 
-	Spatial *rootSpatial;
-	SceneNode *sceneNode;
+    Spatial *rootSpatial;
+    SceneNode *sceneNode;
 
-	if (list.size() > 1) {
-		sceneNode = new Engine::SceneNode();
-		rootSpatial = sceneNode;
-	} else {
-		sceneNode = 0;
-		rootSpatial = 0;
-	}
+    if (list.size() > 1) {
+        sceneNode = new Engine::SceneNode();
+        rootSpatial = sceneNode;
+    } else {
+        sceneNode = 0;
+        rootSpatial = 0;
+    }
 
-	for (ObjectResourceListConstIterator i = list.begin(); i != list.end(); i++) {
-		Engine::Geometry *geom = new Engine::Geometry();
-		
-		object_resource_set *set = (*i);
+    for (ObjectResourceListConstIterator i = list.begin(); i != list.end(); i++) {
+        Engine::Geometry *geom = new Engine::Geometry();
 
-		geom->m_Mesh = dynamic_cast<Mesh *>(set->mesh->GetRenderResource());
-		assert(geom->m_Mesh);
-		geom->m_Program = dynamic_cast<Program *>(set->shader->GetRenderResource());
-		assert(geom->m_Program);
+        object_resource_set *set = (*i);
 
-		for	(ResourceListConstIterator i2 = set->textures.begin(); i2 != set->textures.end(); i2++) {
-			// xxx
-			Resource *r = (*i2);
-			geom->m_Texture = dynamic_cast<Texture *>(r->GetRenderResource());
-		}
+        geom->m_Mesh = dynamic_cast<Mesh *>(set->mesh->GetRenderResource());
+        assert(geom->m_Mesh);
+        geom->m_Program = dynamic_cast<Program *>(set->shader->GetRenderResource());
+        assert(geom->m_Program);
 
-		if (sceneNode)
-			sceneNode->AddChild(geom);
+        for (ResourceListConstIterator i2 = set->textures.begin(); i2 != set->textures.end(); i2++) {
+            // xxx
+            Resource *r = (*i2);
+            geom->m_Texture = dynamic_cast<Texture *>(r->GetRenderResource());
+        }
 
-		if (!rootSpatial)
-			rootSpatial = geom;
-	}
+        if (sceneNode)
+            sceneNode->AddChild(geom);
 
-	return rootSpatial;
+        if (!rootSpatial)
+            rootSpatial = geom;
+    }
+
+    return rootSpatial;
 }
 
 }

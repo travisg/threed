@@ -15,57 +15,57 @@ ResourceManager::~ResourceManager()
 
 void ResourceManager::AddResource(Resource *r)
 {
-	r->AddRef();
-	mResources.push_front(r);
+    r->AddRef();
+    mResources.push_front(r);
 }
 
 void ResourceManager::RemoveResource(Resource *r)
 {
-	mResources.remove(r);
+    mResources.remove(r);
 
-	r->RemoveRef();
+    r->RemoveRef();
 }
 
 Resource *ResourceManager::GetResource(const char *name, ResourceType type)
 {
-	// XXX make better
-	ResourceListIterator i;
-	for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
-		if ((*i)->mType == type && (*i)->mName.compare(name) == 0) {
-			(*i)->AddRef();
-			return (*i);
-		}
-	} 
+    // XXX make better
+    ResourceListIterator i;
+    for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
+        if ((*i)->mType == type && (*i)->mName.compare(name) == 0) {
+            (*i)->AddRef();
+            return (*i);
+        }
+    }
 
-	// couldn't find it, build a new one
-	Resource *r = Resource::LoadResource(*this, name, type);
-	if (r) {
-		AddResource(r);
-		r->AddRef();
-	}
+    // couldn't find it, build a new one
+    Resource *r = Resource::LoadResource(*this, name, type);
+    if (r) {
+        AddResource(r);
+        r->AddRef();
+    }
 
-	return r;
+    return r;
 
 }
 
 void ResourceManager::DumpResources()
 {
-	std::cout << "Resource List" << std::endl;
-	ResourceListIterator i;
-	for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
-		Resource *r = (*i);
-		std::cout << "'" << r->mName << "' type " << r->mType << " count " << r->mRefCount << std::endl;
-	} 
+    std::cout << "Resource List" << std::endl;
+    ResourceListIterator i;
+    for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
+        Resource *r = (*i);
+        std::cout << "'" << r->mName << "' type " << r->mType << " count " << r->mRefCount << std::endl;
+    }
 }
 
 void ResourceManager::ReloadShaders()
 {
-	ResourceListIterator i;
-	for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
-		Resource *r = (*i);
-	
-		if (r->GetType() == RT_SHADER) {
-			r->LoadFromStorage();
-		}
-	}
+    ResourceListIterator i;
+    for (ResourceListIterator i = mResources.begin(); i != mResources.end(); i++) {
+        Resource *r = (*i);
+
+        if (r->GetType() == RT_SHADER) {
+            r->LoadFromStorage();
+        }
+    }
 }

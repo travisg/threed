@@ -4,7 +4,7 @@
 #include <vector>
 
 struct UnifiedSurface {
-	std::vector<int> m_Indexes;
+    std::vector<int> m_Indexes;
 };
 
 typedef std::vector<UnifiedSurface *> UnifiedSurfaceList;

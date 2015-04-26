@@ -8,32 +8,32 @@ class ResourceManager;
 
 class MeshResource : public Resource {
 public:
-	enum Mesh_Type getMeshType() const { return mMeshType; }
-	enum Vertex_Format getVertexFormat() const { return mVertexFormat; }
+    enum Mesh_Type getMeshType() const { return mMeshType; }
+    enum Vertex_Format getVertexFormat() const { return mVertexFormat; }
 
-	int getIndexCount() const { return mIndexCount; }
-	int getVertexCount() const { return mVertexCount; }
+    int getIndexCount() const { return mIndexCount; }
+    int getVertexCount() const { return mVertexCount; }
 
-	const unsigned int *getIndexes() const { return mIndexes; }
-	const float *getVertexes() const { return mVertexes; }
+    const unsigned int *getIndexes() const { return mIndexes; }
+    const float *getVertexes() const { return mVertexes; }
 
 private:
-	MeshResource(ResourceManager &m, const char *name);
-	~MeshResource();
+    MeshResource(ResourceManager &m, const char *name);
+    ~MeshResource();
 
-	virtual int LoadFromStorage();
+    virtual int LoadFromStorage();
 
-	enum Mesh_Type mMeshType;
-	enum Vertex_Format mVertexFormat;
+    enum Mesh_Type mMeshType;
+    enum Vertex_Format mVertexFormat;
 
-	int mIndexCount;
-	int mVertexCount;
+    int mIndexCount;
+    int mVertexCount;
 
-	unsigned int *mIndexes;
-	float *mVertexes;
+    unsigned int *mIndexes;
+    float *mVertexes;
 
-	// only Resource can construct us
-	friend class Resource;
+    // only Resource can construct us
+    friend class Resource;
 };
 
 #endif

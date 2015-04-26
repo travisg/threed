@@ -3,13 +3,13 @@
 
 class IRefcounted {
 public:
-	IRefcounted() {}
+    IRefcounted() {}
 
-	virtual int AddRef() = 0;
-	virtual int RemoveRef() = 0;
+    virtual int AddRef() = 0;
+    virtual int RemoveRef() = 0;
 
 protected:
-	virtual ~IRefcounted() {}
+    virtual ~IRefcounted() {}
 };
 
 #endif

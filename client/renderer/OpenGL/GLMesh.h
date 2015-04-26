@@ -6,18 +6,17 @@ class Renderer;
 #include <renderer/Mesh.h>
 #include "glinc.h"
 
-class GLMesh : public Mesh
-{
+class GLMesh : public Mesh {
 public:
-	virtual ~GLMesh();
+    virtual ~GLMesh();
 
-	virtual void Draw(Renderer *r);
+    virtual void Draw(Renderer *r);
 
 private:
-	friend class Mesh;
-	GLMesh(Mesh_Type type);
+    friend class Mesh;
+    GLMesh(Mesh_Type type);
 
-	GLenum m_Type;
+    GLenum m_Type;
 
 };
 

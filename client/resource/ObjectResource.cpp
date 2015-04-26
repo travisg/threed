@@ -3,7 +3,7 @@
 #include <tinyxml/tinyxml.h>
 
 ObjectResource::ObjectResource(ResourceManager &m, const char *name)
-:	Resource(m, name, RT_OBJECT)
+    :   Resource(m, name, RT_OBJECT)
 {
 
 }
@@ -15,55 +15,55 @@ ObjectResource::~ObjectResource()
 
 int ObjectResource::LoadFromStorage()
 {
-	TiXmlDocument doc;
+    TiXmlDocument doc;
 
-	char path[4096];
-	sprintf(path, "resources/object/%s.xml", mName.c_str());
-	if (!doc.LoadFile(path))
-		return NULL;
+    char path[4096];
+    sprintf(path, "resources/object/%s.xml", mName.c_str());
+    if (!doc.LoadFile(path))
+        return NULL;
 
-	const TiXmlElement *root = doc.FirstChildElement("object");
-	if (!root)
-		return -1;
+    const TiXmlElement *root = doc.FirstChildElement("object");
+    if (!root)
+        return -1;
 
-	const TiXmlElement *e = root->FirstChildElement();
+    const TiXmlElement *e = root->FirstChildElement();
 
-	Resource *shader = NULL;
-	Resource *mesh = NULL;
-	ResourceList textures;
+    Resource *shader = NULL;
+    Resource *mesh = NULL;
+    ResourceList textures;
 
-	for (; e; e = e->NextSiblingElement()) {
-		std::cout << *e << std::endl;
+    for (; e; e = e->NextSiblingElement()) {
+        std::cout << *e << std::endl;
 
-		const std::string value = e->ValueStr();
-		const char *name = e->Attribute("name");
-		if (!name)
-			continue;
+        const std::string value = e->ValueStr();
+        const char *name = e->Attribute("name");
+        if (!name)
+            continue;
 
-		if (value.compare("shader") == 0) {
-			// set new shader
-			shader = mResourceManager.GetResource(name, RT_SHADER);
-		} else if (value.compare("texture") == 0) {
-			Resource *t = mResourceManager.GetResource(name, RT_TEXTURE);
-			textures.push_back(t);
-		} else if (value.compare("mesh") == 0) {
-			// get new mesh
-			mesh = mResourceManager.GetResource(name, RT_MESH);
-			if (!mesh)
-				continue;
+        if (value.compare("shader") == 0) {
+            // set new shader
+            shader = mResourceManager.GetResource(name, RT_SHADER);
+        } else if (value.compare("texture") == 0) {
+            Resource *t = mResourceManager.GetResource(name, RT_TEXTURE);
+            textures.push_back(t);
+        } else if (value.compare("mesh") == 0) {
+            // get new mesh
+            mesh = mResourceManager.GetResource(name, RT_MESH);
+            if (!mesh)
+                continue;
 
-			// create a new resource set and stuff it in our list
-			object_resource_set *set = new object_resource_set;
-			set->mesh = mesh;
-			set->shader = shader;
-			set->textures = textures;
+            // create a new resource set and stuff it in our list
+            object_resource_set *set = new object_resource_set;
+            set->mesh = mesh;
+            set->shader = shader;
+            set->textures = textures;
 
-			mResourceSets.push_back(set);
+            mResourceSets.push_back(set);
 
-			// XXX
-//			textures.clear();
-		}
-	}
+            // XXX
+//          textures.clear();
+        }
+    }
 
-	return 0;
+    return 0;
 }

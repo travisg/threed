@@ -6,27 +6,26 @@
 
 class ShaderResource;
 
-class GLProgram : public Program
-{
+class GLProgram : public Program {
 public:
-	virtual ~GLProgram();
+    virtual ~GLProgram();
 
-	virtual void Bind(Renderer *r);
-	virtual int Reload();
+    virtual void Bind(Renderer *r);
+    virtual int Reload();
 
 private:
-	friend class Program;
-	GLProgram();
+    friend class Program;
+    GLProgram();
 
-	// private constructor used by Program::CreateProgramFromResource
-	int _CreateFromResource();
+    // private constructor used by Program::CreateProgramFromResource
+    int _CreateFromResource();
 
-	ShaderResource *GetShaderResource() const { return (ShaderResource *)m_Resource; }
+    ShaderResource *GetShaderResource() const { return (ShaderResource *)m_Resource; }
 
-	// gl resources
-	GLuint m_GLvshader;
-	GLuint m_GLfshader;
-	GLuint m_GLprogram;
+    // gl resources
+    GLuint m_GLvshader;
+    GLuint m_GLfshader;
+    GLuint m_GLprogram;
 };
 
 #endif

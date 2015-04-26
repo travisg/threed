@@ -6,15 +6,14 @@
 class Resource;
 class Renderer;
 
-class Texture : public RenderResource
-{
+class Texture : public RenderResource {
 public:
-	Texture();
-	virtual ~Texture();
+    Texture();
+    virtual ~Texture();
 
-	static Texture *CreateFromResource(Resource *r);
+    static Texture *CreateFromResource(Resource *r);
 
-	virtual void Bind(Renderer *r, int slot) = 0;
+    virtual void Bind(Renderer *r, int slot) = 0;
 
 protected:
 };
