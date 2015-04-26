@@ -1,29 +1,36 @@
 <vertexshader>
-	<vertexformat type="VERT_FORMAT_POS_NORM"/>
-	<body>
+    <vertexformat type="VERT_FORMAT_POS_NORM"/>
+    <body>
+attribute vec3 v_position;
+attribute vec3 v_normal;
+
 varying vec3 color;
 varying vec3 normal;
 
 void main()
 {
-	gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-	color = vec3(.5,.5,.5);
-	normal = normalize(gl_NormalMatrix * gl_Normal);
-}		
-	</body>
+    gl_Position = gl_ModelViewProjectionMatrix * vec4(v_position, 1.0);
+    color = vec3(.5,.5,.5);
+    normal = normalize(gl_NormalMatrix * v_normal);
+}
+    </body>
 
 </vertexshader>
 <fragmentshader>
-	<body>
+    <body>
 uniform vec3 sunvec;
+uniform vec3 ambient;
+uniform float ambient_level;
 
 varying vec3 color;
 varying vec3 normal;
 
 void main()
 {
-	vec3 c = color * dot(normal, sunvec);
-	gl_FragColor =  vec4(c, 1.0);
+    float d = max(dot(normal, sunvec), 0.0);
+
+    vec3 c = color * d;
+    gl_FragColor = vec4(ambient * ambient_level + c * (1.0 - ambient_level), 1.0);
 }
-	</body>
+    </body>
 </fragmentshader>

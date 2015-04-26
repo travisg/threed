@@ -143,13 +143,20 @@ int main(int argc, char **argv)
 		MOUSE_CONTROL_WORLD,
 	} mouseControl = MOUSE_CONTROL_CAMERA;
 	uint8_t mouseDown = 0;
+    int w, h;
+
+    SDL_Surface *s = SDL_GetVideoSurface();
+    w = s->w;
+    h = s->h;
+
+    uint64_t count = 0;
 	while (!done) {
 		if (e->InnerLoop() < 0)
 			break;
 
 		// deal with any pending messages
 		SDL_Event event;
-		if (SDL_PollEvent(&event) != 0) {
+		while (SDL_PollEvent(&event) != 0) {
 			switch (event.type) {
 			case SDL_QUIT:
 				done = true;
@@ -175,6 +182,10 @@ int main(int argc, char **argv)
 					case SDLK_r:
 						e->GetResources().ReloadShaders();
 						break;
+
+					case SDLK_q:
+						done = true;
+						break;
 					default:
 						;
 				}
@@ -182,19 +193,28 @@ int main(int argc, char **argv)
 			case SDL_KEYUP:
 				break;
 			case SDL_MOUSEMOTION:
-//				std::cout << "mouse move " << event.motion.xrel << " " << event.motion.yrel << std::endl;
+                // get the current mouse state
+                mouseDown = SDL_GetMouseState(NULL, NULL);
+
+				//std::cout << "mouse move " << event.motion.x << " " << event.motion.y << std::endl;
 				if (mouseControl == MOUSE_CONTROL_CAMERA) {
 					if (mouseDown & SDL_BUTTON_LMASK) {
-						e->GetCamera()->Move(Math::Vector3f(-event.motion.xrel / 256.0, event.motion.yrel / 256.0, 0));
+                        int deltax = (w/2 - event.motion.x);
+                        int deltay = (h/2 - event.motion.y);
+                        //printf("%d %d\n", deltax, deltay);
+						e->GetCamera()->Move(Math::Vector3f(-deltax / 256.0, -deltay / 256.0, 0));
 						e->GetCamera()->PrintPosition();
 					}
 					if (mouseDown & SDL_BUTTON_RMASK) {
-						e->GetCamera()->Rotate(Math::Vector3f(event.motion.yrel / 256.0, event.motion.xrel / 256.0, 0));
+						e->GetCamera()->Rotate(Math::Vector3f(event.motion.yrel / 16.0, event.motion.xrel / 16.0, 0));
 						e->GetCamera()->PrintPosition();
 					}
 				}
 				break;
 			case SDL_MOUSEBUTTONDOWN:
+                // get the current mouse state
+                mouseDown = SDL_GetMouseState(NULL, NULL);
+
 				if (mouseControl == MOUSE_CONTROL_CAMERA) {
 					if (mouseDown & SDL_BUTTON_LMASK && event.button.button == SDL_BUTTON_WHEELDOWN) {
 						e->GetCamera()->Move(Math::Vector3f(0, 0, 1.0f));
@@ -207,19 +227,20 @@ int main(int argc, char **argv)
 
 					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELDOWN) {
 						e->GetCamera()->Zoom(0.1f);
-						e->GetCamera()->Rotate(Math::Vector3f(0, 0, 0.1f));
+						//e->GetCamera()->Rotate(Math::Vector3f(0, 0, 0.1f));
 					}
 					if (mouseDown & SDL_BUTTON_RMASK && event.button.button == SDL_BUTTON_WHEELUP) {
 						e->GetCamera()->Zoom(-0.1f);
-						e->GetCamera()->Rotate(Math::Vector3f(0, 0, -0.1f));
+						//e->GetCamera()->Rotate(Math::Vector3f(0, 0, -0.1f));
 					}
 				}
 				break;
 			}
 		}
 
-		// get the current mouse state
-		mouseDown = SDL_GetMouseState(NULL, NULL);
+        count++;
+        if ((count % 100) == 0)
+            printf("%lld frames drawn\n", count);
 	}
 
 	// XXX tear everything down

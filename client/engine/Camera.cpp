@@ -19,7 +19,6 @@ namespace Engine {
 	{
 		if (dirty) {
 			// move the Camera
-
 			mTransform.SetTranslation(-mPos);
 
 			Math::Matrix4x4 rotx;
@@ -36,7 +35,7 @@ namespace Engine {
 	}
 
 	void Camera::Render(Renderer *r)
-	{	
+	{
 		r->SetViewMatrix(mTransform);
 	}
 
@@ -62,8 +61,15 @@ namespace Engine {
 	{
 //		std::cout << __FUNCTION__ << " object at " << obj.GetGlobalPos() << " cam " << mPos << std::endl;
 
+        LookAt(obj.GetGlobalPos());
+	}
+
+	void Camera::LookAt(const Math::Vector3f &pos)
+	{
+//		std::cout << __FUNCTION__ << " pos " << pos << " cam " << mPos << std::endl;
+
 		// essentially gluLookAt
-		Math::Vector3f f = obj.GetGlobalPos() - mPos;
+		Math::Vector3f f = pos - mPos;
 		f.Normalize();
 
 		Math::Vector3f up = mUp;

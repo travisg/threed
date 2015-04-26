@@ -1,4 +1,5 @@
 #include <engine/Engine.h>
+
 #include <engine/SceneNode.h>
 #include <engine/Geometry.h>
 #include <engine/Camera.h>
@@ -45,7 +46,9 @@ int Engine::InnerLoop()
 
 //	mNodeTree->Move(Math::Vector3f(0, 0, 0.001f));
 //	mNodeTree->Rotate(Math::Vector3f(0.01f, 0.01f, 0.01f));
-	testSpatial->Rotate(Math::Vector3f(0.0001f, 0.0001f, 0.0001f));
+    if (testSpatial) {
+        testSpatial->Rotate(Math::Vector3f(0.0001f, 0.0001f, 0.0001f));
+    }
 
 	Math::Matrix4x4 proj;
 	proj.SetProjectionPerspective(Math::DegreeToRadians(45.0f * mMainCamera->GetZoom()), (float)(mRenderer->GetWindowWidth())/(float)(mRenderer->GetWindowHeight()), 1.0f, 1000.0f);
@@ -56,7 +59,9 @@ int Engine::InnerLoop()
 	// set up the main camera
 	if (mCameraTarget) {
 		mMainCamera->LookAt(*mCameraTarget);
-	}
+	} else {
+	    mMainCamera->LookAt(Math::Vector3f(0, 0, 0));
+    }
 	mMainCamera->Update();
 	mMainCamera->Render(mRenderer);
 
@@ -76,7 +81,7 @@ void Engine::SetupDefaultScene()
 
 	Resource *r;
 
-	if (0) {
+	if (1) {
 		// plane
 		r = mResources->GetResource("plane", RT_OBJECT);
 		Spatial *plane = Geometry::BuildFromResource(r);
@@ -96,7 +101,7 @@ void Engine::SetupDefaultScene()
 		r->RemoveRef();
 
 		assert(spatial);
-		spatial->Scale(.001f);
+		//spatial->Scale(.001f);
 		spatial->Rotate(Math::Vector3f(Math::DegreeToRadians(-90.0), 0, 0));
 		mNodeTree->AddChild(spatial);
 	}
@@ -116,16 +121,18 @@ void Engine::SetupDefaultScene()
 
 //	mNodeTree->Move(Math::Vector3f(0, 0, 1.0f));
 
-	if (0) {
+	if (1) {
 		r = mResources->GetResource("dude", RT_OBJECT);
 		spatial = Geometry::BuildFromResource(r);
 		spatial->Move(Math::Vector3f(-1,-1,-1));
+		spatial->Scale(2.0f);
 		mNodeTree->AddChild(spatial);
 	}
 
 	// create a camera to look through
 	mMainCamera = new Camera();
-	mMainCamera->SetPos(Math::Vector3f(2, 2, 3.5));
+	mMainCamera->SetPos(Math::Vector3f(5, 5, 5));
+	mMainCamera->LookAt(Math::Vector3f(0, 0, 0));
 
 	mCameraTarget = spatial;
 	testSpatial = spatial;

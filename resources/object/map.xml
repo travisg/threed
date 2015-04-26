@@ -1,5 +1,5 @@
 <object name="map">
-	<shader name="texture"/>
+	<shader name="default"/>
 	<texture name="0001f64d-f838-4602-a2ac-165842dc31aa"/>
 	<mesh name="map_default0"/>
 </object>

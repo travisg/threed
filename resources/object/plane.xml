@@ -1,5 +1,5 @@
 <object name="plane">
-	<shader name="texture"/>
+	<shader name="default"/>
 	<texture name="4bea5961-e7e9-9006-20fd-368403ceb817"/>
 	<mesh name="plane_default0"/>
 	<mesh name="plane_default1"/>

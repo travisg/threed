@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <iostream>
+#include <cstdio>
 #include <renderer/OpenGL/GLProgram.h>
 #include <renderer/OpenGL/GLVertexBuffer.h>
 #include <resource/ShaderResource.h>
@@ -70,23 +71,31 @@ int GLProgram::_CreateFromResource()
 	}
 	assert(success == GL_TRUE);
 
-#if 0
+#if 1
 	GLint uniforms;
 	glGetProgramiv(m_GLprogram, GL_ACTIVE_UNIFORMS, &uniforms);
 
+    printf("active uniforms:\n");
 	for (int i = 0; i < uniforms; i++) {
 		char uname[1024];
 		GLsizei len;
 		GLint size;
 		GLenum type;
 		glGetActiveUniform(m_GLprogram, i, sizeof(uname), &len, &size, &type, uname);
+        printf("\t name '%s' size %d type 0x%x\n", uname, size, type);
+	}
 
-		if (strcmp(uname, "sunvec") == 0) {
-			GLint location = glGetUniformLocation(m_GLprogram, uname);
-			glUniform3f(location, 1.0, 1.0, 1.0);
-		}
+	GLint attributes;
+	glGetProgramiv(m_GLprogram, GL_ACTIVE_ATTRIBUTES, &attributes);
 
-		std::cout << uname << std::endl;
+    printf("active attributes:\n");
+	for (int i = 0; i < attributes; i++) {
+		char uname[1024];
+		GLsizei len;
+		GLint size;
+		GLenum type;
+		glGetActiveAttrib(m_GLprogram, i, sizeof(uname), &len, &size, &type, uname);
+        printf("\t name '%s' size %d type 0x%x\n", uname, size, type);
 	}
 #endif
 
@@ -117,7 +126,16 @@ void GLProgram::Bind(Renderer *r)
 
 	// XXX total hack until we have a shader constant database
 	GLint location = glGetUniformLocation(m_GLprogram, "sunvec");
-	glUniform3f(location, 1.0, 1.0, 1.0);
+    if (location >= 0)
+	    glUniform3f(location, 1.0, 1.0, 1.0);
+
+	location = glGetUniformLocation(m_GLprogram, "ambient");
+    if (location >= 0)
+	    glUniform3f(location, 1.0, 1.0, 1.0);
+
+	location = glGetUniformLocation(m_GLprogram, "ambient_level");
+    if (location >= 0)
+	    glUniform1f(location, 0.5);
 }
 
 int GLProgram::Reload()

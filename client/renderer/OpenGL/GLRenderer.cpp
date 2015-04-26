@@ -131,6 +131,11 @@ int GLRenderer::StartFrame()
 //	glTranslatef(1, 0, 0);
 //	dumpmatrix(GL_MODELVIEW_MATRIX);
 
+	return 0;
+}
+
+int GLRenderer::EndFrame()
+{
 #if 0
 	static float rot = 0.0f;
 	rot += 0.5f;
@@ -150,7 +155,7 @@ int GLRenderer::StartFrame()
 	glPushMatrix();
 	glScalef(2.0f, 2.0f, 2.0f);
 	glRotatef(-rot, 1.0f, 1.0f, 1.0f);
-	glTranslatef(2.0f, 2.0f, 2.0f);
+	//glTranslatef(2.0f, 2.0f, 2.0f);
 	glBegin(GL_TRIANGLES);								// Begin Drawing Triangles
 	glColor3f (1.f, 0.f, 0.f);						// 1st Color (Red) ...
 	glVertex3f( 0.0f, 1.0f, 0.0f);				// ...For The 1st Vertex
@@ -162,13 +167,8 @@ int GLRenderer::StartFrame()
 	glPopMatrix();
 #endif
 
-	return 0;
-}
-
-int GLRenderer::EndFrame()
-{
-	glFlush();
-	glFinish();
+	//glFlush();
+	//glFinish();
 
 	SDL_GL_SwapBuffers();
 	return 0;

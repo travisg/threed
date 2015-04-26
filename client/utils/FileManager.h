@@ -1,6 +1,8 @@
 #ifndef __FILE_MANAGER_H
 #define __FILE_MANAGER_H
 
+#include <string>
+
 class File;
 
 class FileManager {
@@ -11,7 +13,7 @@ public:
 	File *OpenFile(const char *name);
 
 private:
-	char *mLeadingPath;
+    std::string mLeadingPath;
 };
 
 #endif

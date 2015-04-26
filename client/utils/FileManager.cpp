@@ -1,30 +1,25 @@
-#include <cstring>
 #include <utils/FileManager.h>
+
+#include <cstring>
 #include <utils/HostFile.h>
 
 FileManager::FileManager()
-:	mLeadingPath(0)
 {
-	// XXX hack for now
-	mLeadingPath = new char[3];
-	strcpy(mLeadingPath, "../");
+    mLeadingPath = "../";
 }
 
 FileManager::~FileManager()
 {
-	if (mLeadingPath)
-		delete[] mLeadingPath;
 }
 
 File *FileManager::OpenFile(const char *name)
 {
 	HostFile *file = new HostFile();
 
-	// XXX totally len unsafe
-	char path[1024];
-	strcpy(path, mLeadingPath);
-	strcat(path, name);
-	if (file->Open(path) < 0) {
+    std::string path;
+
+    path = mLeadingPath + name;
+	if (file->Open(path.c_str()) < 0) {
 		file->RemoveRef();
 		return 0;
 	}

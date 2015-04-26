@@ -15,7 +15,6 @@ public:
 	virtual off_t Seek(off_t offset);
 	virtual int ReadLine(char *line, size_t linelen); // read a single line of a text file
 
-
 private:
 	FILE *m_fp;
 

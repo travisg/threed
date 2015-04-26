@@ -16,7 +16,7 @@ ARCH := $(shell uname -m)
 #$(warning UNAME = ${UNAME})
 #$(warning ARCH = ${ARCH})
 
-BINEXT := 
+BINEXT :=
 
 # cygwin has some special needs
 ifeq ($(findstring CYGWIN,$(UNAME)),CYGWIN)

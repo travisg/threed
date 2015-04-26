@@ -25,6 +25,7 @@ public:
 	float GetZoom() const { return mZoom; }
 
 	void LookAt(Spatial &obj);
+	void LookAt(const Math::Vector3f &pos);
 
 protected:
 	Math::Vector3f mPos;
