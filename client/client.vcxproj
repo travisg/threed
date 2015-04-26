@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -18,13 +18,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -53,7 +53,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>.;..\lib;$(SolutionDir)\..\..\SDL-1.2.15\include;$(SolutionDir)\..\..\SDL_image-1.2.10\include;$(SolutionDir)\..\..\glew-1.5.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;$(SolutionDir)\..\..\SDL-1.2.15\include;$(SolutionDir)\..\..\SDL_image-1.2.12\include;$(SolutionDir)\..\..\glew-1.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -64,21 +64,21 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\programming\SDL-1.2.14\lib\SDLmain.lib;C:\programming\SDL-1.2.14\lib\SDL.lib;opengl32.lib;glu32.lib;C:\programming\SDL_image-1.2.10\lib\SDL_image.lib;C:\programming\glew-1.5.2\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\programming\SDL-1.2.15\lib\x86\SDLmain.lib;C:\programming\SDL-1.2.15\lib\x86\SDL.lib;opengl32.lib;glu32.lib;C:\programming\SDL_image-1.2.12\lib\x86\SDL_image.lib;C:\programming\glew-1.12.0\lib\Release\win32\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy c:\programming\sdl-1.2.14\lib\*.dll $(TargetDir)
-copy c:\programming\sdl_image-1.2.10\lib\*.dll $(TargetDir)
-copy C:\programming\glew-1.5.2\bin\*.dll $(TargetDir)
+      <Command>copy c:\programming\sdl-1.2.15\lib\x86\*.dll $(TargetDir)
+copy c:\programming\sdl_image-1.2.12\lib\x86\*.dll $(TargetDir)
+copy c:\programming\glew-1.12.0\bin\Release\Win32\*.dll $(TargetDir)
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;..\lib;$(SolutionDir)\..\..\SDL-1.2.15\include;$(SolutionDir)\..\..\SDL_image-1.2.10\include;$(SolutionDir)\..\..\glew-1.5.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\lib;$(SolutionDir)\..\..\SDL-1.2.15\include;$(SolutionDir)\..\..\SDL_image-1.2.12\include;$(SolutionDir)\..\..\glew-1.12.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ExceptionHandling>Sync</ExceptionHandling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -88,7 +88,7 @@ copy C:\programming\glew-1.5.2\bin\*.dll $(TargetDir)
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>C:\programming\SDL-1.2.14\lib\SDLmain.lib;C:\programming\SDL-1.2.14\lib\SDL.lib;opengl32.lib;glu32.lib;C:\programming\SDL_image-1.2.10\lib\SDL_image.lib;C:\programming\glew-1.5.2\lib\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\programming\SDL-1.2.15\lib\x86\SDLmain.lib;C:\programming\SDL-1.2.15\lib\x86\SDL.lib;opengl32.lib;glu32.lib;C:\programming\SDL_image-1.2.12\lib\x86\SDL_image.lib;C:\programming\glew-1.12.0\lib\Release\win32\glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
@@ -96,9 +96,9 @@ copy C:\programming\glew-1.5.2\bin\*.dll $(TargetDir)
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy c:\programming\sdl-1.2.14\lib\*.dll $(TargetDir)
-copy c:\programming\sdl_image-1.2.10\lib\*.dll $(TargetDir)
-copy C:\programming\glew-1.5.2\bin\*.dll $(TargetDir)
+      <Command>copy c:\programming\sdl-1.2.15\lib\x86\*.dll $(TargetDir)
+copy c:\programming\sdl_image-1.2.12\lib\x86\*.dll $(TargetDir)
+copy c:\programming\glew-1.12.0\bin\Release\Win32\*.dll $(TargetDir)
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
