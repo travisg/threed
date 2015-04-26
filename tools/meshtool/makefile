@@ -8,7 +8,7 @@ include ../../macros.mk
 OBJDUMP := objdump
 CFLAGS := -O2 -g -I. -Wall -W -Wno-unused-parameter -Wno-multichar -fno-exceptions -finline $(PROFILE)
 LDFLAGS := -g $(PROFILE)
-LDLIBS := -lstdc++
+LDLIBS := -lstdc++ -lm
 
 UNAME := $(shell uname -s)
 ARCH := $(shell uname -m)

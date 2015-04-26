@@ -6,9 +6,9 @@ include ../macros.mk
 #PROFILE := -pg
 
 OBJDUMP := objdump
-CFLAGS := -O2 -g -I. -Wall -W -Wno-unused-parameter -Wno-multichar -fno-exceptions -finline $(PROFILE)
+CFLAGS := -Og -g -I. -Wall -W -Wno-unused-parameter -Wno-multichar -fno-exceptions -finline $(PROFILE)
 LDFLAGS := -g $(PROFILE)
-LDLIBS := -lSDL -lSDL_image -lstdc++
+LDLIBS := -lm -lSDL -lSDL_image -lstdc++
 
 UNAME := $(shell uname -s)
 ARCH := $(shell uname -m)
