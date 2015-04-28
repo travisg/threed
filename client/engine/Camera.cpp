@@ -6,6 +6,7 @@ namespace Engine {
 Camera::Camera()
     :   mPos(0,0,0),
         mUp(0,1,0),
+        mForward(1,0,0),
         mZoom(1.0f),
         dirty(true)
 {
@@ -18,18 +19,32 @@ Camera::~Camera()
 void Camera::Update()
 {
     if (dirty) {
-        // move the Camera
-        mTransform.SetTranslation(-mPos);
+        // normalize our up vector
+        Math::Vector3f up = mUp;
+        up.Normalize();
 
-        Math::Matrix4x4 rotx;
-        Math::Matrix4x4 roty;
-        Math::Matrix4x4 rotz;
+        // normalize the forward vector
+        Math::Vector3f forward = mForward;
+        forward.Normalize();
 
-        rotx.SetRotationX(mUp.getx());
-        roty.SetRotationY(mUp.gety());
-        rotz.SetRotationZ(mUp.getz());
+        // compute a vector out of the side
+        Math::Vector3f side = Cross(mForward, up);
 
-        mTransform = mTransform * rotx * roty * rotz;
+        // use forward and side to compute the new up
+        up = Cross(side, mForward);
+
+        // set up a transform matrix
+        Math::Matrix4x4 M;
+        M.SetIdentity();
+        M.SetCol(0, side);
+        M.SetCol(1, up);
+        M.SetCol(2, -mForward);
+
+        // construct a translation matrix
+        Math::Matrix4x4 trans;
+        trans.SetTranslation(-mPos);
+        mTransform = M * trans;
+
         dirty = false;
     }
 }
@@ -53,48 +68,52 @@ void Camera::Move(const Math::Vector3f &trans)
 
 void Camera::Rotate(const Math::Vector3f &rot)
 {
-    mUp += rot;
+    // handle yaw
+    Math::Matrix4x4 myaw;
+    myaw.SetFromAxisAngle(mUp, rot.gety());
+ 
+    // handle pitch
+    Math::Vector3f side = Cross(mForward, mUp);
+    Math::Matrix4x4 mpitch;
+    mpitch.SetFromAxisAngle(side, rot.getx());
+
+    // handle roll
+    Math::Matrix4x4 mroll;
+    mroll.SetFromAxisAngle(mForward, rot.getz());
+
+    // transform the forward and up vectors
+    mForward = (myaw * mpitch).Transform(mForward);
+    mForward.Normalize();
+
+    mUp = (mpitch * mroll).Transform(mUp);
+    mUp.Normalize();
+
     dirty = true;
 }
 
 void Camera::LookAt(Spatial &obj)
 {
-//      std::cout << __FUNCTION__ << " object at " << obj.GetGlobalPos() << " cam " << mPos << std::endl;
+    //std::cout << __FUNCTION__ << " object at " << obj.GetGlobalPos() << " cam " << mPos << std::endl;
 
     LookAt(obj.GetGlobalPos());
 }
 
 void Camera::LookAt(const Math::Vector3f &pos)
 {
-//      std::cout << __FUNCTION__ << " pos " << pos << " cam " << mPos << std::endl;
+    //std::cout << __FUNCTION__ << " pos " << pos << " cam " << mPos << std::endl;
 
-    // essentially gluLookAt
-    Math::Vector3f f = pos - mPos;
-    f.Normalize();
+    // compute the vector towards the target    
+    Math::Vector3f forward = pos - mPos;
+    forward.Normalize();
 
-    Math::Vector3f up = mUp;
-    up.Normalize();
+    mForward = forward;
 
-    Math::Vector3f s = Cross(f, up);
-    Math::Vector3f u = Cross(s, f);
-
-    Math::Matrix4x4 M;
-    M.SetIdentity();
-    M.SetCol(0, s);
-    M.SetCol(1, u);
-    M.SetCol(2, -f);
-
-    Math::Matrix4x4 trans;
-    trans.SetTranslation(-mPos);
-    mTransform = M * trans;
-
-    // we're setting the transformation matrix directly, don't recalculate in Update()
-    dirty = false;
+    dirty = true;
 }
 
 void Camera::PrintPosition()
 {
-    std::cout << "Camera pos: " << mPos << " up " << mUp << std::endl;
+    std::cout << "Camera pos: " << mPos << " up " << mUp << " forward " << mForward << std::endl;
 }
 
 }

@@ -58,9 +58,9 @@ int Engine::InnerLoop()
 
     // set up the main camera
     if (mCameraTarget) {
-        mMainCamera->LookAt(*mCameraTarget);
+        //mMainCamera->LookAt(*mCameraTarget);
     } else {
-        mMainCamera->LookAt(Math::Vector3f(0, 0, 0));
+        //mMainCamera->LookAt(Math::Vector3f(0, 0, 0));
     }
     mMainCamera->Update();
     mMainCamera->Render(mRenderer);
@@ -101,7 +101,7 @@ void Engine::SetupDefaultScene()
         r->RemoveRef();
 
         assert(spatial);
-        //spatial->Scale(.001f);
+        spatial->Scale(.01f);
         spatial->Rotate(Math::Vector3f(Math::DegreeToRadians(-90.0), 0, 0));
         mNodeTree->AddChild(spatial);
     }
@@ -112,7 +112,7 @@ void Engine::SetupDefaultScene()
         assert(spatial);
         r->RemoveRef();
 
-        spatial->Scale(5.0f);
+        spatial->Scale(1.0f);
         spatial->Move(Math::Vector3f(-5, 3.0f, -20.0f));
         spatial->Rotate(Math::Vector3f(1, 0, -10));
         mNodeTree->AddChild(spatial);
@@ -132,7 +132,7 @@ void Engine::SetupDefaultScene()
     // create a camera to look through
     mMainCamera = new Camera();
     mMainCamera->SetPos(Math::Vector3f(5, 5, 5));
-    mMainCamera->LookAt(Math::Vector3f(0, 0, 0));
+//    mMainCamera->LookAt(Math::Vector3f(0, 0, 0));
 
     mCameraTarget = spatial;
     testSpatial = spatial;

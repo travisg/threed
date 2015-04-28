@@ -32,6 +32,7 @@ public:
     Matrix4x4 &SetRotationZ(float angle);
     Matrix4x4 &SetProjectionPerspective(float fovy, float aspect, float nearz, float farz);
     Matrix4x4 &SetProjectionOrtho(float left, float right, float bottom, float top, float nearz, float farz);
+    Matrix4x4 &SetFromAxisAngle(const Vector3f &axis, float angle);
 
     void SetRow(int row, const Vector3f &v);
     void SetRow(int row, const Vector4 &v);

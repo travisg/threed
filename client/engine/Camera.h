@@ -30,6 +30,7 @@ public:
 protected:
     Math::Vector3f mPos;
     Math::Vector3f mUp;
+    Math::Vector3f mForward;
     Math::Matrix4x4 mTransform;
     float mZoom;
     bool dirty;

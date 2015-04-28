@@ -175,6 +175,12 @@ int main(int argc, char **argv)
                             printf("camera mouse control\n");
                             break;
 
+                        case SDLK_n:
+                            printf("center camera\n");
+                            e->GetCamera()->SetPos(Math::Vector3f(0, 0, 0));
+                            e->GetCamera()->SetZoom(1);
+                            break;
+
                         case SDLK_d:
                             e->GetResources().DumpResources();
                             break;
@@ -201,12 +207,15 @@ int main(int argc, char **argv)
                         if (mouseDown & SDL_BUTTON_LMASK) {
                             int deltax = (w/2 - event.motion.x);
                             int deltay = (h/2 - event.motion.y);
-                            //printf("%d %d\n", deltax, deltay);
-                            e->GetCamera()->Move(Math::Vector3f(-deltax / 256.0, -deltay / 256.0, 0));
+                            e->GetCamera()->Move(Math::Vector3f(-deltax / 256.0, deltay / 256.0, 0));
                             e->GetCamera()->PrintPosition();
                         }
                         if (mouseDown & SDL_BUTTON_RMASK) {
-                            e->GetCamera()->Rotate(Math::Vector3f(event.motion.yrel / 16.0, event.motion.xrel / 16.0, 0));
+                            e->GetCamera()->Rotate(Math::Vector3f(event.motion.yrel / 256.0, event.motion.xrel / 256.0, 0));
+                            e->GetCamera()->PrintPosition();
+                        }
+                        if (mouseDown & SDL_BUTTON_MMASK) {
+                            e->GetCamera()->Rotate(Math::Vector3f(0, 0, event.motion.xrel / 256.0));
                             e->GetCamera()->PrintPosition();
                         }
                     }

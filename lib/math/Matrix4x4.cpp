@@ -183,6 +183,41 @@ Matrix4x4 &Matrix4x4::SetRotationZ(float angle)
     return *this;
 }
 
+Matrix4x4 &Matrix4x4::SetFromAxisAngle(const Vector3f &axis, float angle)
+{
+    float x = axis.getx();
+    float y = axis.gety();
+    float z = axis.getz();
+    float sinangle = Math<float>::sin(angle);
+    float cosangle = Math<float>::cos(angle);
+    
+    float xx = x * x;
+    float yy = y * y;
+    float zz = z * z;
+    float xy = x * y;
+    float xz = x * z;
+    float yz = y * z;
+
+    val[0] = xx + (cosangle * (1.0f - xx));
+    val[1] = (xy - (cosangle * xy)) + (sinangle * z);
+    val[2] = (xz - (cosangle * xz)) - (sinangle * y);
+    val[3] = 0.0f;
+    val[4] = (xy - (cosangle * xy)) - (sinangle * z);
+    val[5] = yy + (cosangle * (1.0f - yy));
+    val[6] = (yz - (cosangle * yz)) + (sinangle * x);
+    val[7] = 0.0f;
+    val[8] = (xz - (cosangle * xz)) + (sinangle * y);
+    val[9] = (yz - (cosangle * yz)) - (sinangle * x);
+    val[10] = zz + (cosangle * (1.0f - zz));
+    val[11] = 0.0f;
+    val[12] = 0.0f;
+    val[13] = 0.0f;
+    val[14] = 0.0f;
+    val[15] = 1.0f;
+
+    return *this;
+}
+
 Matrix4x4 &Matrix4x4::SetProjectionPerspective(float fovy, float aspect, float nearz, float farz)
 {
 #if USE_DIRECTX
